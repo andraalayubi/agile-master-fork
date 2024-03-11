@@ -39,6 +39,9 @@ class OnboardingState with ChangeNotifier{
     }else if(value =='back'){
       onBoardingNumber -= 1;
       notifyListeners();
+    }else if(value == 'skip'){
+      onBoardingNumber = 2;
+      notifyListeners();
     }
   }
 }
