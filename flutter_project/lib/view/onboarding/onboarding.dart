@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_project/view/onboarding/onboarding_state.dart';
 
-class Tutorial extends StatelessWidget {
-  const Tutorial({super.key});
+import '../main/home_page.dart';
+
+class OnBoarding extends StatelessWidget {
+  const OnBoarding({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -110,6 +112,8 @@ class Tutorial extends StatelessWidget {
                               onTap: () {
                                 if (onBoarding.onBoardingNumber > 0) {
                                   onBoarding.setOnBoardingNumber = 'back';
+                                }else if(onBoarding.onBoardingNumber == 0){
+                                  onBoarding.setOnBoardingNumber = 'skip';
                                 }
                               },
                               child: Center(
@@ -146,6 +150,11 @@ class Tutorial extends StatelessWidget {
                               onTap: () {
                                 if (onBoarding.onBoardingNumber < 2) {
                                   onBoarding.setOnBoardingNumber = 'next';
+                                } else if (onBoarding.onBoardingNumber == 2) {
+                                  Navigator.pushReplacement(context,
+                                      MaterialPageRoute(builder: (context) {
+                                        return const Home();
+                                      }));
                                 }
                               },
                               child: Center(
