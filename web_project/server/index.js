@@ -3,7 +3,15 @@ const app = express();
 const db = require('./connection');
 const port = 3000;
 
-app.get('/', async (req, res) => {
+
+// React Route Here
+// app.get('/', (req, res)=>{
+//     res.send()
+// })
+
+
+// API Here
+app.get('/api/major-data', async (req, res) => {
     try {
         const sql = "SELECT * FROM magang JOIN posisi ON magang.posisi_id = posisi.id_posisi JOIN perusahaan ON posisi.perusahaan_id = perusahaan.id_perusahaan JOIN siswa ON magang.siswa_id = siswa.id_siswa;"
         const hasilQuery = await new Promise((resolve, reject) => {
