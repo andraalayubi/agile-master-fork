@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_project/view/onboarding/onboarding_state.dart';
-
-import '../main/home_page.dart';
+import 'package:flutter_project/view/home/home.dart';
 
 class OnBoarding extends StatelessWidget {
   const OnBoarding({super.key});
@@ -153,7 +152,7 @@ class OnBoarding extends StatelessWidget {
                                 } else if (onBoarding.onBoardingNumber == 2) {
                                   Navigator.pushReplacement(context,
                                       MaterialPageRoute(builder: (context) {
-                                        return const Home();
+                                        return HomePage();
                                       }));
                                 }
                               },
