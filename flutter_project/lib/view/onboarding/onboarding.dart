@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_project/view/main_screen/main_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_project/view/onboarding/onboarding_state.dart';
 import 'package:flutter_project/view/home/home.dart';
@@ -152,7 +153,7 @@ class OnBoarding extends StatelessWidget {
                                 } else if (onBoarding.onBoardingNumber == 2) {
                                   Navigator.pushReplacement(context,
                                       MaterialPageRoute(builder: (context) {
-                                        return HomePage();
+                                        return MainScreen();
                                       }));
                                 }
                               },
