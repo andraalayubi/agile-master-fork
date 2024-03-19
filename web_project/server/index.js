@@ -15,6 +15,10 @@ app.get('/', (req, res) => {
     console.log("sukses");
     res.send('Hello from Express backend!');
 })
+app.get('/home', (req, res) => {
+    console.log("sukses");
+    res.send('Hello from Express backend!');
+})
 
 // API Here
 app.get('/api/major-data', async (req, res) => {
