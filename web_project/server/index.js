@@ -15,6 +15,10 @@ app.get('/', (req, res) => {
     console.log("sukses");
     res.send('Hello from Express backend!');
 })
+app.get('/home', (req, res) => {
+    console.log("sukses");
+    res.send('Hello from Express backend!');
+})
 
 // API Here
 app.get('/api/major-data', async (req, res) => {
@@ -56,7 +60,7 @@ app.get('/api/major-data', async (req, res) => {
         }
 
         // Output jumlah siswa tiap perusahaan
-        res.send(data);
+        res.json(data);
 
     } catch (err) {
         console.error(err);
@@ -69,7 +73,7 @@ app.get('/api/perusahaan', async (req, res) => {
         const sql = "SELECT p.id_perusahaan, p.nama_perusahaan, posisi.nama_posisi FROM perusahaan as p JOIN posisi ON p.id_perusahaan = posisi.perusahaan_id;"
         const data = await executeQuery(sql);
 
-        res.send(data);
+        res.json(data);
 
     } catch (err) {
         console.error(err);
@@ -83,7 +87,7 @@ app.get('/api/perusahaan/:id', async (req, res) => {
         const sql = `SELECT perusahaan.nama_perusahaan, perusahaan.kota, perusahaan.provinsi, posisi.nama_posisi, COUNT(magang.siswa_id) AS jumlah_siswa FROM perusahaan JOIN posisi ON perusahaan.id_perusahaan = posisi.perusahaan_id LEFT JOIN magang ON posisi.id_posisi = magang.posisi_id WHERE perusahaan.id_perusahaan = ${id_perusahaan};`
         const data = await executeQuery(sql);
 
-        res.send(data);
+        res.json(data);
 
     } catch (err) {
         console.error(err);
@@ -97,7 +101,7 @@ app.get('/api/perusahaan/:id/:id_posisi', async (req, res) => {
         const sql = `SELECT siswa.id_siswa, siswa.nama_siswa, siswa.email FROM siswa JOIN magang ON siswa.id_siswa = magang.siswa_id JOIN posisi ON magang.posisi_id = posisi.id_posisi WHERE posisi.id_posisi = ${id_posisi};`
         const data = await executeQuery(sql);
 
-        res.send(data);
+        res.json(data);
 
     } catch (err) {
         console.error(err);
@@ -111,7 +115,7 @@ app.get('/api/user/:id', async (req, res) => {
         const sql = `SELECT * FROM magang JOIN posisi ON magang.posisi_id = posisi.id_posisi JOIN perusahaan ON posisi.perusahaan_id = perusahaan.id_perusahaan JOIN siswa ON magang.siswa_id = siswa.id_siswa WHERE siswa.id_siswa = ${id_siswa};`
         const data = await executeQuery(sql);
 
-        res.send(data);
+        res.json(data);
 
     } catch (err) {
         console.error(err);

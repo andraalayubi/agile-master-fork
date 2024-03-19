@@ -2,7 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 
-class OnboardingState with ChangeNotifier{
+class OnboardingState with ChangeNotifier {
   int onBoardingNumber = 0;
   List<String> imagePath = [
     'assets/onboarding/step1.png',
@@ -24,20 +24,23 @@ class OnboardingState with ChangeNotifier{
   String get description => listDescription[onBoardingNumber];
   String get imageLocation => imagePath[onBoardingNumber];
   int get onBoardingPageNumber => onBoardingNumber;
-  Color onBoardingIndicator(int value){
-    if(value == onBoardingNumber){
+  Color onBoardingIndicator(int value) {
+    if (value == onBoardingNumber) {
       return Colors.orange;
-    }else{
+    } else {
       return Colors.grey;
     }
   }
 
-  set setOnBoardingNumber(String value){
-    if(value == 'next'){
+  set setOnBoardingNumber(String value) {
+    if (value == 'next') {
       onBoardingNumber += 1;
       notifyListeners();
-    }else if(value =='back'){
+    } else if (value == 'back') {
       onBoardingNumber -= 1;
+      notifyListeners();
+    } else if (value == 'skip') {
+      onBoardingNumber = 2;
       notifyListeners();
     }
   }

@@ -36,6 +36,8 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
   provider: ^6.1.2
+  http: ^1.2.0
+  shared_preferences: ^2.2.2
 
 dev_dependencies:
   flutter_test:
@@ -62,9 +64,13 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/logo/logo1.png
+    - assets/logo/logo2.png
     - assets/onboarding/step1.png
     - assets/onboarding/step2.png
     - assets/onboarding/step3.png
+    - assets/home/ProfilePhoto.png
+    - assets/home/LOGO1.png
+    - assets/home/center.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
@@ -83,9 +89,9 @@ flutter:
         - asset: assets/fonts/DMSans-VariableFont.ttf
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic
-  #   - family: Trajan Pro
-  #     fonts:
-  #       - asset: fonts/TrajanPro.ttf
+    - family: LibreBaskerville
+      fonts:
+      - asset: assets/fonts/LibreBaskerville.ttf
   #       - asset: fonts/TrajanPro_Bold.ttf
   #         weight: 700
   #
