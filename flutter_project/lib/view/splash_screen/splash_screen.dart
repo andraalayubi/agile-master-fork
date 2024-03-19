@@ -1,8 +1,41 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_project/view/home/home.dart';
+import 'package:flutter_project/view/main_screen/main_screen.dart';
 import 'package:flutter_project/view/onboarding/onboarding.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class SplashScreen extends StatelessWidget {
-  const SplashScreen({Key? key}) : super(key: key);
+class SplashScreen extends StatefulWidget {
+  const SplashScreen({super.key});
+
+  @override
+  State<SplashScreen> createState() => _SplashScreenState();
+}
+
+class _SplashScreenState extends State<SplashScreen> {
+  bool isVisited = false;
+
+  void _saveSession() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    pref.setBool('isVisited', isVisited);
+  }
+
+  Future<bool?> getSession() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    return pref.getBool("isVisited");
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getSession().then((value) {
+      if (value == null) {
+        _saveSession();
+      } else {
+        isVisited = value;
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -11,7 +44,9 @@ class SplashScreen extends StatelessWidget {
       body: GestureDetector(
         onTap: () {
           Navigator.pushReplacement(
-              context, MaterialPageRoute(builder: (context) => OnBoarding()));
+              context,
+              MaterialPageRoute(
+                  builder: (context) => isVisited ? MainScreen() : OnBoarding()));
         },
         child: Center(
           child: Column(
@@ -50,11 +85,11 @@ class SplashScreen extends StatelessWidget {
                   ],
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.all(15.0),
+              const Padding(
+                padding: EdgeInsets.all(15.0),
                 child: Align(
                   alignment: Alignment.bottomCenter,
-                  child: const Text(
+                  child: Text(
                     'Versi 1.1.1',
                     style: TextStyle(
                       fontSize: 15,

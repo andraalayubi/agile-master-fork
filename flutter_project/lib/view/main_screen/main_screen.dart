@@ -20,7 +20,9 @@ class _HomePageState extends State<MainScreen> {
     return Scaffold(
         backgroundColor: Colors.white70.withOpacity(0.95),
         floatingActionButton: FloatingActionButton(
+          elevation: 3,
           onPressed: () {},
+          shape: CircleBorder(),
           backgroundColor: Colors.orange,
           child: Image(
             image: AssetImage('assets/home/center.png'),
@@ -28,35 +30,43 @@ class _HomePageState extends State<MainScreen> {
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         bottomNavigationBar: BottomAppBar(
+          color: Colors.transparent,
+          elevation: 3,
           shape: CircularNotchedRectangle(),
-          notchMargin: 5.0,
+          notchMargin: 10.0,
           child: Container(
             height: 60,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                Row(children: [MaterialButton(
-                  onPressed: (){
-                    setState(() {
-                      currentScreen = HomePage();
-                    });
-                  },
-                  child: Column(
-                    children: [Icon(Icons.home_filled), Text('Home')],
-                  ),
-                ),],),
                 Row(
-                  children: [MaterialButton(
-                    onPressed: (){
-                      setState(() {
-                        currentScreen = Guide();
-                        currentTab = 1;
-                      });
-                    },
-                    child: Column(
-                      children: [Icon(Icons.book), Text('Guide')],
+                  children: [
+                    MaterialButton(
+                      onPressed: () {
+                        setState(() {
+                          currentScreen = HomePage();
+                        });
+                      },
+                      child: const Column(
+                        children: [Icon(Icons.home_filled), Text('Home')],
+                      ),
                     ),
-                  )],
+                  ],
+                ),
+                Row(
+                  children: [
+                    MaterialButton(
+                      onPressed: () {
+                        setState(() {
+                          currentScreen = Guide();
+                          currentTab = 1;
+                        });
+                      },
+                      child: const Column(
+                        children: [Icon(Icons.book), Text('Guide')],
+                      ),
+                    )
+                  ],
                 )
               ],
             ),
