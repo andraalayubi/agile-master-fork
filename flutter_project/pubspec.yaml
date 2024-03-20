@@ -65,6 +65,15 @@ flutter:
   assets:
     - assets/logo/logo1.png
     - assets/logo/logo2.png
+    - assets/logo/back-arrow.png
+    - assets/logo/filter-button.png
+    - assets/logo/logo-1.png
+    - assets/logo/image-1.png
+    - assets/logo/image-2.png
+    - assets/logo/image-3.png
+    - assets/logo/image-4.png
+    - assets/logo/image-5.png
+    - assets/logo/users-account.png
     - assets/onboarding/step1.png
     - assets/onboarding/step2.png
     - assets/onboarding/step3.png
