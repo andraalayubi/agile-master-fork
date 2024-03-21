@@ -4,9 +4,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_project/view/List/list_mahasiswa.dart';
-import 'package:flutter_project/view/List/list_perusahaan.dart';
-import 'package:flutter_project/view/List/database_statis.dart';
+import 'package:flutter_project/view/list/list_mahasiswa.dart';
+import 'package:flutter_project/view/list/list_perusahaan.dart';
+import 'package:flutter_project/view/list/database_statis.dart';
 
 
 class Listintern extends StatelessWidget {

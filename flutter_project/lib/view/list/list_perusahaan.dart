@@ -4,9 +4,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_project/view/List/list_intern.dart';
+import 'package:flutter_project/view/list/list_intern.dart';
 import 'package:flutter_project/view/onboarding/onboarding.dart';
-import 'package:flutter_project/view/List/database_statis.dart';
+import 'package:flutter_project/view/list/database_statis.dart';
 
 class Listperusahaan extends StatelessWidget {
   const Listperusahaan({super.key});
