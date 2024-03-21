@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_project/view/splash_screen/splash_screen.dart';
+import 'package:flutter_project/view/list/list_perusahaan.dart';
 
 
 void main() {
@@ -13,7 +13,7 @@ class GoShip extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-      home: SplashScreen(),
+      home: Listperusahaan(),
     );
   }
 }

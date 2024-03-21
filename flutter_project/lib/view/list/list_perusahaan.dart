@@ -5,8 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_project/view/List/list_intern.dart';
+import 'package:flutter_project/view/list/database_statis_perusahaan.dart';
 import 'package:flutter_project/view/onboarding/onboarding.dart';
-import 'package:flutter_project/view/List/database_statis.dart';
+
 
 class Listperusahaan extends StatelessWidget {
   const Listperusahaan({super.key});
@@ -92,68 +93,66 @@ class Listperusahaan extends StatelessWidget {
       ),
 
     
-    body: ListView(
-      padding: const EdgeInsets.all(8),
-      children: <Widget>[
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              InkWell(
-              onTap: (){
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const Listintern ()));
-              },
-                child: Card(
-                  color: Colors.white,      
-                  child: Row(
-                    children: <Widget>[
-                    Card(
-                        color: Colors.white,
-                        shadowColor: const Color.fromARGB(179, 10, 10, 10),
-                        child:  SizedBox(
-
-                          width: 80,
-                          height: 80,
-                          child: Image.asset('assets/onboarding/step1.png'),
-                          ),
-                        ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        
-                        Container(    
-                        padding: const EdgeInsets.only(left: 5),                
-                        child: const Text(
-                          'GOJEK',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20
-                            ),
-                        ),
-                        ),
-                        const Text('・Frontend Dev'),
-                        const Text('・UI/UX Designer',
-                        )
-                        ],
+    body: ListView.builder(
+  padding: const EdgeInsets.all(8),
+  itemCount: dataPerusahaan.length,
+  itemBuilder: (BuildContext context, int index) {
+    return InkWell(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const Listintern()),
+        );
+      },
+      child: Card(
+        color: Colors.white,
+        child: Row(
+          children: <Widget>[
+            Card(
+              child: ClipRRect(
+                      borderRadius: BorderRadius.circular(10), // Mengatur border circular
+                      child: Image(
+                        image: AssetImage(dataPerusahaan[index].image),
+                        fit: BoxFit.cover, 
+                        width: 60,
+                        height: 60,// Mengatur agar gambar memenuhi luas card
+                      ),
                     ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Container(
-                          padding: const EdgeInsets.only(top: 30, ),
-                          child: const Text('・Backend Dev'),
-                        ),
-                        const Text('・Data Analytist'),
-                    ],)
-                    ],
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  padding: const EdgeInsets.only(left: 5),
+                  child: Text(
+                    dataPerusahaan[index].name,
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20,
+                    ),
                   ),
                 ),
-              )
-            ],
-          ),
-      ],
-    ),
+                const Text('・Frontend Dev'),
+                const Text('・UI/UX Designer'),
+              ],
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 30),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text('・Backend Dev'),
+                  Text('・Data Analytist'),
+                ],
+              ),
+            )
+          ],
+        ),
+      ),
+    );
+  },
+),
+
     );
   }
 }

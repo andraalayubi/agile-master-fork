@@ -1,25 +1,11 @@
 class Mahasiswa {
-  final String nama;
-  final String email;
-  final String imagePath; 
+  String nama;
+  String email;
+  String imagePath; 
 
   Mahasiswa({required this.nama, required this.email, required this.imagePath});
 }
 
-class Perusahaan {
-  final String nama;
-  final String imagePath;
-
-  Perusahaan({required this.nama, required this.imagePath});
-}
-
-List<Perusahaan> dataPerusahaan = [
-  Perusahaan(nama: 'GOJEK', imagePath: 'assets/logo/image-1.png' ),
-  Perusahaan(nama: 'SHOPEE', imagePath: 'assets/logo/image-1.png' ),
-  Perusahaan(nama: 'LAZADA', imagePath: 'assets/logo/image-1.png' ),
-  Perusahaan(nama: 'TELKOMSEL', imagePath: 'assets/logo/image-1.png' ),
-  Perusahaan(nama: 'GRAB', imagePath: 'assets/logo/image-1.png' ),
-];
 
 List<Mahasiswa> dataMahasiswa = [
   Mahasiswa(nama: 'Anantasya Aghni', email: 'anantasya12@gmail.com', imagePath:'assets/logo/image-1.png' ),

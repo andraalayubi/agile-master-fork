@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_project/view/List/list_intern.dart';
-import 'package:flutter_project/view/List/database_statis.dart';
+import 'package:flutter_project/view/List/database_statis_mahasiswa.dart';
 
 class Listmahasiswa extends StatelessWidget {
   const Listmahasiswa({super.key});
