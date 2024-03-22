@@ -76,7 +76,7 @@ class _HomePageState extends State<HomePage> {
             Align(
               alignment: Alignment.topCenter,
               child: SizedBox(
-                height: 80,
+                height: 90,
                 child: ListView.builder(
                   itemCount: perusahaan.length,
                     scrollDirection: Axis.horizontal,
@@ -111,7 +111,7 @@ class _HomePageState extends State<HomePage> {
                               ],
                             ),
                           ),
-                          Text('${perusahaan[count]}',)
+                          Text('${perusahaan[count].substring(0, 7)}', overflow: TextOverflow.ellipsis,)
                         ],
                       );
                     }),
@@ -172,7 +172,7 @@ class _HomePageState extends State<HomePage> {
                                           ),
                                           Text(stories.isNotEmpty
                                               ? "${stories[index].perusahaan}"
-                                              : "No Data", overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 10),),
+                                              : "No Data", overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 13),),
                                           Text(stories.isNotEmpty
                                               ? "${stories[index].posisi}"
                                               : "No Data", overflow: TextOverflow.ellipsis,style: TextStyle(fontSize: 13))
