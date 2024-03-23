@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_project/view/list/list_intern.dart';
-import 'package:flutter_project/view/list/database_statis.dart';
+import 'package:flutter_project/view/list/database_statis_mahasiswa.dart';
 
 class Listmahasiswa extends StatelessWidget {
   const Listmahasiswa({super.key});
@@ -37,7 +37,7 @@ class Listmahasiswa extends StatelessWidget {
             children: [
             GestureDetector(
               onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context)=> const Listintern()));
+               
               },
               child: Padding(
                 padding: const EdgeInsets.only(right: 8,left: 2),
@@ -73,7 +73,7 @@ class Listmahasiswa extends StatelessWidget {
                           padding: EdgeInsets.only(right: 10),
                           child: TextField(
                             decoration: InputDecoration.collapsed(
-                              hintText: 'cari perusahaan yang diinginkan',
+                              hintText: '',
                               hintStyle: TextStyle(
                                 fontSize: 13,
                                 height: 4,
@@ -101,7 +101,7 @@ class Listmahasiswa extends StatelessWidget {
       ),
       body: ListView.builder(
   padding: EdgeInsets.all(8),
-  itemCount: dataMahasiswa.length, // Ganti dataMahasiswa dengan data Anda
+  itemCount: dataMahasiswa.length,
   itemBuilder: (BuildContext context, int index) {
     return InkWell(
       onTap: () {},

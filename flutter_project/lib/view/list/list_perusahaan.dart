@@ -1,50 +1,70 @@
-import 'dart:collection';
-import 'dart:ui';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter/widgets.dart';
-import 'package:flutter_project/view/List/list_intern.dart';
-import 'package:flutter_project/view/list/database_statis_perusahaan.dart';
-import 'package:flutter_project/view/onboarding/onboarding.dart';
+import 'package:flutter_project/view/home/home.dart';
+import 'package:flutter_project/view/list/intern.dart';
+import 'package:flutter_project/view/list/perusahaan.dart';
+import 'package:flutter_project/view/list/list_intern.dart';
 
-
-class Listperusahaan extends StatelessWidget {
-  const Listperusahaan({super.key});
+class Listperusahaan extends StatefulWidget {
+  const Listperusahaan({Key? key}) : super(key: key);
 
   @override
+  State<Listperusahaan> createState() => _ListPerusahaanState();
+}
+
+class _ListPerusahaanState extends State<Listperusahaan> {
+  List<Perusahaan> perusahaan = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _fetchData();
+  }
+
+  Future<void> _fetchData() async {
+    perusahaan = await Perusahaan.getPerusahaan();
+    setState(() {});
+  }
+
+  
+  @override
   Widget build(BuildContext context) {
-    return  Scaffold(
+    return Scaffold(
+      backgroundColor: Colors.grey.shade100,
+      // Your existing AppBar and bottom search/filter UI (unchanged)
       appBar: AppBar(
-        title: const Text('GOSHIP'),
+        title: const Text('Goship'),
         titleTextStyle: const TextStyle(
-          fontSize: 30, 
-          fontWeight: FontWeight.bold, 
-          color: Colors.black
+          fontSize: 25,
+          fontWeight: FontWeight.bold,
+          fontFamily: 'LibreBaskerville',
+          color: Colors.black,
         ),
         centerTitle: true,
         actions: <Widget>[
           IconButton(
-          onPressed: () { },
-          icon: Image.asset(
-            'assets/logo/logo-1.png',
-              height: 40,
-              width: 40,
+            onPressed: (){
+              Navigator.push(context, MaterialPageRoute(builder: (context)=>HomePage())
+              );
+            },
+            icon: Image(
+              image: AssetImage('assets/logo/logo-1.png'),
+              height: 60,
+              width: 60,
+            ),
+          ),
+        ],
+        backgroundColor: const Color.fromARGB(255, 255, 255, 255),
+        toolbarHeight: 90,
+        leading: const Padding(
+          padding: EdgeInsets.only(left: 1),
+          child: Card(
+            child: Icon(Icons.arrow_back),
           ),
         ),
-        ],
-      backgroundColor:const Color(0xFFFAFAFE),
-      toolbarHeight: 100, 
-      leading:  const Padding(
-        padding: EdgeInsets.only(left: 1, top: 5, bottom: 5),
-        child: Card(
-          child: Icon(Icons.arrow_back),
-      ),
-      ),
-      bottom: PreferredSize(
+        bottom: PreferredSize(
         preferredSize: const Size.fromHeight(50),
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 30, vertical:10),
+          padding: const EdgeInsets.symmetric(horizontal: 45, vertical:5),
           child: Row(
             mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.center,
@@ -54,22 +74,27 @@ class Listperusahaan extends StatelessWidget {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10.0),
                   ),
-                  color: const Color.fromARGB(255, 255, 255, 255),
+                  color: Colors.grey.shade200,
                   child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                      const Icon(
-                        Icons.search,
-                        color: Color.fromARGB(255, 0, 0, 0),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Icon(
+                          Icons.search,
+                          color: Color.fromARGB(255, 0, 0, 0),
+                        ),
                       ),
                       Expanded(
-                        child: TextField(
-                          
-                          textAlign: TextAlign.center,
-                          decoration: InputDecoration.collapsed(
-                            hintText: 'cari perusahaan yang diinginkan',
-                            hintStyle: TextStyle(
-                              fontSize: 13,
-                              height: 4,
+                        child: Padding(
+                          padding: EdgeInsets.only(right: 10),
+                          child: TextField(
+                            decoration: InputDecoration.collapsed(
+                              hintText: 'cari perusahaan',
+                              hintStyle: TextStyle(
+                                fontSize: 13,
+                                height: 4,
+                              ),
                             ),
                           ),
                         ),
@@ -91,68 +116,70 @@ class Listperusahaan extends StatelessWidget {
         ),
       ),
       ),
-
-    
-    body: ListView.builder(
-  padding: const EdgeInsets.all(8),
-  itemCount: dataPerusahaan.length,
-  itemBuilder: (BuildContext context, int index) {
-    return InkWell(
-      onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => const Listintern()),
-        );
-      },
-      child: Card(
-        color: Colors.white,
-        child: Row(
-          children: <Widget>[
-            Card(
-              child: ClipRRect(
-                      borderRadius: BorderRadius.circular(10), // Mengatur border circular
-                      child: Image(
-                        image: AssetImage(dataPerusahaan[index].image),
-                        fit: BoxFit.cover, 
-                        width: 60,
-                        height: 60,// Mengatur agar gambar memenuhi luas card
+      body: perusahaan.isEmpty
+          ? const Center(child: CircularProgressIndicator()) // Show loading indicator while fetching
+          : ListView.builder(
+              padding: const EdgeInsets.all(8),
+              itemCount: perusahaan.length,
+              itemBuilder: (BuildContext context, int index) {
+                return InkWell(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => Listintern(
+                          namaPerusahaan: perusahaan[index].nama_perusahaan,
+                          namaPosisi: perusahaan[index].nama_posisi,
+                          
+                        ),
                       ),
-                    ),
-            ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                  padding: const EdgeInsets.only(left: 5),
-                  child: Text(
-                    dataPerusahaan[index].name,
-                    style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20,
+                    );
+                  },
+                  child: Card(
+                    color: const Color.fromARGB(255, 255, 255, 255),
+                    child: Row(
+                      children: <Widget>[
+                        Card(
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(10),
+                            child: Image(
+                              image: AssetImage('assets/logo/logo-1.png'), // Replace with logo placeholder or image asset
+                              fit: BoxFit.cover,
+                              width: 55,
+                              height: 55,
+                            ),
+                          ),
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Container(
+                              padding: const EdgeInsets.only(left: 5),
+                              child: Text(
+                                perusahaan[index].nama_perusahaan, // Use fetched company name
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 13,
+                                  fontFamily: 'DM Sans',
+                                ),
+                              ),
+                            ),
+                          Padding(
+                            padding: const EdgeInsets.all(5.0),
+                            child: Text(
+                              perusahaan[index].nama_posisi,style: TextStyle(
+                                fontFamily: 'DM Sans',
+                              ),
+                              ),
+                          ),
+                          ],
+                        ),
+                      ],
                     ),
                   ),
-                ),
-                const Text('・Frontend Dev'),
-                const Text('・UI/UX Designer'),
-              ],
+                );
+              },
             ),
-            Padding(
-              padding: const EdgeInsets.only(top: 30),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text('・Backend Dev'),
-                  Text('・Data Analytist'),
-                ],
-              ),
-            )
-          ],
-        ),
-      ),
-    );
-  },
-),
-
     );
   }
 }
