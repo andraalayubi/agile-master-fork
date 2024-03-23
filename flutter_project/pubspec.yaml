@@ -85,6 +85,8 @@ flutter:
     - assets/home/ProfilePhoto.png
     - assets/home/LOGO1.png
     - assets/home/center.png
+    - assets/guide/Headline.png
+    - assets/guide/image21.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

@@ -70,7 +70,7 @@ app.get('/api/major-data', async (req, res) => {
 
 app.get('/api/perusahaan', async (req, res) => {
     try {
-        const sql = "SELECT p.id_perusahaan, p.nama_perusahaan, posisi.nama_posisi FROM perusahaan as p JOIN posisi ON p.id_perusahaan = posisi.perusahaan_id;"
+        const sql = "SELECT p.id_perusahaan, p.nama_perusahaan, p.logo_perusahaan, posisi.nama_posisi FROM perusahaan as p JOIN posisi ON p.id_perusahaan = posisi.perusahaan_id;"
         const data = await executeQuery(sql);
 
         res.json(data);
@@ -84,7 +84,7 @@ app.get('/api/perusahaan', async (req, res) => {
 app.get('/api/perusahaan/:id', async (req, res) => {
     try {
         const id_perusahaan = req.params.id;
-        const sql = `SELECT perusahaan.nama_perusahaan, perusahaan.kota, perusahaan.provinsi, posisi.nama_posisi, COUNT(magang.siswa_id) AS jumlah_siswa FROM perusahaan JOIN posisi ON perusahaan.id_perusahaan = posisi.perusahaan_id LEFT JOIN magang ON posisi.id_posisi = magang.posisi_id WHERE perusahaan.id_perusahaan = ${id_perusahaan};`
+        const sql = `SELECT perusahaan.nama_perusahaan, perusahaan.kota, perusahaan.provinsi, perusahaan.logo_perusahaan, posisi.id_posisi, posisi.nama_posisi, COUNT(magang.siswa_id) AS jumlah_siswa FROM perusahaan JOIN posisi ON perusahaan.id_perusahaan = posisi.perusahaan_id LEFT JOIN magang ON posisi.id_posisi = magang.posisi_id WHERE perusahaan.id_perusahaan = ${id_perusahaan};`
         const data = await executeQuery(sql);
 
         res.json(data);

@@ -30,9 +30,7 @@ class _SplashScreenState extends State<SplashScreen> {
     super.initState();
     getSession().then((value) {
       if (value == null) {
-        _saveSession();
-      } else {
-        isVisited = value;
+        return;
       }
     });
   }
