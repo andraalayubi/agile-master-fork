@@ -30,9 +30,9 @@ class _HomePageState extends State<MainScreen> {
               currentScreen = Listperusahaan();
             });
           },
-          shape: CircleBorder(),
+          shape: const CircleBorder(),
           backgroundColor: Colors.orange,
-          child: Image(
+          child: const Image(
             image: AssetImage('assets/home/center.png'),
           ),
         ),
