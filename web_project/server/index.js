@@ -9,7 +9,7 @@ app.use(bodyParser.json());
 app.use(cors({
     origin: 'http://localhost:3000', // Atur domain React Anda
     credentials: true // Izinkan kredensial seperti cookies
-  }));  
+}));
 // React Route Here
 app.get('/', (req, res) => {
     console.log("sukses");
@@ -70,8 +70,30 @@ app.get('/api/major-data', async (req, res) => {
 
 app.get('/api/perusahaan', async (req, res) => {
     try {
-        const sql = "SELECT p.id_perusahaan, p.nama_perusahaan, p.logo_perusahaan, posisi.nama_posisi FROM perusahaan as p JOIN posisi ON p.id_perusahaan = posisi.perusahaan_id;"
-        const data = await executeQuery(sql);
+        const sql = "SELECT p.id_perusahaan, p.nama_perusahaan, p.logo_perusahaan, posisi.id_posisi, posisi.nama_posisi FROM perusahaan as p JOIN posisi ON p.id_perusahaan = posisi.perusahaan_id;"
+        const hasilQuery = await executeQuery(sql);
+
+        const transformedData = {};
+
+        // Iterasi melalui data asli
+        hasilQuery.forEach(entry => {
+            // Cek apakah id_perusahaan sudah ada di transformedData
+            if (!transformedData[entry.id_perusahaan]) {
+                // Jika belum ada, inisialisasi objek baru untuk id_perusahaan tersebut
+                transformedData[entry.id_perusahaan] = {
+                    id_perusahaan: entry.id_perusahaan,
+                    nama_perusahaan: entry.nama_perusahaan,
+                    logo_perusahaan: entry.logo_perusahaan,
+                    posisi: []
+                };
+            }
+            // Tambahkan posisi ke array posisi di objek id_perusahaan
+            transformedData[entry.id_perusahaan].posisi.push({
+                id_posisi: entry.id_posisi,
+                nama_posisi: entry.nama_posisi
+            });
+        });
+        const data = Object.values(transformedData);
 
         res.json(data);
 
@@ -84,9 +106,33 @@ app.get('/api/perusahaan', async (req, res) => {
 app.get('/api/perusahaan/:id', async (req, res) => {
     try {
         const id_perusahaan = req.params.id;
-        const sql = `SELECT perusahaan.nama_perusahaan, perusahaan.kota, perusahaan.provinsi, perusahaan.logo_perusahaan, posisi.id_posisi, posisi.nama_posisi, COUNT(magang.siswa_id) AS jumlah_siswa FROM perusahaan JOIN posisi ON perusahaan.id_perusahaan = posisi.perusahaan_id LEFT JOIN magang ON posisi.id_posisi = magang.posisi_id WHERE perusahaan.id_perusahaan = ${id_perusahaan};`
-        const data = await executeQuery(sql);
+        const sql = `SELECT pr.*, p.id_posisi, p.nama_posisi, COUNT(m.id_magang) AS jumlah_siswa FROM posisi p JOIN magang m ON p.id_posisi = m.posisi_id JOIN perusahaan pr ON p.perusahaan_id = pr.id_perusahaan WHERE pr.id_perusahaan = ${id_perusahaan} GROUP BY p.nama_posisi;`
+        const hasilQuery = await executeQuery(sql);
 
+        const perusahaan = {
+            nama_perusahaan: hasilQuery[0].nama_perusahaan,
+            kota: hasilQuery[0].kota,
+            provinsi: hasilQuery[0].provinsi,
+            logo_perusahaan: hasilQuery[0].logo_perusahaan,
+            jumlah_siswa_total: 0
+        }
+
+        const posisi = [];
+        for (let j = 0; j < hasilQuery.length; j++) {
+            posisi[j] = {
+                id_posisi: hasilQuery[j].id_posisi,
+                nama_posisi: hasilQuery[j].nama_posisi,
+                jumlah_siswa: hasilQuery[j].jumlah_siswa
+            }
+            perusahaan.jumlah_siswa_total += hasilQuery[j].jumlah_siswa;
+        }
+
+        const data = {
+            perusahaan,
+            posisi
+        }
+
+        console.log(data);
         res.json(data);
 
     } catch (err) {
@@ -125,6 +171,6 @@ app.get('/api/user/:id', async (req, res) => {
 
 const server = app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
-  });
-  
-  server.timeout = 60000;
+});
+
+server.timeout = 60000;
