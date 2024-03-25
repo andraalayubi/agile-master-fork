@@ -26,19 +26,6 @@ app.get('/api/major-data', async (req, res) => {
         const sql = "SELECT * FROM magang JOIN posisi ON magang.posisi_id = posisi.id_posisi JOIN perusahaan ON posisi.perusahaan_id = perusahaan.id_perusahaan JOIN siswa ON magang.siswa_id = siswa.id_siswa;"
         const hasilQuery = await executeQuery(sql);
 
-        // Memperoleh jumlah siswa tiap perusahaan
-        const jumlahSiswaPerPerusahaan = {};
-        for (let i = 0; i < hasilQuery.length; i++) {
-            const row = hasilQuery[i];
-            const perusahaanNama = row.nama_perusahaan;
-
-            if (!jumlahSiswaPerPerusahaan[perusahaanNama]) {
-                jumlahSiswaPerPerusahaan[perusahaanNama] = 1
-            } else {
-                jumlahSiswaPerPerusahaan[perusahaanNama]++;
-            }
-        }
-
         const posts = {};
         for (let j = 0; j < hasilQuery.length; j++) {
             const element = hasilQuery[j];
@@ -53,11 +40,11 @@ app.get('/api/major-data', async (req, res) => {
             }
         }
 
-        console.log(posts);
-
+        
         const data = {
-            jumlahSiswaPerPerusahaan, posts
+            posts
         }
+        console.log(data);
 
         // Output jumlah siswa tiap perusahaan
         res.json(data);
@@ -70,7 +57,7 @@ app.get('/api/major-data', async (req, res) => {
 
 app.get('/api/perusahaan', async (req, res) => {
     try {
-        const sql = "SELECT p.id_perusahaan, p.nama_perusahaan, p.logo_perusahaan, posisi.id_posisi, posisi.nama_posisi FROM perusahaan as p JOIN posisi ON p.id_perusahaan = posisi.perusahaan_id;"
+        const sql = "SELECT p.id_perusahaan, p.nama_perusahaan, p.logo_perusahaan, posisi.id_posisi, posisi.nama_posisi FROM magang JOIN posisi ON magang.posisi_id = posisi.id_posisi JOIN perusahaan p ON posisi.perusahaan_id = p.id_perusahaan JOIN siswa ON magang.siswa_id = siswa.id_siswa;"
         const hasilQuery = await executeQuery(sql);
 
         const transformedData = {};
@@ -84,6 +71,7 @@ app.get('/api/perusahaan', async (req, res) => {
                     id_perusahaan: entry.id_perusahaan,
                     nama_perusahaan: entry.nama_perusahaan,
                     logo_perusahaan: entry.logo_perusahaan,
+                    jumlah_siswa: 0,
                     posisi: []
                 };
             }
@@ -92,8 +80,11 @@ app.get('/api/perusahaan', async (req, res) => {
                 id_posisi: entry.id_posisi,
                 nama_posisi: entry.nama_posisi
             });
+            transformedData[entry.id_perusahaan].jumlah_siswa++;
         });
         const data = Object.values(transformedData);
+
+        console.log(data);
 
         res.json(data);
 
