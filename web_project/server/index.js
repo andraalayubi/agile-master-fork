@@ -40,7 +40,7 @@ app.get('/api/major-data', async (req, res) => {
             }
         }
 
-        
+
         const data = {
             posts
         }
@@ -99,30 +99,41 @@ app.get('/api/perusahaan/:id', async (req, res) => {
         const id_perusahaan = req.params.id;
         const sql = `SELECT pr.*, p.id_posisi, p.nama_posisi, COUNT(m.id_magang) AS jumlah_siswa FROM posisi p JOIN magang m ON p.id_posisi = m.posisi_id JOIN perusahaan pr ON p.perusahaan_id = pr.id_perusahaan WHERE pr.id_perusahaan = ${id_perusahaan} GROUP BY p.nama_posisi;`
         const hasilQuery = await executeQuery(sql);
+        // Mengubah format data
+        const formatData = (datas) => {
+            const hasil = {};
 
-        const perusahaan = {
-            nama_perusahaan: hasilQuery[0].nama_perusahaan,
-            kota: hasilQuery[0].kota,
-            provinsi: hasilQuery[0].provinsi,
-            logo_perusahaan: hasilQuery[0].logo_perusahaan,
-            jumlah_siswa_total: 0
-        }
+            datas.forEach((item) => {
+                if (!hasil[item.id_perusahaan]) {
+                    hasil[item.id_perusahaan] = {
+                        nama_perusahaan: item.nama_perusahaan,
+                        alamat: item.alamat,
+                        kota: item.kota,
+                        provinsi: item.provinsi,
+                        logo_perusahaan: item.logo_perusahaan,
+                        posisi: {}
+                    };
+                }
 
-        const posisi = [];
-        for (let j = 0; j < hasilQuery.length; j++) {
-            posisi[j] = {
-                id_posisi: hasilQuery[j].id_posisi,
-                nama_posisi: hasilQuery[j].nama_posisi,
-                jumlah_siswa: hasilQuery[j].jumlah_siswa
-            }
-            perusahaan.jumlah_siswa_total += hasilQuery[j].jumlah_siswa;
-        }
+                hasil[item.id_perusahaan].posisi[item.id_posisi] = {
+                    id_posisi: item.id_posisi,
+                    nama_posisi: item.nama_posisi,
+                    jumlah_siswa: item.jumlah_siswa
+                };
+            });
 
-        const data = {
-            perusahaan,
-            posisi
-        }
+            // Mengubah hasil menjadi array sesuai format yang diminta
+            return Object.values(hasil).map(item => ({
+                nama_perusahaan: item.nama_perusahaan,
+                alamat: item.alamat,
+                kota: item.kota,
+                provinsi: item.provinsi,
+                logo_perusahaan: item.logo_perusahaan,
+                posisi: Object.values(item.posisi)
+            }));
+        };
 
+        const data = formatData(hasilQuery);
         console.log(data);
         res.json(data);
 
@@ -132,9 +143,9 @@ app.get('/api/perusahaan/:id', async (req, res) => {
     }
 });
 
-app.get('/api/perusahaan/:id/:id_posisi', async (req, res) => {
+app.get('/api/posisi/:id', async (req, res) => {
     try {
-        const id_posisi = req.params.id_posisi;
+        const id_posisi = req.params.id;
         const sql = `SELECT siswa.id_siswa, siswa.nama_siswa, siswa.email FROM siswa JOIN magang ON siswa.id_siswa = magang.siswa_id JOIN posisi ON magang.posisi_id = posisi.id_posisi WHERE posisi.id_posisi = ${id_posisi};`
         const data = await executeQuery(sql);
 
