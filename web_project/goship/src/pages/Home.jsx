@@ -1,13 +1,13 @@
 // Home.jsx
 import styles from "../style";
-import {Navbar,Hero,AddExperience} from "../components";
+import {Navbar,Hero,AddExperience, Footer} from "../components";
 
 
 
 const Home = () => {
   return (
      <>
-    <div className=" w-full ">
+    <div className="bg-orange-gradient-navbar w-full overflow-hidden">
       <div className={`${styles.paddingX} ${styles.flexCenter}`}>
         <div className={`${styles.boxWidth}`}>
           <Navbar  />
@@ -21,9 +21,10 @@ const Home = () => {
       </div>
     </div>
 
-    <div className={`bg-white overflow-visible ${styles.flexCenter} pt-20`}>
+    <div className={` overflow-visible ${styles.flexCenter} pt-20`}>
       <div className={`${styles.boxWidth}`}>
         <AddExperience />
+        <Footer />
       </div>
     </div>
     </>

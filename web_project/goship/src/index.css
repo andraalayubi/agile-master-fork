@@ -58,15 +58,29 @@
   background: linear-gradient(
     135deg,
     #FCC998 30%,
-    #FDDDD1 40%,
+    #FDDDD1 42%,
     #fcafa3 
   );
 }
+
+.bg-orange-gradient-navbar {
+  background: linear-gradient(
+    135deg,
+    #FCC998 49%,
+    #FDDDD1 69%,
+    #facac2 
+  );
+}
+
+.outline-none{
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+}
+
 .bg-orange {
   background: linear-gradient(
     135deg,
-    #ff6600,
-   
+    #E84D18,
   );
 }
 
