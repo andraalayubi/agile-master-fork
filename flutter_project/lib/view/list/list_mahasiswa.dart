@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_project/view/list/list_intern.dart';
-import 'package:flutter_project/view/list/database_statis_mahasiswa.dart';
+import 'package:flutter_project/view/list/database_statis.dart';
 
 class Listmahasiswa extends StatelessWidget {
   const Listmahasiswa({super.key});
@@ -37,7 +37,7 @@ class Listmahasiswa extends StatelessWidget {
             children: [
             GestureDetector(
               onTap: () {
-               
+               // Link
               },
               child: Padding(
                 padding: const EdgeInsets.only(right: 8,left: 2),
@@ -112,7 +112,6 @@ class Listmahasiswa extends StatelessWidget {
             Column(
               children: [
                 Container(
-                 
                   child: Card(
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(10), // Mengatur border circular

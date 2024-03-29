@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_project/view/home/home.dart';
 import 'package:flutter_project/view/list/intern.dart';
-import 'package:flutter_project/view/list/perusahaan.dart';
+import 'package:flutter_project/model/perusahaan.dart';
 import 'package:flutter_project/view/list/list_intern.dart';
 
 class Listperusahaan extends StatefulWidget {
@@ -131,10 +131,6 @@ class _ListPerusahaanState extends State<Listperusahaan> {
                         builder: (context) => Listintern(
                           idPerusahaan: perusahaan[index].id_perusahaan,
                           namaPerusahaan: perusahaan[index].nama_perusahaan,
-                          namaPosisi: perusahaan[index]
-                              .posisi[index]
-                              .id_posisi
-                              .toString(),
                         ),
                       ),
                     );
@@ -180,15 +176,15 @@ class _ListPerusahaanState extends State<Listperusahaan> {
                               ),
                             ),
                             ...List.generate(
-                              perusahaan[index].posisi.length > 4
+                              perusahaan[index].posisiPerusahaan.length > 4
                                   ? 4
-                                  : perusahaan[index].posisi.length,
+                                  : perusahaan[index].posisiPerusahaan.length,
                               (posisiIndex) => Padding(
                                 padding:
                                     const EdgeInsets.only(left: 5.0, top: 2.0),
                                 child: Text(
                                   perusahaan[index]
-                                      .posisi[posisiIndex]
+                                      .posisiPerusahaan[posisiIndex]
                                       .nama_posisi,
                                   style: const TextStyle(
                                     fontFamily: 'DM Sans',

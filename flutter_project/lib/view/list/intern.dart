@@ -1,50 +1,45 @@
 import 'dart:convert';
+import 'package:flutter_project/model/posisi_intern.dart';
 import 'package:http/http.dart' as http;
 
 class Intern {
-  int id_posisi;
-  int jumlah_siswa;
-  String provinsi;
-  String kota;
-  String logo_perusahaan;
-  String nama_perusahaan;
-  String nama_posisi;
+  final String nama_perusahaan;
+  final String kota;
+  final String provinsi;
+  final String logo_perusahaan;
+  // final int jumlah_siswa;
+  final List<PosisiPerusahaan> posisiPerusahaan;
 
-  Intern(
-    {required this.id_posisi,
+  Intern({
     required this.nama_perusahaan,
-    required this.nama_posisi,
-    required this.jumlah_siswa,
     required this.kota,
+    required this.provinsi,
     required this.logo_perusahaan,
-    required this.provinsi}
-  );
+    // required this.jumlah_siswa,
+    required this.posisiPerusahaan,
+  });
 
- factory Intern.fromJson(Map<String, dynamic> json) {
+  factory Intern.fromJson(Map<String, dynamic> json) {
     return Intern(
-      id_posisi: json['id_posisi'],
       nama_perusahaan: json['nama_perusahaan'],
-      nama_posisi: json['nama_posisi'],
       kota: json['kota'],
       provinsi: json['provinsi'],
       logo_perusahaan: json['logo_perusahaan'],
-      jumlah_siswa: json['jumlah_siswa'],
+      // jumlah_siswa: json['jumlah_siswa'],
+      posisiPerusahaan: List<PosisiPerusahaan>.from(json['posisi'].map((x) => PosisiPerusahaan.fromJson(x))),
     );
   }
 
+  static Future<List<Intern>> getIntern(int idPerusahaan) async {
+    // Ganti URL dengan URL API Anda
+    Uri url = Uri.parse('http://103.127.135.153:5000/api/perusahaan/$idPerusahaan');
+    var apiResult = await http.get(url);
+    var jsonData = json.decode(apiResult.body) as List<dynamic>;
 
-  static Future<List<Intern>> getIntern() async {
-  // Ganti URL dengan URL API Anda
-  Uri url = Uri.parse('http://103.127.135.153:5000/api/perusahaan/id_perusahaan');
-  var apiResult = await http.get(url);
-  var jsonData = json.decode(apiResult.body) as List<dynamic>;
-  List<Intern> intern = [];
+    // Mengubah List<dynamic> menjadi List<Perusahaan>
+    List<Intern> intern =
+        List<Intern>.from(jsonData.map((x) => Intern.fromJson(x)));
 
-  for (var data in jsonData) {
-    intern.add(Intern.fromJson(data));
+    return intern;
   }
-
-  return intern;
 }
-}
-
