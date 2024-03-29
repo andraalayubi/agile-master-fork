@@ -111,6 +111,7 @@ app.get('/api/perusahaan/:id', async (req, res) => {
                         kota: item.kota,
                         provinsi: item.provinsi,
                         logo_perusahaan: item.logo_perusahaan,
+                        jumlah_siswa_total: 0,
                         posisi: {}
                     };
                 }
@@ -120,6 +121,7 @@ app.get('/api/perusahaan/:id', async (req, res) => {
                     nama_posisi: item.nama_posisi,
                     jumlah_siswa: item.jumlah_siswa
                 };
+                hasil[item.id_perusahaan].jumlah_siswa_total += item.jumlah_siswa;
             });
 
             // Mengubah hasil menjadi array sesuai format yang diminta
