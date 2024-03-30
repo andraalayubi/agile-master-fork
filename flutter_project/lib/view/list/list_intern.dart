@@ -1,15 +1,7 @@
-import 'dart:collection';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter/widgets.dart';
-import 'package:flutter_project/model/posisi_perusahaan.dart';
 import 'package:flutter_project/view/list/list_mahasiswa.dart';
 import 'package:flutter_project/view/list/list_perusahaan.dart';
 import 'package:flutter_project/model/intern.dart';
-
-import '../../model/intern.dart';
-import 'list_mahasiswa.dart';
 
 class Listintern extends StatefulWidget {
   final int idPerusahaan;
@@ -94,8 +86,7 @@ class _ListInternState extends State<Listintern> {
                 } else {
                   if (snapshot.hasData && snapshot.data!.isNotEmpty) {
                     final intern = snapshot.data!;
-                    final index =
-                        0; // Misalnya kita mengambil data pertama dari list intern
+                    const index = 0; // Misalnya kita mengambil data pertama dari list intern
 
                     return Row(
                       children: <Widget>[
@@ -204,7 +195,7 @@ class _ListInternState extends State<Listintern> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => Listmahasiswa()
+                        builder: (context) => Listmahasiswa(id_posisi: posisi.id_posisi)
                       ),
                     );
                   },

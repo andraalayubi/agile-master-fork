@@ -37,8 +37,6 @@ class Perusahaan {
     List<Perusahaan> perusahaan =
         List<Perusahaan>.from(jsonData.map((x) => Perusahaan.fromJson(x)));
 
-    print(json.encode(jsonData)); // Mencetak JSON asli jika dibutuhkan
-
     return perusahaan;
   }
 }

@@ -1,16 +1,33 @@
-import 'dart:collection';
 import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_project/view/list/list_intern.dart';
-import 'package:flutter_project/view/list/list_mahasiswa.dart';
-import 'package:flutter_project/view/onboarding/onboarding.dart';
-import 'package:flutter_project/view/list/database_statis.dart';
+import 'package:flutter_project/view/list/list_perusahaan.dart';
+import 'package:flutter_project/model/detail_mahasiswa.dart';
 
-class DetailMahasiswa extends StatelessWidget {
-  const DetailMahasiswa({Key? key});
+class ListDetailMahasiswa extends StatefulWidget {
+  final int id_siswa;
+
+  const ListDetailMahasiswa({Key? key, required this.id_siswa}) : super(key: key);
+  
+  @override
+  _ListDetailMahasiswaState createState() => _ListDetailMahasiswaState();
+}
+
+class _ListDetailMahasiswaState extends State<ListDetailMahasiswa> {
+  List<DetailMahasiswa> detailMahasiswa = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _fetchData(widget.id_siswa);
+  }
+
+  Future<void> _fetchData(var id) async {
+    detailMahasiswa = await DetailMahasiswa.getDetailMahasiswa(id);
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +54,7 @@ class DetailMahasiswa extends StatelessWidget {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => const Listmahasiswa(),
+                builder: (context) => const Listperusahaan(),
               ),
             );
           },
