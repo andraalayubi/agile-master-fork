@@ -46,7 +46,7 @@ class _SplashScreenState extends State<SplashScreen> {
           Navigator.pushReplacement(
               context,
               MaterialPageRoute(
-                  builder: (context) => isVisited ? MainScreen() : OnBoarding()));
+                  builder: (context) => isVisited ? const MainScreen() : const OnBoarding()));
         },
         child: Center(
           child: Column(
