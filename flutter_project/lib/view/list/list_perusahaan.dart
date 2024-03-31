@@ -3,6 +3,7 @@ import 'package:flutter_project/view/home/home.dart';
 import 'package:flutter_project/model/intern.dart';
 import 'package:flutter_project/model/perusahaan.dart';
 import 'package:flutter_project/view/list/list_intern.dart';
+import 'package:flutter_project/view/main_screen/main_screen.dart';
 
 class Listperusahaan extends StatefulWidget {
   const Listperusahaan({Key? key}) : super(key: key);
@@ -42,10 +43,9 @@ class _ListPerusahaanState extends State<Listperusahaan> {
         actions: <Widget>[
           IconButton(
             onPressed: () {
-              Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => HomePage()));
+              MainScreen();
             },
-            icon: Image(
+            icon: const Image(
               image: AssetImage('assets/logo/logo-1.png'),
               height: 60,
               width: 60,
@@ -74,7 +74,7 @@ class _ListPerusahaanState extends State<Listperusahaan> {
                       borderRadius: BorderRadius.circular(10.0),
                     ),
                     color: Colors.grey.shade200,
-                    child: Row(
+                    child: const Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
                         Padding(
