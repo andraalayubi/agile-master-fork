@@ -1,6 +1,6 @@
 // Home.jsx
 import styles from "../style";
-import {Navbar,Hero,AddExperience, Footer} from "../components";
+import {Navbar,Hero,AddExperience, Footer, Cardintern} from "../components";
 
 
 
@@ -15,16 +15,18 @@ const Home = () => {
       </div>
     </div>
 
-    <div className={`bg-repeat bg-orange-gradient overflow-visible ${styles.flexStart} pb-20`}>
+    <div className={`bg-repeat bg-orange-gradient overflow-visible ${styles.flexStart} pb-32 `}>
       <div className={`${styles.boxWidth}`}>
         <Hero />
       </div>
     </div>
 
-    <div className={` overflow-visible ${styles.flexCenter} pt-20`}>
+    <div className={` overflow-hidden ${styles.flexCenter} `}>
       <div className={`${styles.boxWidth}`}>
-        <AddExperience />
-        <Footer />
+        <div className={``}>
+          <AddExperience />
+        </div>
+          <Footer />
       </div>
     </div>
     </>

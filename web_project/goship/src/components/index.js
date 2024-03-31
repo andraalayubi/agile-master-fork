@@ -5,6 +5,8 @@ import ButtonExperience from "./button_experience";
 import Hero from "./hero";
 import Footer from "./footer";
 import AddExperience from "./add_experience";
+import CardForm from "./form_post";
+
 
 
 export {
@@ -14,5 +16,6 @@ export {
   ButtonIntern,
   AddExperience,
   ButtonExperience,
-  Footer
+  Footer,
+  CardForm
 };
