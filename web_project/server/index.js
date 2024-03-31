@@ -65,6 +65,7 @@ app.get('/api/perusahaan', async (req, res) => {
             datas.forEach((item) => {
                 if (!hasil[item.id_perusahaan]) {
                     hasil[item.id_perusahaan] = {
+                        id_perusahaan: item.id_perusahaan,
                         nama_perusahaan: item.nama_perusahaan,
                         logo_perusahaan: item.logo_perusahaan,
                         jumlah_siswa: item.jumlah_siswa,
@@ -78,9 +79,10 @@ app.get('/api/perusahaan', async (req, res) => {
                     nama_posisi: item.nama_posisi,
                 };
             });
-
+            
             // Mengubah hasil menjadi array sesuai format yang diminta
             return Object.values(hasil).map(item => ({
+                id_perusahaan: item.id_perusahaan,
                 nama_perusahaan: item.nama_perusahaan,
                 logo_perusahaan: item.logo_perusahaan,
                 jumlah_siswa: item.jumlah_siswa,
