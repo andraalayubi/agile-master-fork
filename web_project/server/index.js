@@ -40,11 +40,9 @@ app.get('/api/major-data', async (req, res) => {
             }
         }
 
-
         const data = {
             posts
         }
-        console.log(data);
 
         // Output jumlah siswa tiap perusahaan
         res.json(data);
@@ -67,9 +65,6 @@ app.get('/api/perusahaan', async (req, res) => {
                 if (!hasil[item.id_perusahaan]) {
                     hasil[item.id_perusahaan] = {
                         nama_perusahaan: item.nama_perusahaan,
-                        alamat: item.alamat,
-                        kota: item.kota,
-                        provinsi: item.provinsi,
                         logo_perusahaan: item.logo_perusahaan,
                         jumlah_siswa: 0,
                         posisi: {}
@@ -86,16 +81,13 @@ app.get('/api/perusahaan', async (req, res) => {
             // Mengubah hasil menjadi array sesuai format yang diminta
             return Object.values(hasil).map(item => ({
                 nama_perusahaan: item.nama_perusahaan,
-                alamat: item.alamat,
-                kota: item.kota,
-                provinsi: item.provinsi,
                 logo_perusahaan: item.logo_perusahaan,
+                jumlah_siswa: item.jumlah_siswa,
                 posisi: Object.values(item.posisi)
             }));
         };
 
         const data = formatData(hasilQuery);
-        console.log(data);
         res.json(data);
 
     } catch (err) {
@@ -147,7 +139,6 @@ app.get('/api/perusahaan/:id', async (req, res) => {
         };
 
         const data = formatData(hasilQuery);
-        console.log(data);
         res.json(data);
 
     } catch (err) {
