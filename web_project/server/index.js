@@ -135,6 +135,7 @@ app.get('/api/perusahaan/:id', async (req, res) => {
                 kota: item.kota,
                 provinsi: item.provinsi,
                 logo_perusahaan: item.logo_perusahaan,
+                jumlah_siswa_total: item.jumlah_siswa_total,
                 posisi: Object.values(item.posisi)
             }));
         };
