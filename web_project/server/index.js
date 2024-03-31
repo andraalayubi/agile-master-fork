@@ -59,28 +59,32 @@ app.get('/api/perusahaan', async (req, res) => {
     try {
         const sql = "SELECT p.id_perusahaan, p.nama_perusahaan, p.logo_perusahaan, posisi.id_posisi, posisi.nama_posisi FROM magang JOIN posisi ON magang.posisi_id = posisi.id_posisi JOIN perusahaan p ON posisi.perusahaan_id = p.id_perusahaan JOIN siswa ON magang.siswa_id = siswa.id_siswa;"
         const hasilQuery = await executeQuery(sql);
+        console.log(hasilQuery);
 
         const transformedData = {};
 
         // Iterasi melalui data asli
         hasilQuery.forEach(entry => {
             // Cek apakah id_perusahaan sudah ada di transformedData
-            if (!transformedData[entry.id_perusahaan]) {
+            if (!transformedData[entry.id_perusahaan].posisi.id_posisi) {
                 // Jika belum ada, inisialisasi objek baru untuk id_perusahaan tersebut
-                transformedData[entry.id_perusahaan] = {
-                    id_perusahaan: entry.id_perusahaan,
-                    nama_perusahaan: entry.nama_perusahaan,
-                    logo_perusahaan: entry.logo_perusahaan,
-                    jumlah_siswa: 0,
-                    posisi: []
-                };
+                transformedData[entry.id_perusahaan].posisi.push({
+                    id_posisi: entry.id_posisi,
+                    nama_posisi: entry.nama_posisi
+                });
+            } else {
+                if (!transformedData[entry.id_perusahaan]) {
+                    transformedData[entry.id_perusahaan] = {
+                        id_perusahaan: entry.id_perusahaan,
+                        nama_perusahaan: entry.nama_perusahaan,
+                        logo_perusahaan: entry.logo_perusahaan,
+                        jumlah_siswa: 0,
+                        posisi: []
+                    };
+                }
+                transformedData[entry.id_perusahaan].jumlah_siswa++;
             }
             // Tambahkan posisi ke array posisi di objek id_perusahaan
-            transformedData[entry.id_perusahaan].posisi.push({
-                id_posisi: entry.id_posisi,
-                nama_posisi: entry.nama_posisi
-            });
-            transformedData[entry.id_perusahaan].jumlah_siswa++;
         });
         const data = Object.values(transformedData);
 
@@ -173,8 +177,8 @@ app.get('/api/user/:id', async (req, res) => {
     }
 });
 
-const server = app.listen(port, () => {
+app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
 });
 
-server.timeout = 60000;
+//server.timeout = 60000;
