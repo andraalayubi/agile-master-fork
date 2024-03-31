@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_project/view/home/home.dart';
-import 'package:flutter_project/model/intern.dart';
 import 'package:flutter_project/model/perusahaan.dart';
 import 'package:flutter_project/view/list/list_intern.dart';
 
