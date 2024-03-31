@@ -66,26 +66,25 @@ app.get('/api/perusahaan', async (req, res) => {
         // Iterasi melalui data asli
         hasilQuery.forEach(entry => {
             // Cek apakah id_perusahaan sudah ada di transformedData
-            for (let counter = 0; counter < transformedData[entry.id_perusahaan].posisi.length; counter++) {
-                if (!transformedData[entry.id_perusahaan].posisi.id_posisi) {
-                    // Jika belum ada, inisialisasi objek baru untuk id_perusahaan tersebut
-                    transformedData[entry.id_perusahaan].posisi[counter].push({
+            if (!transformedData[entry.id_perusahaan]) {
+                transformedData[entry.id_perusahaan] = {
+                    id_perusahaan: entry.id_perusahaan,
+                    nama_perusahaan: entry.nama_perusahaan,
+                    logo_perusahaan: entry.logo_perusahaan,
+                    jumlah_siswa: 0,
+                    posisi: [{
                         id_posisi: entry.id_posisi,
                         nama_posisi: entry.nama_posisi
-                    });
-                } else {
-                    if (!transformedData[entry.id_perusahaan]) {
-                        transformedData[entry.id_perusahaan] = {
-                            id_perusahaan: entry.id_perusahaan,
-                            nama_perusahaan: entry.nama_perusahaan,
-                            logo_perusahaan: entry.logo_perusahaan,
-                            jumlah_siswa: 0,
-                            posisi: []
-                        };
-                    }
-                    transformedData[entry.id_perusahaan].jumlah_siswa++;
-                }
+                    }] 
+                };
+            }else if (transformedData[entry.id_perusahaan].posisi.id_posisi) {
+                // Jika belum ada, inisialisasi objek baru untuk id_perusahaan tersebut
+                transformedData[entry.id_perusahaan].posisi.push({
+                    id_posisi: entry.id_posisi,
+                    nama_posisi: entry.nama_posisi
+                });
             }
+            transformedData[entry.id_perusahaan].jumlah_siswa++;
             // Tambahkan posisi ke array posisi di objek id_perusahaan
         });
         const data = Object.values(transformedData);
