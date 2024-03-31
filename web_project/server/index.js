@@ -35,7 +35,7 @@ app.get('/api/major-data', async (req, res) => {
                     posisi: element.nama_posisi,
                     perusahaan: element.nama_perusahaan,
                     deskripsi_magang: element.deskripsi_magang,
-                    gender: element.jenis_kelamin,
+                    jenis_kelamin: element.jenis_kelamin,
                     created_at: element.created_at
                 }
             }
@@ -151,7 +151,7 @@ app.get('/api/perusahaan/:id', async (req, res) => {
 app.get('/api/posisi/:id', async (req, res) => {
     try {
         const id_posisi = req.params.id;
-        const sql = `SELECT siswa.id_siswa, siswa.nama_siswa, siswa.email FROM siswa JOIN magang ON siswa.id_siswa = magang.siswa_id JOIN posisi ON magang.posisi_id = posisi.id_posisi WHERE posisi.id_posisi = ${id_posisi};`
+        const sql = `SELECT siswa.id_siswa, siswa.nama_siswa, siswa.email, siswa.jenis_kelamin FROM siswa JOIN magang ON siswa.id_siswa = magang.siswa_id JOIN posisi ON magang.posisi_id = posisi.id_posisi WHERE posisi.id_posisi = ${id_posisi};`
         const data = await executeQuery(sql);
 
         res.json(data);
