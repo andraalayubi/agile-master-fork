@@ -55,7 +55,7 @@ app.get('/api/major-data', async (req, res) => {
 
 app.get('/api/perusahaan', async (req, res) => {
     try {
-        const sql = "SELECT pr.nama_perusahaan, pr.id_perusahaan, pr.logo_perusahaan, p.id_posisi, p.nama_posisi, COUNT(m.id_magang) AS jumlah_siswa FROM posisi p JOIN magang m ON p.id_posisi = m.posisi_id JOIN perusahaan pr ON p.perusahaan_id = pr.id_perusahaan GROUP BY p.nama_posisi;"
+        const sql = "SELECT pr.nama_perusahaan, pr.id_perusahaan, pr.logo_perusahaan, p.id_posisi, p.nama_posisi, COUNT(m.id_magang) AS jumlah_siswa FROM posisi p JOIN magang m ON p.id_posisi = m.posisi_id JOIN perusahaan pr ON p.perusahaan_id = pr.id_perusahaan GROUP BY pr.id_perusahaan;"
         const hasilQuery = await executeQuery(sql);
 
         const formatData = (datas) => {
@@ -99,7 +99,7 @@ app.get('/api/perusahaan', async (req, res) => {
 app.get('/api/perusahaan/:id', async (req, res) => {
     try {
         const id_perusahaan = req.params.id;
-        const sql = `SELECT pr.*, p.id_posisi, p.nama_posisi, COUNT(m.id_magang) AS jumlah_siswa FROM posisi p JOIN magang m ON p.id_posisi = m.posisi_id JOIN perusahaan pr ON p.perusahaan_id = pr.id_perusahaan WHERE pr.id_perusahaan = ${id_perusahaan} GROUP BY p.nama_posisi;`
+        const sql = `SELECT pr.*, p.id_posisi, p.nama_posisi, COUNT(m.id_magang) AS jumlah_siswa FROM posisi p JOIN magang m ON p.id_posisi = m.posisi_id JOIN perusahaan pr ON p.perusahaan_id = pr.id_perusahaan WHERE pr.id_perusahaan = ${id_perusahaan} GROUP BY p.id_posisi;`
         const hasilQuery = await executeQuery(sql);
         // Mengubah format data
         const formatData = (datas) => {
