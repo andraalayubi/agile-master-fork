@@ -35,6 +35,7 @@ app.get('/api/major-data', async (req, res) => {
                     posisi: element.nama_posisi,
                     perusahaan: element.nama_perusahaan,
                     deskripsi_magang: element.deskripsi_magang,
+                    gender: element.jenis_kelamin,
                     created_at: element.created_at
                 }
             }
