@@ -52,7 +52,7 @@ class _ListmahasiswaState extends State<Listmahasiswa> {
               children: [
                 GestureDetector(
                   onTap: () {
-                    // Link
+                    Navigator.pop(context);
                   },
                   child: Padding(
                     padding: const EdgeInsets.only(right: 8, left: 2),
