@@ -57,40 +57,45 @@ app.get('/api/major-data', async (req, res) => {
 
 app.get('/api/perusahaan', async (req, res) => {
     try {
-        const sql = "SELECT p.id_perusahaan, p.nama_perusahaan, p.logo_perusahaan, posisi.id_posisi, posisi.nama_posisi FROM magang JOIN posisi ON magang.posisi_id = posisi.id_posisi JOIN perusahaan p ON posisi.perusahaan_id = p.id_perusahaan JOIN siswa ON magang.siswa_id = siswa.id_siswa;"
+        const sql = "SELECT pr.nama_perusahaan, pr.id_perusahaan, pr.logo_perusahaan, p.id_posisi, p.nama_posisi, COUNT(m.id_magang) AS jumlah_siswa FROM posisi p JOIN magang m ON p.id_posisi = m.posisi_id JOIN perusahaan pr ON p.perusahaan_id = pr.id_perusahaan GROUP BY p.nama_posisi;"
         const hasilQuery = await executeQuery(sql);
-        console.log(hasilQuery);
 
-        const transformedData = {};
+        const formatData = (datas) => {
+            const hasil = {};
 
-        // Iterasi melalui data asli
-        hasilQuery.forEach(entry => {
-            // Cek apakah id_perusahaan sudah ada di transformedData
-            if (!transformedData[entry.id_perusahaan]) {
-                transformedData[entry.id_perusahaan] = {
-                    id_perusahaan: entry.id_perusahaan,
-                    nama_perusahaan: entry.nama_perusahaan,
-                    logo_perusahaan: entry.logo_perusahaan,
-                    jumlah_siswa: 0,
-                    posisi: [{
-                        id_posisi: entry.id_posisi,
-                        nama_posisi: entry.nama_posisi
-                    }] 
+            datas.forEach((item) => {
+                if (!hasil[item.id_perusahaan]) {
+                    hasil[item.id_perusahaan] = {
+                        nama_perusahaan: item.nama_perusahaan,
+                        alamat: item.alamat,
+                        kota: item.kota,
+                        provinsi: item.provinsi,
+                        logo_perusahaan: item.logo_perusahaan,
+                        jumlah_siswa: 0,
+                        posisi: {}
+                    };
+                }
+
+                hasil[item.id_perusahaan].posisi[item.id_posisi] = {
+                    id_posisi: item.id_posisi,
+                    nama_posisi: item.nama_posisi,
                 };
-            }else if (transformedData[entry.id_perusahaan].posisi.id_posisi) {
-                // Jika belum ada, inisialisasi objek baru untuk id_perusahaan tersebut
-                transformedData[entry.id_perusahaan].posisi.push({
-                    id_posisi: entry.id_posisi,
-                    nama_posisi: entry.nama_posisi
-                });
-            }
-            transformedData[entry.id_perusahaan].jumlah_siswa++;
-            // Tambahkan posisi ke array posisi di objek id_perusahaan
-        });
-        const data = Object.values(transformedData);
+                hasil[item.id_perusahaan].jumlah_siswa++;
+            });
 
+            // Mengubah hasil menjadi array sesuai format yang diminta
+            return Object.values(hasil).map(item => ({
+                nama_perusahaan: item.nama_perusahaan,
+                alamat: item.alamat,
+                kota: item.kota,
+                provinsi: item.provinsi,
+                logo_perusahaan: item.logo_perusahaan,
+                posisi: Object.values(item.posisi)
+            }));
+        };
+
+        const data = formatData(hasilQuery);
         console.log(data);
-
         res.json(data);
 
     } catch (err) {
