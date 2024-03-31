@@ -67,16 +67,16 @@ app.get('/api/perusahaan', async (req, res) => {
                     hasil[item.id_perusahaan] = {
                         nama_perusahaan: item.nama_perusahaan,
                         logo_perusahaan: item.logo_perusahaan,
-                        jumlah_siswa: 0,
+                        jumlah_siswa: item.jumlah_siswa,
                         posisi: {}
                     };
+                } else {
+                    hasil[item.id_perusahaan].jumlah_siswa++;
                 }
-
                 hasil[item.id_perusahaan].posisi[item.id_posisi] = {
                     id_posisi: item.id_posisi,
                     nama_posisi: item.nama_posisi,
                 };
-                hasil[item.id_perusahaan].jumlah_siswa++;
             });
 
             // Mengubah hasil menjadi array sesuai format yang diminta
