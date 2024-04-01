@@ -34,7 +34,7 @@ const AddExperience = () => {
             </p>
             <div className='flex flex-row justify-between items-center w-full '>
                 <div className="flex-1 font-poppins font-semibold  text-black sm:py-17 py-6">
-                 <ButtonExperience />
+                    <ButtonExperience />
                 </div>
             </div> 
         </div>

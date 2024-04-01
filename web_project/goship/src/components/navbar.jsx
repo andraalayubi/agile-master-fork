@@ -7,7 +7,7 @@ const Navbar = () => {
   const [active, setActive] = useState("Home");
 
   return (
-    <nav className=" w-full flex py-6 justify-between items-center navbar">
+    <nav className="w-full flex py-6 justify-between items-center navbar">
       <img src={logo1} alt="Goship" className="w-[200px] h-[50px]" />
 
       <ul className="list-none sm:flex hidden justify-end items-center flex-1">
@@ -23,10 +23,16 @@ const Navbar = () => {
           </li>
         ))}
       </ul>
+<<<<<<< HEAD
 
       <div className="sm:px-10 px-5 sm:py-5 py-4">
         <ButtonSignIn />
       </div>
+=======
+        <div className="sm:px-10 px-5 sm:py-5 py-4">
+            <ButtonSignIn />
+        </div>
+>>>>>>> dbd0b5972f4ca7be807fc76e1f3df1e9d00728aa
     </nav>
   );
 };

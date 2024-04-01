@@ -58,11 +58,12 @@
   background: linear-gradient(
     135deg,
     #FCC998 30%,
-    #FDDDD1 40%,
+    #FDDDD1 42%,
     #fcafa3 
   );
 }
 
+<<<<<<< HEAD
 .bg-orange-gradient2 {
   position: relative; /* Atur posisi relatif */
   z-index: 0; /* Atur z-index lebih rendah dari section container */
@@ -75,11 +76,26 @@
   );
 }
 
+=======
+.bg-orange-gradient-navbar {
+  background: linear-gradient(
+    135deg,
+    #FCC998 49%,
+    #FDDDD1 69%,
+    #facac2 
+  );
+}
+
+.outline-none{
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+}
+
+>>>>>>> dbd0b5972f4ca7be807fc76e1f3df1e9d00728aa
 .bg-orange {
   background: linear-gradient(
     135deg,
-    #ff6600,
-   
+    #E84D18,
   );
 }
 
