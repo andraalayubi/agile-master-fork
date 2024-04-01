@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react"; // Menambahkan impor React
 import { logo1 } from "../assets";
 import { navLinks } from "../constant";
 import ButtonSignIn from "./button_SignIn.jsx";
@@ -24,9 +24,9 @@ const Navbar = () => {
         ))}
       </ul>
 
-        <div className="sm:px-10 px-5 sm:py-5 py-4">
-            <ButtonSignIn />
-        </div>
+      <div className="sm:px-10 px-5 sm:py-5 py-4">
+        <ButtonSignIn />
+      </div>
     </nav>
   );
 };
