@@ -1,186 +1,210 @@
-import React from 'react';
-import { PhotoIcon } from '@heroicons/react/24/solid'
+import React from "react";
+import { logo1 } from "../assets";
+import {
+  FaUser,
+  FaShoppingBag,
+  FaMapPin,
+  FaWallet,
+  FaCalendarDay,
+  FaStar,
+  FaBook,
+} from "react-icons/fa";
+import { PhotoIcon } from "@heroicons/react/24/solid";
 
 const CardForm = ({ onClose }) => {
-  
-    return (
-      <div className="fixed top-0 left-0 right-0 bottom-0 flex justify-center items-center bg-gray-500 bg-opacity-50 z-50 overflow-auto">
-        <div className="bg-white p-4 rounded-lg shadow-md max-w-full max-h-full overflow-y-auto">
-          <form >
-            <div className="border-b border-gray-900/10 ">
-              <h2 className="text-base font-semibold leading-7 text-gray-900">Cover photo</h2>
-              <div className="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10">
-                <div className="text-center">
-                  <PhotoIcon className="mx-auto h-12 w-12 text-gray-300" aria-hidden="true" />
-                  <div className="mt-4 flex text-sm leading-6 text-gray-600">
-                    <label
-                      htmlFor="file-upload"
-                      className="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500"
-                    >
-                      <span>Upload a file</span>
-                      <input id="file-upload" name="file-upload" type="file" className="sr-only" />
-                    </label>
-                    <p className="pl-1">or drag and drop</p>
-                  </div>
-                  <p className="text-xs leading-5 text-gray-600">PNG, JPG, GIF up to 10MB</p>
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    // Lakukan sesuatu saat tombol submit ditekan
+  };
+
+  return (
+    <div className="fixed top-0 left-0 right-0 bottom-0 flex justify-center items-center bg-gray-500 bg-opacity-50 z-50 overflow-auto">
+      <div className="bg-white py-6 px-10 rounded-lg shadow-md max-w-full max-h-full overflow-y-auto">
+        <div className="flex items-center justify-between mb-4">
+          <div className="flex items-center">
+            <img src={logo1} alt="Goship Logo" className="h-10 w-auto mr-4" />
+            <div className="border-l-2 border-black pl-4">
+              <h2 className="text-lg font-semibold">Insert Data</h2>
+            </div>
+          </div>
+          <button
+            onClick={onClose}
+            className="text-gray-500 hover:text-gray-700 focus:outline-none border-2 border-black rounded-md p-1"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M6 18L18 6M6 6l12 12"
+              />
+            </svg>
+          </button>
+        </div>
+        <form onSubmit={handleSubmit}>
+          <div className="border-b border-gray-900/10">
+            <div className="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10">
+              <div className="text-center">
+                <PhotoIcon
+                  className="mx-auto h-12 w-12 text-gray-300"
+                  aria-hidden="true"
+                />
+                <div className="mt-4 flex text-sm leading-6 text-gray-600">
+                  <p className="pl-1">Company Profile Photo</p>
+                </div>
+                <p className="text-xs leading-5 text-gray-600">
+                  Drag files or select images
+                </p>
+                <div className="flex justify-center">
+                  <label
+                    htmlFor="file-upload-btn"
+                    className="mt-5 cursor-pointer"
+                  >
+                    <input
+                      id="file-upload-btn"
+                      type="file"
+                      className="hidden"
+                    />
+                    <div className="text-gray-500 hover:text-gray-700 focus:outline-none border-2 border-orange rounded-md p-1">
+                      <span style={{ padding: "9px", color: "orange" }}>+</span>
+                    </div>
+                  </label>
                 </div>
               </div>
             </div>
-    
-            <div className="border-b border-gray-900/10 pb-12">
-              <h2 className="text-base font-semibold leading-7 text-gray-900">Personal Information</h2>
-              <p className="mt-1 text-sm leading-6 text-gray-600">Use a permanent address where you can receive mail.</p>
-    
-              <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-                {/* First Name */}
-                <div className="sm:col-span-3">
-                  <label htmlFor="first-name" className="block text-sm font-medium leading-6 text-gray-900">
-                    First name
-                  </label>
-                  <div className="mt-2">
-                    <input
-                      type="text"
-                      name="first-name"
-                      id="first-name"
-                      autoComplete="given-name"
-                      className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                    />
-                  </div>
+          </div>
+          <div className="border-b border-gray-900/10 pb-12">
+            <div className="mt-10 grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-6">
+              <div className="sm:col-span-3">
+                <div className="input-group flex inline-block border border-1 rounded-md">
+                  <FaUser className="input-icon m-2" />
+                  <input
+                    type="text"
+                    name="internshipPlace"
+                    id="internshipPlace"
+                    placeholder="Name of Internship Place"
+                    className="block w-full py-1.5 ps-0 text-gray-900 placeholder:text-gray-400 placeholder:text-xs focus:ring-inset focus:ring-indigo-600 sm:text-sm border-0"
+                  />
                 </div>
-                {/* Last Name */}
-                <div className="sm:col-span-3">
-                  <label htmlFor="last-name" className="block text-sm font-medium leading-6 text-gray-900">
-                    Last name
-                  </label>
-                  <div className="mt-2">
-                    <input
-                      type="text"
-                      name="last-name"
-                      id="last-name"
-                      autoComplete="family-name"
-                      className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                    />
-                  </div>
+              </div>
+
+              <div className="sm:col-span-3">
+                <div className="input-group flex inline-block border items-center justify-center border-1 rounded-md">
+                  <FaShoppingBag className="input-icon m-2 text-xs" />
+                  <input
+                    type="text"
+                    name="Field of Internship"
+                    id="Field of Internship"
+                    placeholder="Field of Internship"
+                    className="block w-full py-1.5 ps-0 text-gray-900 placeholder:text-gray-400 placeholder:text-xs focus:ring-inset focus:ring-indigo-600 sm:text-sm border-0"
+                  />
                 </div>
-                {/* Email */}
-                <div className="sm:col-span-4">
-                  <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
-                    Email address
-                  </label>
-                  <div className="mt-2">
-                    <input
-                      id="email"
-                      name="email"
-                      type="email"
-                      autoComplete="email"
-                      className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                    />
-                  </div>
+              </div>
+              <div className="sm:col-span-3">
+                <div className="input-group flex inline-block border border-1 rounded-md">
+                  <FaMapPin className="input-icon m-2" />
+                  <input
+                    type="text"
+                    name="internship location"
+                    id="internship location"
+                    placeholder="internship location"
+                    className="block w-full py-1.5 ps-0 text-gray-900 placeholder:text-gray-400 placeholder:text-xs focus:ring-inset focus:ring-indigo-600 sm:text-sm border-0"
+                  />
                 </div>
-                {/* Country */}
-                <div className="sm:col-span-3">
-                  <label htmlFor="country" className="block text-sm font-medium leading-6 text-gray-900">
-                    Country
-                  </label>
-                  <div className="mt-2">
-                    <select
-                      id="country"
-                      name="country"
-                      autoComplete="country-name"
-                      className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
-                    >
-                      <option>United States</option>
-                      <option>Canada</option>
-                      <option>Mexico</option>
-                    </select>
-                  </div>
+              </div>
+              <div className="sm:col-span-3">
+                <div className="input-group flex inline-block border border-1 rounded-md">
+                  <FaWallet className="input-icon m-2" />
+                  <input
+                    type="text"
+                    name="Internship division"
+                    id="Internship division"
+                    placeholder="Internship division"
+                    className="block w-full py-1.5 ps-0 text-gray-900 placeholder:text-gray-400 placeholder:text-xs focus:ring-inset focus:ring-indigo-600 sm:text-sm border-0"
+                  />
                 </div>
-                {/* Street Address */}
-                <div className="col-span-full">
-                  <label htmlFor="street-address" className="block text-sm font-medium leading-6 text-gray-900">
-                    Street address
-                  </label>
-                  <div className="mt-2">
-                    <input
-                      type="text"
-                      name="street-address"
-                      id="street-address"
-                      autoComplete="street-address"
-                      className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                    />
-                  </div>
+              </div>
+              <div className="sm:col-span-3">
+                <div className="input-group flex inline-block border items-center border-1 rounded-md relative">
+                  <FaCalendarDay className="input-icon m-2 text-xs" />
+                  <input
+                    type="text"
+                    name="Duration of internship"
+                    id="Duration of internship"
+                    placeholder="Duration of internship"
+                    className="block w-full py-1.5 ps-0 text-gray-900 placeholder:text-gray-400 placeholder:text-xs focus:ring-inset focus:ring-indigo-600 sm:text-sm border-0"
+                  />
+                  <span class="absolute inset-y-0 right-0 flex items-center pr-2 text-amber-500 text-xs text-amber-500">
+                    bulan
+                  </span>
                 </div>
-                {/* City */}
-                <div className="sm:col-span-2 sm:col-start-1">
-                  <label htmlFor="city" className="block text-sm font-medium leading-6 text-gray-900">
-                    City
-                  </label>
-                  <div className="mt-2">
-                    <input
-                      type="text"
-                      name="city"
-                      id="city"
-                      autoComplete="address-level2"
-                      className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                    />
-                  </div>
-                </div>
-                {/* State / Province */}
-                <div className="sm:col-span-2">
-                  <label htmlFor="region" className="block text-sm font-medium leading-6 text-gray-900">
-                    State / Province
-                  </label>
-                  <div className="mt-2">
-                    <input
-                      type="text"
-                      name="region"
-                      id="region"
-                      autoComplete="address-level1"
-                      className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                    />
-                  </div>
-                </div>
-                {/* ZIP / Postal code */}
-                <div className="sm:col-span-2">
-                  <label htmlFor="postal-code" className="block text-sm font-medium leading-6 text-gray-900">
-                    ZIP / Postal code
-                  </label>
-                  <div className="mt-2">
-                    <input
-                      type="text"
-                      name="postal-code"
-                      id="postal-code"
-                      autoComplete="postal-code"
-                      className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                    />
+              </div>
+
+              <div className="sm:col-span-3">
+                <div className="input-group flex inline-block border border-1 items-center rounded-md relative">
+                  <FaStar className="input-icon m-2 text-xs" />
+                  <input
+                    type="text"
+                    name="Getting pocket Money ??"
+                    id="Getting pocket Money ??"
+                    placeholder="Getting pocket Money ??"
+                    className="block w-full py-1.5 ps-0 text-gray-900 placeholder:text-gray-400 placeholder:text-xs focus:ring-inset focus:ring-indigo-600 sm:text-sm border-0 px-16"
+                  />
+                  <div className="absolute right-0">
+                    <button className="border border-amber-500 text-orange-500 py-1 px-2 rounded-md text-xs me-1">
+                      Yes
+                    </button>
+                    <button className="border border-amber-500 text-orange-500 py-1 px-2 rounded-md text-xs me-1">
+                      No
+                    </button>
                   </div>
                 </div>
               </div>
+
+              <div className="col-span-full">
+                <div className="input-group flex inline-block border border-1 rounded-md">
+                  <FaBook className="input-icon m-2 text-xs" />
+                  <input
+                    type="text"
+                    name="Title of internship report "
+                    id="Title of internship report "
+                    placeholder="Title of internship report "
+                    className="block w-full py-1.5 ps-0 text-gray-900 placeholder:text-gray-400 placeholder:text-xs focus:ring-inset focus:ring-indigo-600 sm:text-sm border-0"
+                  />
+                </div>
+              </div>
+
+              <div className="col-span-full ">
+                <div className="input-group text-xs ">
+                  <input 
+                    type="text"
+                    name="Tell us about your internship experience here"
+                    id="Tell us about your internship experience here"
+                    placeholder="Tell us about your internship experience here"
+                    className=" block w-full rounded-md border-0 py-1.5 px-10 -pt-10 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    style={{ height: "100px" }}
+                  />
+                </div>
+              </div>
             </div>
-    
-            <div className="border-b border-gray-900/10 pb-12">
-              <h2 className="text-base font-semibold leading-7 text-gray-900">Notifications</h2>
-              <p className="mt-1 text-sm leading-6 text-gray-600">
-                We'll always let you know about important changes, but you pick what else you want to hear about.
-              </p>
-            </div>
-          </form>
-          
-          {/* Buttons */}
-          <div className="mt-6 flex items-center justify-end gap-x-6">
-            <button onClick={onClose} type="button" className="text-sm font-semibold leading-6 text-gray-900">
-              Cancel
-            </button>
+          </div>
+          <div className="flex">
             <button
               type="submit"
-              className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+              className="bg-amber-600 w-full hover:bg-orange-600 text-white font-bold py-2 px-4 rounded"
             >
-              Save
+              Submit
             </button>
           </div>
-        </div>
+        </form>
       </div>
-    );
+    </div>
+  );
 };
-
 export default CardForm;
