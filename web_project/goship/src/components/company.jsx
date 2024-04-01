@@ -5,8 +5,8 @@ import CardCompany from './card_company';
 
 
 const Perusahaan = () => (
-
-  <section className={`${styles.flexCenter} ${styles.marginY} ${styles.padding} sm:flex-row flex-col bg-white-gradient-2 rounded-[24px] box-shadow section-container` }>
+  <div className="px-32 object-top">
+  <section id='companies' className={`${styles.flexCenter} ${styles.marginY} ${styles.padding} sm:flex-row flex-col  rounded-[24px] box-shadow bg-white section-container w-max-auto`}>
  
     <div className="flex-1 flex flex-col" style={{ width: '80px', height: 'auto'}}>
       <div> 
@@ -27,6 +27,7 @@ const Perusahaan = () => (
     </div>
    
    </section>
+   </div>
 )
 
 export default Perusahaan;

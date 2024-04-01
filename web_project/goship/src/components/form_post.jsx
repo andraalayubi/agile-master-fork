@@ -18,8 +18,8 @@ const CardForm = ({ onClose }) => {
   };
 
   return (
-    <div className="fixed top-0 left-0 right-0 bottom-0 flex justify-center items-center bg-gray-500 bg-opacity-50 z-50 overflow-auto">
-      <div className="bg-white py-6 px-10 rounded-lg shadow-md max-w-full max-h-full overflow-y-auto">
+    <div className="fixed top-0 left-0 right-0 bottom-0 flex justify-center items-center bg-gray-500 bg-opacity-50 z-50 overflow-auto py-3 ">
+      <div className="bg-white py-6 px-10 rounded-lg shadow-md max-w-full max-h-full overflow-y-auto overflow-y-scroll no-scrollbar">
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center">
             <img src={logo1} alt="Goship Logo" className="h-10 w-auto mr-4" />
@@ -195,7 +195,7 @@ const CardForm = ({ onClose }) => {
             </div>
           </div>
           <div className="flex">
-            <button
+          <button
               type="submit"
               className="bg-amber-600 w-full hover:bg-orange-600 text-white font-bold py-2 px-4 rounded"
             >
@@ -207,4 +207,5 @@ const CardForm = ({ onClose }) => {
     </div>
   );
 };
+
 export default CardForm;
