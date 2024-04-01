@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_project/model/mahasiswa.dart';
-import 'package:flutter_project/view/list/list_detail_mahasiswa.dart';
+import 'package:flutter_project/view/list/page_detail_mahasiswa.dart';
 
 class Listmahasiswa extends StatefulWidget {
   final int id_posisi;
@@ -52,7 +52,7 @@ class _ListmahasiswaState extends State<Listmahasiswa> {
               children: [
                 GestureDetector(
                   onTap: () {
-                    // Link
+                    Navigator.pop(context);
                   },
                   child: Padding(
                     padding: const EdgeInsets.only(right: 8, left: 2),
@@ -134,7 +134,7 @@ class _ListmahasiswaState extends State<Listmahasiswa> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => ListDetailMahasiswa(
+                                  builder: (context) => PageDetailMahasiswa(
                                       id_siswa: mahasiswa.id_siswa)));
                         },
                         child: Card(
