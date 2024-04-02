@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_project/view/home/home.dart';
 import 'package:flutter_project/model/perusahaan.dart';
 import 'package:flutter_project/view/list/list_intern.dart';
 import 'package:flutter_project/view/main_screen/main_screen.dart';
@@ -13,6 +12,9 @@ class Listperusahaan extends StatefulWidget {
 
 class _ListPerusahaanState extends State<Listperusahaan> {
   List<Perusahaan> perusahaan = [];
+  List<Perusahaan> filteredPerusahaan = [];
+  bool isSearching = false;
+  var value = "";
 
   @override
   void initState() {
@@ -22,7 +24,25 @@ class _ListPerusahaanState extends State<Listperusahaan> {
 
   Future<void> _fetchData() async {
     perusahaan = await Perusahaan.getPerusahaan();
-    setState(() {});
+    setState(() {
+      filteredPerusahaan = perusahaan;
+    });
+  }
+
+  void _search(String query) {
+    setState(() {
+      if (query.isNotEmpty) {
+        isSearching = true;
+        filteredPerusahaan = perusahaan.where((perusahaan) {
+          return perusahaan.nama_perusahaan
+              .toLowerCase()
+              .contains(query.toLowerCase());
+        }).toList();
+      } else {
+        isSearching = false;
+        filteredPerusahaan = perusahaan;
+      }
+    });
   }
 
   @override
@@ -73,11 +93,11 @@ class _ListPerusahaanState extends State<Listperusahaan> {
                       borderRadius: BorderRadius.circular(10.0),
                     ),
                     color: Colors.grey.shade200,
-                    child: const Row(
+                    child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
+                        const Padding(
+                          padding: EdgeInsets.all(8.0),
                           child: Icon(
                             Icons.search,
                             color: Color.fromARGB(255, 0, 0, 0),
@@ -85,9 +105,12 @@ class _ListPerusahaanState extends State<Listperusahaan> {
                         ),
                         Expanded(
                           child: Padding(
-                            padding: EdgeInsets.only(right: 10),
+                            padding: const EdgeInsets.only(right: 10),
                             child: TextField(
-                              decoration: InputDecoration.collapsed(
+                              onChanged: (value) {
+                                _search(value);
+                              },
+                              decoration: const InputDecoration.collapsed(
                                 hintText: 'cari perusahaan',
                                 hintStyle: TextStyle(
                                   fontSize: 13,
@@ -114,13 +137,11 @@ class _ListPerusahaanState extends State<Listperusahaan> {
           ),
         ),
       ),
-      body: perusahaan.isEmpty
-          ? const Center(
-              child:
-                  CircularProgressIndicator()) // Show loading indicator while fetching
+      body: filteredPerusahaan.isEmpty
+          ? const Center(child: CircularProgressIndicator())
           : ListView.builder(
               padding: const EdgeInsets.all(8),
-              itemCount: perusahaan.length,
+              itemCount: filteredPerusahaan.length,
               itemBuilder: (BuildContext context, int index) {
                 return InkWell(
                   onTap: () {
@@ -128,8 +149,9 @@ class _ListPerusahaanState extends State<Listperusahaan> {
                       context,
                       MaterialPageRoute(
                         builder: (context) => Listintern(
-                          idPerusahaan: perusahaan[index].id_perusahaan,
-                          namaPerusahaan: perusahaan[index].nama_perusahaan,
+                          idPerusahaan: filteredPerusahaan[index].id_perusahaan,
+                          namaPerusahaan:
+                              filteredPerusahaan[index].nama_perusahaan,
                         ),
                       ),
                     );
@@ -142,15 +164,13 @@ class _ListPerusahaanState extends State<Listperusahaan> {
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(10),
                             child: Image.network(
-                              perusahaan[index]
-                                  .logo_perusahaan, // Use the URL for the image
+                              filteredPerusahaan[index].logo_perusahaan,
                               fit: BoxFit.cover,
                               width: 55,
                               height: 55,
                               errorBuilder: (context, error, stackTrace) {
-                                // Fallback widget or image in case of error
                                 return Image.asset(
-                                  'assets/home/LOGO1.png', // Placeholder image in your assets
+                                  'assets/home/LOGO1.png',
                                   fit: BoxFit.cover,
                                   width: 55,
                                   height: 55,
@@ -165,8 +185,7 @@ class _ListPerusahaanState extends State<Listperusahaan> {
                             Container(
                               padding: const EdgeInsets.only(left: 5),
                               child: Text(
-                                perusahaan[index]
-                                    .nama_perusahaan, // Use fetched company name
+                                filteredPerusahaan[index].nama_perusahaan,
                                 style: const TextStyle(
                                   fontWeight: FontWeight.bold,
                                   fontSize: 13,
@@ -175,14 +194,19 @@ class _ListPerusahaanState extends State<Listperusahaan> {
                               ),
                             ),
                             ...List.generate(
-                              perusahaan[index].posisiPerusahaan.length > 4
+                              filteredPerusahaan[index]
+                                          .posisiPerusahaan
+                                          .length >
+                                      4
                                   ? 4
-                                  : perusahaan[index].posisiPerusahaan.length,
+                                  : filteredPerusahaan[index]
+                                      .posisiPerusahaan
+                                      .length,
                               (posisiIndex) => Padding(
                                 padding:
                                     const EdgeInsets.only(left: 5.0, top: 2.0),
                                 child: Text(
-                                  perusahaan[index]
+                                  filteredPerusahaan[index]
                                       .posisiPerusahaan[posisiIndex]
                                       .nama_posisi,
                                   style: const TextStyle(
