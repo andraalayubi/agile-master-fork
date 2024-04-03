@@ -80,6 +80,7 @@ class _PageDetailMahasiswaState extends State<PageDetailMahasiswa> {
                   } else if (snapshot.hasData && snapshot.data!.isNotEmpty) {
                     final mahasiswa = snapshot.data!;
                     const index = 0;
+                    print(mahasiswa[0]);
                     return Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
@@ -95,7 +96,9 @@ class _PageDetailMahasiswaState extends State<PageDetailMahasiswa> {
                                       child: ClipRRect(
                                         borderRadius: BorderRadius.circular(10),
                                         child: Image.asset(
-                                          'assets/logo/image-2.png',
+                                          mahasiswa[index].sex != 'Perempuan'
+                                              ? 'assets/home/male.png'
+                                              : 'assets/home/female.png',
                                           fit: BoxFit.cover,
                                           width: 80,
                                           height: 80,
@@ -346,7 +349,9 @@ class _PageDetailMahasiswaState extends State<PageDetailMahasiswa> {
                                             ),
                                           ),
                                           Text(
-                                            mahasiswa[index].is_uang_saku.toString(),
+                                            mahasiswa[index].is_uang_saku == 1
+                                                ? 'Mendapat uang saku'
+                                                : 'Tidak dapat uang saku',
                                             style: TextStyle(
                                               fontSize: 16,
                                             ),

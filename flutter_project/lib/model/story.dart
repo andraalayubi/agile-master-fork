@@ -7,6 +7,7 @@ class Story {
   String posisi;
   String post;
   String perusahaan;
+  String sex;
   String createdAt;
 
   Story(
@@ -15,6 +16,7 @@ class Story {
       required this.posisi,
       required this.post,
       required this.perusahaan,
+      required this.sex,
       required this.createdAt});
 
   factory Story.createStoryObject(Map<String, dynamic> object) {
@@ -24,6 +26,7 @@ class Story {
         posisi: object["posisi"],
         post: object["deskripsi_magang"],
         perusahaan: object["perusahaan"],
+        sex: object["jenis_kelamin"],
         createdAt: object["created_at"]);
   }
 

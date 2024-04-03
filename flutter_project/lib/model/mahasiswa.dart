@@ -13,6 +13,7 @@ class Mahasiswa {
       id_siswa: json['id_siswa'] ?? "",
       nama_siswa: json['nama_siswa'],
       email: json['email'],
+
     );
   }
 
