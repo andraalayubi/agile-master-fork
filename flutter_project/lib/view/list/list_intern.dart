@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_project/view/list/list_mahasiswa.dart';
 import 'package:flutter_project/view/list/list_perusahaan.dart';
 import 'package:flutter_project/model/intern.dart';
@@ -36,7 +38,10 @@ class _ListInternState extends State<Listintern> {
       appBar: AppBar(
         title: Text(widget.namaPerusahaan),
         titleTextStyle: const TextStyle(
-            fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black),
+          fontSize: 20,
+          fontWeight: FontWeight.bold,
+          fontFamily: 'LibreBaskerville',
+          color: Colors.black),
         centerTitle: true,
         actions: <Widget>[
           IconButton(
@@ -49,7 +54,7 @@ class _ListInternState extends State<Listintern> {
           ),
         ],
         backgroundColor: const Color(0xFFFAFAFE),
-        toolbarHeight: 65,
+        toolbarHeight: 66,
         leading: Padding(
           padding: const EdgeInsets.only(left: 1, top: 5, bottom: 5),
           child: Card(
@@ -103,54 +108,61 @@ class _ListInternState extends State<Listintern> {
                             ),
                           ),
                         ),
-                        Column(
-                          children: [
-                            Container(
-                              padding: const EdgeInsets.only(top: 30),
-                              child: const Icon(Icons.gps_fixed, size: 15),
-                            ),
-                            Container(
-                              padding: const EdgeInsets.only(),
-                              child: const Icon(Icons.list_alt_outlined, size: 15),
-                            )
-                          ],
-                        ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Container(
-                              child: Text(
-                                intern[index].nama_perusahaan,
-                                style: const TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold,
-                                  fontStyle: FontStyle.italic,
-                                ),
-                              ),
-                            ),
-                            Container(
-                              child: Padding(
-                                padding: const EdgeInsets.only(left: 5),
-                                child: Text(
-                                  intern[index].kota,
-                                  style: const TextStyle(fontSize: 10),
-                                  textAlign: TextAlign.left,
-                                ),
-                              ),
-                            ),
-                            Container(
-                              child: const Padding(
-                                padding: EdgeInsets.only(left: 5),
-                                child: Text(
-                                  // '${intern[index].jumlah_siswa} intern',
-                                  '10 intern',
-                                  style: TextStyle(fontSize: 10),
-                                  textAlign: TextAlign.left,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
+                        Expanded(
+  child: Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      Container(
+        child: Text(
+          intern[index].nama_perusahaan,
+          style: const TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+            fontStyle: FontStyle.italic,
+          ),
+          overflow: TextOverflow.ellipsis, // Menambahkan overflow behavior
+          maxLines: 3, // Maksimal dua baris untuk nama_perusahaan
+        ),
+      ),
+      Column(
+        children: [
+          Container(
+            child: Row(
+              children: [
+                Icon(Icons.gps_fixed, size: 15),
+                Padding(
+                  padding: const EdgeInsets.only(left: 5),
+                  child: Text(
+                    intern[index].kota,
+                    style: const TextStyle(fontSize: 12),
+                    textAlign: TextAlign.left,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Container(
+            child: Row(
+              children: [
+                Icon(Icons.list_alt_outlined, size: 15),
+                Padding(
+                  padding: const EdgeInsets.only(left: 5),
+                  child: Text(
+                    // '${intern[index].jumlah_siswa} intern',
+                    '10 intern',
+                    style: const TextStyle(fontSize: 12),
+                    textAlign: TextAlign.left,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    ],
+  ),
+),
+
                       ],
                     );
                   } else {
@@ -201,29 +213,31 @@ class _ListInternState extends State<Listintern> {
                   },
                   child: Card(
                     child: Padding(
-                      padding: const EdgeInsets.all(10),
+                      padding: const EdgeInsets.all(15),
                       child: Row(
                         children: <Widget>[
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Container(
-                                padding: const EdgeInsets.only(
-                                    top: 5, bottom: 5, right: 50),
-                                child: Text(
-                                  posisi.nama_posisi,
-                                  style: const TextStyle(
-                                    fontWeight: FontWeight.bold,
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Container(
+                                  padding: const EdgeInsets.only(
+                                    top: 5, bottom: 5),
+                                  child: Text(
+                                    posisi.nama_posisi,
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                    ),
                                   ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                           Column(
                             children: [
                               Padding(
                                 padding: const EdgeInsets.only(
-                                    top: 5, bottom: 5, right: 5),
+                                  top: 5, bottom: 5, right: 5),
                                 child: Image.asset(
                                   'assets/logo/users-account.png',
                                   height: 20,
@@ -236,7 +250,7 @@ class _ListInternState extends State<Listintern> {
                             children: [
                               Padding(
                                 padding: const EdgeInsets.only(
-                                    top: 5, bottom: 5, right: 10),
+                                  top: 5, bottom: 5, right: 30),
                                 child: Text(
                                     '${posisi.jumlah_siswa} people'),
                               ),
@@ -246,6 +260,7 @@ class _ListInternState extends State<Listintern> {
                       ),
                     ),
                   ),
+
                 );
               },
             ),

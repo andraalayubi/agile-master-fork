@@ -53,7 +53,7 @@ class _ListPerusahaanState extends State<Listperusahaan> {
       appBar: AppBar(
         title: const Text('Goship'),
         titleTextStyle: const TextStyle(
-          fontSize: 25,
+          fontSize: 20,
           fontWeight: FontWeight.bold,
           fontFamily: 'LibreBaskerville',
           color: Colors.black,
@@ -66,15 +66,15 @@ class _ListPerusahaanState extends State<Listperusahaan> {
             },
             icon: const Image(
               image: AssetImage('assets/logo/logo-1.png'),
-              height: 60,
-              width: 60,
+              height: 40,
+              width: 40,
             ),
           ),
         ],
         backgroundColor: const Color.fromARGB(255, 255, 255, 255),
-        toolbarHeight: 90,
+        toolbarHeight: 100,
         leading: const Padding(
-          padding: EdgeInsets.only(left: 1),
+          padding: EdgeInsets.only(left: 1,top: 5, bottom: 5),
           child: Card(
             child: Icon(Icons.arrow_back),
           ),
@@ -82,7 +82,7 @@ class _ListPerusahaanState extends State<Listperusahaan> {
         bottom: PreferredSize(
           preferredSize: const Size.fromHeight(50),
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 45, vertical: 5),
+            padding: const EdgeInsets.symmetric(horizontal: 45, vertical: 10),
             child: Row(
               mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.center,
@@ -204,15 +204,21 @@ class _ListPerusahaanState extends State<Listperusahaan> {
                                       .length,
                               (posisiIndex) => Padding(
                                 padding:
-                                    const EdgeInsets.only(left: 5.0, top: 2.0),
-                                child: Text(
-                                  filteredPerusahaan[index]
-                                      .posisiPerusahaan[posisiIndex]
-                                      .nama_posisi,
-                                  style: const TextStyle(
-                                    fontFamily: 'DM Sans',
-                                    fontSize: 12,
-                                  ),
+                                    const EdgeInsets.only(left: 5.0,),
+                                child: Row(
+                                  children: [
+                                    Text(
+                                      '· '+
+                                      filteredPerusahaan[index]
+                                          .posisiPerusahaan[posisiIndex]
+                                          .nama_posisi,
+                                      style: const TextStyle(
+                                        fontFamily: 'DM Sans',
+                                        fontSize: 12,
+                                      ),
+                                    ),
+                                    
+                                  ],
                                 ),
                               ),
                             ),

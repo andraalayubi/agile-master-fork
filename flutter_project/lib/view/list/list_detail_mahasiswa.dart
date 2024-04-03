@@ -48,7 +48,7 @@ class _ListDetailMahasiswaState extends State<ListDetailMahasiswa> {
           ),
         ],
         backgroundColor: const Color(0xFFFAFAFE),
-        toolbarHeight: 70,
+        toolbarHeight: 100,
         leading: GestureDetector(
           onTap: () {
             Navigator.push(
