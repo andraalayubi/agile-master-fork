@@ -51,19 +51,19 @@ class _ListInternState extends State<Listintern> {
         backgroundColor: const Color(0xFFFAFAFE),
         toolbarHeight: 65,
         leading: Padding(
-          padding: EdgeInsets.only(left: 1, top: 5, bottom: 5),
+          padding: const EdgeInsets.only(left: 1, top: 5, bottom: 5),
           child: Card(
             child: ButtonBar(
               children: [
                 GestureDetector(
                   onTap: () {
-                    Navigator.push(
+                    Navigator.pop(
                         context,
                         MaterialPageRoute(
                             builder: (context) => const Listperusahaan()));
                   },
-                  child: Padding(
-                    padding: const EdgeInsets.only(right: 8, left: 2),
+                  child: const Padding(
+                    padding: EdgeInsets.only(right: 8, left: 2),
                     child: Icon(Icons.arrow_back),
                   ),
                 ),
@@ -75,12 +75,12 @@ class _ListInternState extends State<Listintern> {
       body: ListView(
         children: [
           Padding(
-            padding: EdgeInsets.all(15.0),
+            padding: const EdgeInsets.all(15.0),
             child: FutureBuilder<List<Intern>>(
               future: Intern.getIntern(widget.idPerusahaan),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
-                  return CircularProgressIndicator(); // Menampilkan indikator loading jika data masih dimuat
+                  return const CircularProgressIndicator(); // Menampilkan indikator loading jika data masih dimuat
                 } else if (snapshot.hasError) {
                   return Text('Error: ${snapshot.error}');
                 } else {
@@ -93,7 +93,7 @@ class _ListInternState extends State<Listintern> {
                         Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Container(
-                            child: Card(
+                            child: const Card(
                               child: Image(
                                 image:
                                     AssetImage('assets/onboarding/step1.png'),
@@ -106,12 +106,12 @@ class _ListInternState extends State<Listintern> {
                         Column(
                           children: [
                             Container(
-                              padding: EdgeInsets.only(top: 30),
-                              child: Icon(Icons.gps_fixed, size: 15),
+                              padding: const EdgeInsets.only(top: 30),
+                              child: const Icon(Icons.gps_fixed, size: 15),
                             ),
                             Container(
-                              padding: EdgeInsets.only(),
-                              child: Icon(Icons.list_alt_outlined, size: 15),
+                              padding: const EdgeInsets.only(),
+                              child: const Icon(Icons.list_alt_outlined, size: 15),
                             )
                           ],
                         ),
@@ -121,7 +121,7 @@ class _ListInternState extends State<Listintern> {
                             Container(
                               child: Text(
                                 intern[index].nama_perusahaan,
-                                style: TextStyle(
+                                style: const TextStyle(
                                   fontSize: 20,
                                   fontWeight: FontWeight.bold,
                                   fontStyle: FontStyle.italic,
@@ -133,14 +133,14 @@ class _ListInternState extends State<Listintern> {
                                 padding: const EdgeInsets.only(left: 5),
                                 child: Text(
                                   intern[index].kota,
-                                  style: TextStyle(fontSize: 10),
+                                  style: const TextStyle(fontSize: 10),
                                   textAlign: TextAlign.left,
                                 ),
                               ),
                             ),
                             Container(
-                              child: Padding(
-                                padding: const EdgeInsets.only(left: 5),
+                              child: const Padding(
+                                padding: EdgeInsets.only(left: 5),
                                 child: Text(
                                   // '${intern[index].jumlah_siswa} intern',
                                   '10 intern',
@@ -154,7 +154,7 @@ class _ListInternState extends State<Listintern> {
                       ],
                     );
                   } else {
-                    return Text(
+                    return const Text(
                         'No data available'); // Menampilkan pesan jika tidak ada data yang diterima dari API
                   }
                 }
@@ -164,7 +164,7 @@ class _ListInternState extends State<Listintern> {
           Padding(
             padding: const EdgeInsets.all(15.0),
             child: Container(
-              child: Row(
+              child: const Row(
                 children: <Widget>[
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -184,13 +184,13 @@ class _ListInternState extends State<Listintern> {
             ),
           ),
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20),
+            padding: const EdgeInsets.symmetric(horizontal: 20),
             child: ListView.builder(
               shrinkWrap: true,
               itemCount: intern.isNotEmpty ? intern[0].posisiPerusahaan.length : 0,
               itemBuilder: (context, index) {
                 var posisi = intern[0].posisiPerusahaan[index];
-                return GestureDetector(
+                return InkWell(
                   onTap: () {
                     Navigator.push(
                       context,
@@ -201,18 +201,18 @@ class _ListInternState extends State<Listintern> {
                   },
                   child: Card(
                     child: Padding(
-                      padding: EdgeInsets.all(10),
+                      padding: const EdgeInsets.all(10),
                       child: Row(
                         children: <Widget>[
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Container(
-                                padding: EdgeInsets.only(
+                                padding: const EdgeInsets.only(
                                     top: 5, bottom: 5, right: 50),
                                 child: Text(
                                   posisi.nama_posisi,
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
@@ -222,7 +222,7 @@ class _ListInternState extends State<Listintern> {
                           Column(
                             children: [
                               Padding(
-                                padding: EdgeInsets.only(
+                                padding: const EdgeInsets.only(
                                     top: 5, bottom: 5, right: 5),
                                 child: Image.asset(
                                   'assets/logo/users-account.png',
@@ -235,7 +235,7 @@ class _ListInternState extends State<Listintern> {
                           Column(
                             children: [
                               Padding(
-                                padding: EdgeInsets.only(
+                                padding: const EdgeInsets.only(
                                     top: 5, bottom: 5, right: 10),
                                 child: Text(
                                     '${posisi.jumlah_siswa} people'),
