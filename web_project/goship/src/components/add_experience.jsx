@@ -9,7 +9,7 @@ const AddExperience = () => {
       <div className={`flex-1 flex ${styles.flexCenter} md:my-0 my-10 relative`}>
             <img src={image2} alt="billing" className="w-[75%] h-[100%] relative z-[5]" />
         </div>
-        <div className={`flex-1 ${styles.flexStart} flex-col xl:px-0 sm:px-16 px-10 sm:py-17 py-6`}>
+        <div className={`flex-1 ${styles.flexStart} flex-col xl:px-0 sm:px-16 px-10 `}>
             <div className='flex flex-row items-center justify-between w-full'>
                 <p className={`${styles.paragraph} flex-1 font-poppins font-semibold ss:text-[20px] text-[20px] text-orange`}>
                     SHARE YOUR STORY
@@ -34,7 +34,7 @@ const AddExperience = () => {
             </p>
             <div className='flex flex-row justify-between items-center w-full '>
                 <div className="flex-1 font-poppins font-semibold  text-black sm:py-17 py-6">
-                 <ButtonExperience />
+                    <ButtonExperience />
                 </div>
             </div> 
         </div>

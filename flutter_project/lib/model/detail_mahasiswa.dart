@@ -12,12 +12,24 @@ class DetailMahasiswa {
   String durasi_magang;
   int is_uang_saku;
   String judul_laporan;
+  String sex;
 
-  DetailMahasiswa({required this.nama, required this.email, required this.no_telp, required this.nama_perusahaan, required this.alamat, required this.nama_posisi, required this.durasi_magang, required this.is_uang_saku, required this.judul_laporan});
+  DetailMahasiswa(
+      {required this.nama,
+      required this.email,
+      required this.no_telp,
+      required this.nama_perusahaan,
+      required this.alamat,
+      required this.nama_posisi,
+      required this.durasi_magang,
+      required this.is_uang_saku,
+      required this.judul_laporan,
+      required this.sex});
 
   factory DetailMahasiswa.fromJson(Map<String, dynamic> json) {
     return DetailMahasiswa(
       nama: json['nama_siswa'],
+      sex: json['jenis_kelamin'],
       email: json['email'],
       no_telp: json['no_telp'],
       nama_perusahaan: json['nama_perusahaan'],
@@ -35,8 +47,8 @@ class DetailMahasiswa {
     var jsonData = json.decode(apiResult.body) as List<dynamic>;
 
     // Mengubah List<dynamic> menjadi List<Perusahaan>
-    List<DetailMahasiswa> detailMahasiswa =
-        List<DetailMahasiswa>.from(jsonData.map((x) => DetailMahasiswa.fromJson(x)));
+    List<DetailMahasiswa> detailMahasiswa = List<DetailMahasiswa>.from(
+        jsonData.map((x) => DetailMahasiswa.fromJson(x)));
 
     return detailMahasiswa;
   }

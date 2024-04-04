@@ -54,7 +54,10 @@ class _ListmahasiswaState extends State<Listmahasiswa> {
       appBar: AppBar(
         title: const Text('Frontend Dev'),
         titleTextStyle: const TextStyle(
-            fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black),
+          fontSize: 25,
+          fontWeight: FontWeight.bold,
+          fontFamily: 'LibreBaskerville',  
+          color: Colors.black),
         centerTitle: true,
         actions: <Widget>[
           IconButton(
@@ -89,7 +92,7 @@ class _ListmahasiswaState extends State<Listmahasiswa> {
         bottom: PreferredSize(
           preferredSize: const Size.fromHeight(50),
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+            padding: const EdgeInsets.symmetric(horizontal: 45, vertical: 10),
             child: Row(
               mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.center,
@@ -99,22 +102,23 @@ class _ListmahasiswaState extends State<Listmahasiswa> {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10.0),
                     ),
-                    color: const Color.fromARGB(255, 255, 255, 255),
-                    child: Row(
+                    color: Colors.grey.shade200,
+                    child: const Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
-                        const Icon(
-                          Icons.search,
-                          color: Color.fromARGB(255, 0, 0, 0),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Icon(
+                            Icons.search,
+                            color: Color.fromARGB(255, 0, 0, 0),
+                          ),
                         ),
                         Expanded(
                           child: Padding(
-                            padding: const EdgeInsets.only(right: 10),
+                            padding: EdgeInsets.only(right: 10),
                             child: TextField(
-                              onChanged: (value) {
-                                _search(value);
-                              },
-                              decoration: const InputDecoration.collapsed(
-                                hintText: '',
+                              decoration: InputDecoration.collapsed(
+                                hintText: 'Mencari Mahasiswa',
                                 hintStyle: TextStyle(
                                   fontSize: 13,
                                   height: 4,

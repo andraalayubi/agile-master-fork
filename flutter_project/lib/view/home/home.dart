@@ -104,13 +104,12 @@ class _HomePageState extends State<HomePage> {
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(12),
                                 color:
-                                _lightColors[count % _lightColors.length]),
+                                    _lightColors[count % _lightColors.length]),
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Text(
-                                  perusahaan[count].jumlah_siswa
-                                      .toString() ??
+                                  perusahaan[count].jumlah_siswa.toString() ??
                                       'No Data',
                                   style: const TextStyle(
                                       fontWeight: FontWeight.bold,
@@ -179,7 +178,7 @@ class _HomePageState extends State<HomePage> {
                           itemBuilder: (context, index) {
                             return Container(
                               width: 327,
-                              height: 250,
+                              height: 270,
                               child: Card(
                                 shadowColor: Colors.transparent,
                                 // decoration: BoxDecoration(borderRadius: BorderRadius.circular(1.0)),
@@ -189,58 +188,67 @@ class _HomePageState extends State<HomePage> {
                                 child: Container(
                                   width: 327,
                                   height: 250,
-
-                                  decoration: BoxDecoration(color: Colors.white,borderRadius: BorderRadius.circular(20)),
+                                  decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(20)),
                                   child: Padding(
                                     padding: const EdgeInsets.all(20.0),
                                     child: Column(
                                       children: [
                                         Container(
-                                          margin: const EdgeInsets.only(bottom: 20),
+                                          margin:
+                                              const EdgeInsets.only(bottom: 20),
                                           child: Row(
                                             children: [
                                               Container(
                                                   margin: const EdgeInsets.only(
                                                       right: 20),
-                                                  child: const Image(
-                                                      image: AssetImage(
-                                                          'assets/home/LOGO1.png'))),
+                                                  child: Image(
+                                                      image: AssetImage(stories[
+                                                                      index]
+                                                                  .sex !=
+                                                              'Perempuan'
+                                                          ? 'assets/home/male.png'
+                                                          : 'assets/home/female.png'), width: 90, height: 80,)),
                                               SizedBox(
                                                 width: 200,
                                                 child: Column(
                                                   crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
+                                                      CrossAxisAlignment.start,
                                                   children: [
                                                     SizedBox(
                                                       child: Text(
                                                         stories.isNotEmpty
-                                                            ? stories[index].nama
+                                                            ? stories[index]
+                                                                .nama
                                                             : "No Data",
                                                         style: const TextStyle(
                                                             fontWeight:
-                                                            FontWeight.bold,
+                                                                FontWeight.bold,
                                                             fontSize: 16,
-                                                            fontFamily: 'DM Sans'),
-                                                        overflow:
-                                                        TextOverflow.ellipsis,
+                                                            fontFamily:
+                                                                'DM Sans'),
+                                                        overflow: TextOverflow
+                                                            .ellipsis,
                                                       ),
                                                     ),
                                                     Text(
                                                       stories.isNotEmpty
                                                           ? stories[index]
-                                                          .perusahaan
+                                                              .perusahaan
                                                           : "No Data",
                                                       overflow:
-                                                      TextOverflow.ellipsis,
+                                                          TextOverflow.ellipsis,
                                                       style: const TextStyle(
                                                           fontSize: 13),
                                                     ),
                                                     Text(
                                                         stories.isNotEmpty
-                                                            ? stories[index].posisi
+                                                            ? stories[index]
+                                                                .posisi
                                                             : "No Data",
-                                                        overflow:
-                                                        TextOverflow.ellipsis,
+                                                        overflow: TextOverflow
+                                                            .ellipsis,
                                                         style: const TextStyle(
                                                             fontSize: 13))
                                                   ],
@@ -254,7 +262,8 @@ class _HomePageState extends State<HomePage> {
                                               ? stories[index].post
                                               : "No Data",
                                           style: const TextStyle(
-                                              fontSize: 16, fontFamily: 'DM Sans'),
+                                              fontSize: 16,
+                                              fontFamily: 'DM Sans'),
                                           overflow: TextOverflow.ellipsis,
                                           softWrap: true,
                                           maxLines: 4,
