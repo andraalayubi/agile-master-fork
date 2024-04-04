@@ -101,10 +101,11 @@ class _HomePageState extends State<HomePage> {
                       onTap: () {
                         Navigator.of(context).push(
                           MaterialPageRoute(
-                              builder: (context) => Listintern(
-                                  idPerusahaan: perusahaan[count].id_perusahaan,
-                                  namaPerusahaan: perusahaan[count]
-                                      .nama_perusahaan)), // Navigasi ke ListPerusahaan
+                            builder: (context) => Listintern(
+                              idPerusahaan: perusahaan[count].id_perusahaan,
+                              namaPerusahaan: perusahaan[count].nama_perusahaan,
+                            ),
+                          ), // Navigasi ke ListPerusahaan
                         );
                       },
                       child: Column(

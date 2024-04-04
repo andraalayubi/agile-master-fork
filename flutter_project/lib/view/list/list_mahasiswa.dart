@@ -8,7 +8,9 @@ class Listmahasiswa extends StatefulWidget {
   final int id_posisi;
   final String nama_posisi;
 
-  const Listmahasiswa({Key? key, required this.id_posisi, required this.nama_posisi}) : super(key: key);
+  const Listmahasiswa(
+      {Key? key, required this.id_posisi, required this.nama_posisi})
+      : super(key: key);
 
   @override
   State<Listmahasiswa> createState() => _ListmahasiswaState();
@@ -55,10 +57,10 @@ class _ListmahasiswaState extends State<Listmahasiswa> {
       appBar: AppBar(
         title: Text(widget.nama_posisi),
         titleTextStyle: const TextStyle(
-          fontSize: 25,
-          fontWeight: FontWeight.bold,
-          fontFamily: 'LibreBaskerville',  
-          color: Colors.black),
+            fontSize: 25,
+            fontWeight: FontWeight.bold,
+            fontFamily: 'LibreBaskerville',
+            color: Colors.black),
         centerTitle: true,
         actions: <Widget>[
           IconButton(
@@ -104,11 +106,11 @@ class _ListmahasiswaState extends State<Listmahasiswa> {
                       borderRadius: BorderRadius.circular(10.0),
                     ),
                     color: Colors.grey.shade200,
-                    child: const Row(
+                    child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
+                        const Padding(
+                          padding: EdgeInsets.all(8.0),
                           child: Icon(
                             Icons.search,
                             color: Color.fromARGB(255, 0, 0, 0),
@@ -116,9 +118,12 @@ class _ListmahasiswaState extends State<Listmahasiswa> {
                         ),
                         Expanded(
                           child: Padding(
-                            padding: EdgeInsets.only(right: 10),
+                            padding: const EdgeInsets.only(right: 10),
                             child: TextField(
-                              decoration: InputDecoration.collapsed(
+                              onChanged: (value) {
+                                _search(value);
+                              },
+                              decoration: const InputDecoration.collapsed(
                                 hintText: 'Mencari Mahasiswa',
                                 hintStyle: TextStyle(
                                   fontSize: 13,
