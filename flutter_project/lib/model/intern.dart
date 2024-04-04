@@ -7,7 +7,7 @@ class Intern {
   final String kota;
   final String provinsi;
   final String logo_perusahaan;
-  // final int jumlah_siswa;
+  final int jumlah_siswa_total;
   final List<PosisiPerusahaan> posisiPerusahaan;
 
   Intern({
@@ -15,7 +15,7 @@ class Intern {
     required this.kota,
     required this.provinsi,
     required this.logo_perusahaan,
-    // required this.jumlah_siswa,
+    required this.jumlah_siswa_total,
     required this.posisiPerusahaan,
   });
 
@@ -25,7 +25,7 @@ class Intern {
       kota: json['kota'],
       provinsi: json['provinsi'],
       logo_perusahaan: json['logo_perusahaan'],
-      // jumlah_siswa: json['jumlah_siswa'],
+      jumlah_siswa_total: json['jumlah_siswa_total'],
       posisiPerusahaan: List<PosisiPerusahaan>.from(json['posisi'].map((x) => PosisiPerusahaan.fromJson(x))),
     );
   }

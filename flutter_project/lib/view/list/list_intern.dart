@@ -62,7 +62,8 @@ class _ListInternState extends State<Listintern> {
               children: [
                 GestureDetector(
                   onTap: () {
-                    Navigator.pop(context);
+                    Navigator.pop(
+                        context);
                   },
                   child: const Padding(
                     padding: EdgeInsets.only(right: 8, left: 2),

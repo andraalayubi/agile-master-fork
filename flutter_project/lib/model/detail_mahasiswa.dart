@@ -13,9 +13,11 @@ class DetailMahasiswa {
   int is_uang_saku;
   String judul_laporan;
   String sex;
+  String prodi;
 
   DetailMahasiswa(
       {required this.nama,
+        required this.prodi,
       required this.email,
       required this.no_telp,
       required this.nama_perusahaan,
@@ -38,6 +40,7 @@ class DetailMahasiswa {
       durasi_magang: json['durasi_magang'],
       is_uang_saku: json['is_uang_saku'],
       judul_laporan: json['judul_laporan'],
+      prodi: json['prodi']
     );
   }
 

@@ -3,7 +3,6 @@ import 'package:flutter_project/model/perusahaan.dart';
 import 'package:flutter_project/view/guide/guide.dart';
 import 'dart:math';
 import 'package:flutter_project/model/story.dart';
-import 'package:flutter_project/view/list/list_intern.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -93,22 +92,10 @@ class _HomePageState extends State<HomePage> {
                 // padding: EdgeInsets.only(bottom: ),
                 height: 115,
                 child: ListView.builder(
-                  itemCount: perusahaan.length,
-                  scrollDirection: Axis.horizontal,
-                  itemBuilder: (context, count) {
-                    return InkWell(
-                      // Menggunakan InkWell
-                      onTap: () {
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (context) => Listintern(
-                              idPerusahaan: perusahaan[count].id_perusahaan,
-                              namaPerusahaan: perusahaan[count].nama_perusahaan,
-                            ),
-                          ), // Navigasi ke ListPerusahaan
-                        );
-                      },
-                      child: Column(
+                    itemCount: perusahaan.length,
+                    scrollDirection: Axis.horizontal,
+                    itemBuilder: (context, count) {
+                      return Column(
                         children: [
                           Container(
                             margin: const EdgeInsets.all(8),
@@ -143,6 +130,7 @@ class _HomePageState extends State<HomePage> {
                           ),
                           SizedBox(
                             width: 70,
+                            // height: 90,
                             child: Text(
                               perusahaan[count].nama_perusahaan ?? 'No Data',
                               overflow: TextOverflow.ellipsis,
@@ -150,153 +138,133 @@ class _HomePageState extends State<HomePage> {
                             ),
                           ),
                         ],
-                      ),
-                    );
-                  },
-                ),
+                      );
+                    }),
               ),
             ),
             Expanded(
-              child: SingleChildScrollView(
-                child: ListView(
-                  shrinkWrap: true,
-                  primary: false,
-                  physics: const NeverScrollableScrollPhysics(),
-                  children: [
-                    Container(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          SizedBox(
-                              width: MediaQuery.of(context).size.width,
-                              child: const Image(
-                                image: AssetImage('assets/home/hero1.png'),
-                                fit: BoxFit.fill,
-                              )),
-                          const Text(
-                            "Where you're interested?",
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontFamily: 'DM Sans'),
-                          ),
-                          const Text(
-                              'Get an internship based on your interests!')
-                        ],
-                      ),
-                    ),
-                    SizedBox(
-                      height: MediaQuery.of(context).size.height / 1.9,
-                      child: ListView.builder(
-                          primary: false,
-                          itemCount: stories.length,
-                          itemBuilder: (context, index) {
-                            return Container(
-                              width: 327,
-                              height: 270,
-                              child: Card(
-                                shadowColor: Colors.transparent,
-                                // decoration: BoxDecoration(borderRadius: BorderRadius.circular(1.0)),
-                                color: Colors.white,
+              child: CustomScrollView(slivers: [
+                SliverToBoxAdapter(
+                  // shrinkWrap: true,
+                  // primary: false,
+                  // physics: const NeverScrollableScrollPhysics(),
 
-                                margin: const EdgeInsets.only(bottom: 25),
-                                child: Container(
-                                  width: 327,
-                                  height: 250,
-                                  decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.circular(20)),
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(20.0),
-                                    child: Column(
-                                      children: [
-                                        Container(
+                  child: Container(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(
+                            width: MediaQuery.of(context).size.width,
+                            child: const Image(
+                              image: AssetImage('assets/home/hero1.png'),
+                              fit: BoxFit.fill,
+                            )),
+                        const Text(
+                          "Where you're interested?",
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontFamily: 'DM Sans'),
+                        ),
+                        const Text('Get an internship based on your interests!')
+                      ],
+                    ),
+                  ),
+                ),
+                SliverList(
+                  delegate: SliverChildBuilderDelegate(
+                      (BuildContext context, int index) {
+                    return Container(
+                      width: 327,
+                      height: 280,
+                      child: Card(
+                        shadowColor: Colors.transparent,
+                        color: Colors.white,
+                        margin: const EdgeInsets.only(bottom: 25),
+                        child: Container(
+                          width: 327,
+                          height: 250,
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(20)),
+                          child: Padding(
+                            padding: const EdgeInsets.all(20.0),
+                            child: Column(
+                              children: [
+                                Container(
+                                  margin: const EdgeInsets.only(bottom: 20),
+                                  child: Row(
+                                    children: [
+                                      Container(
                                           margin:
-                                              const EdgeInsets.only(bottom: 20),
-                                          child: Row(
-                                            children: [
-                                              Container(
-                                                  margin: const EdgeInsets.only(
-                                                      right: 20),
-                                                  child: Image(
-                                                    image: AssetImage(stories[
-                                                                    index]
-                                                                .sex !=
-                                                            'Perempuan'
-                                                        ? 'assets/home/male.png'
-                                                        : 'assets/home/female.png'),
-                                                    width: 90,
-                                                    height: 80,
-                                                  )),
-                                              SizedBox(
-                                                width: 200,
-                                                child: Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: [
-                                                    SizedBox(
-                                                      child: Text(
-                                                        stories.isNotEmpty
-                                                            ? stories[index]
-                                                                .nama
-                                                            : "No Data",
-                                                        style: const TextStyle(
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                            fontSize: 16,
-                                                            fontFamily:
-                                                                'DM Sans'),
-                                                        overflow: TextOverflow
-                                                            .ellipsis,
-                                                      ),
-                                                    ),
-                                                    Text(
-                                                      stories.isNotEmpty
-                                                          ? stories[index]
-                                                              .perusahaan
-                                                          : "No Data",
-                                                      overflow:
-                                                          TextOverflow.ellipsis,
-                                                      style: const TextStyle(
-                                                          fontSize: 13),
-                                                    ),
-                                                    Text(
-                                                        stories.isNotEmpty
-                                                            ? stories[index]
-                                                                .posisi
-                                                            : "No Data",
-                                                        overflow: TextOverflow
-                                                            .ellipsis,
-                                                        style: const TextStyle(
-                                                            fontSize: 13))
-                                                  ],
-                                                ),
-                                              )
-                                            ],
-                                          ),
+                                              const EdgeInsets.only(right: 20),
+                                          child: Image(
+                                            image: AssetImage(
+                                                stories[index].sex !=
+                                                        'Perempuan'
+                                                    ? 'assets/home/male.png'
+                                                    : 'assets/home/female.png'),
+                                            width: 90,
+                                            height: 80,
+                                          )),
+                                      SizedBox(
+                                        width: 200,
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            SizedBox(
+                                              child: Text(
+                                                stories.isNotEmpty
+                                                    ? stories[index].nama
+                                                    : "No Data",
+                                                style: const TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 16,
+                                                    fontFamily: 'DM Sans'),
+                                                overflow: TextOverflow.ellipsis,
+                                              ),
+                                            ),
+                                            Text(
+                                              stories.isNotEmpty
+                                                  ? stories[index].perusahaan
+                                                  : "No Data",
+                                              overflow: TextOverflow.ellipsis,
+                                              style:
+                                                  const TextStyle(fontSize: 13),
+                                            ),
+                                            Text(
+                                                stories.isNotEmpty
+                                                    ? stories[index].posisi
+                                                    : "No Data",
+                                                overflow: TextOverflow.ellipsis,
+                                                style: const TextStyle(
+                                                    fontSize: 13))
+                                          ],
                                         ),
-                                        Text(
-                                          stories.isNotEmpty
-                                              ? stories[index].post
-                                              : "No Data",
-                                          style: const TextStyle(
-                                              fontSize: 16,
-                                              fontFamily: 'DM Sans'),
-                                          overflow: TextOverflow.ellipsis,
-                                          softWrap: true,
-                                          maxLines: 4,
-                                        )
-                                      ],
-                                    ),
+                                      )
+                                    ],
                                   ),
                                 ),
-                              ),
-                            );
-                          }),
-                    ),
-                  ],
-                ),
-              ),
-            ),
+                                Text(
+                                  stories.isNotEmpty
+                                      ? stories[index].post
+                                      : "No Data",
+                                  style: const TextStyle(
+                                      fontSize: 16, fontFamily: 'DM Sans'),
+                                  overflow: TextOverflow.ellipsis,
+                                  softWrap: true,
+                                  maxLines: 4,
+                                )
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    );
+                  }, childCount: stories.length),
+                )
+              ]),
+            )
           ],
         ),
       ),
