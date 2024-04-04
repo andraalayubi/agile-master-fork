@@ -52,12 +52,7 @@ class _PageDetailMahasiswaState extends State<PageDetailMahasiswa> {
         toolbarHeight: 70,
         leading: GestureDetector(
           onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => const Listperusahaan(),
-              ),
-            );
+            Navigator.pop(context);
           },
           child: Padding(
             padding: const EdgeInsets.only(left: 1, top: 5, bottom: 5),
@@ -198,7 +193,7 @@ class _PageDetailMahasiswaState extends State<PageDetailMahasiswa> {
                                             ),
                                           ),
                                           Text(
-                                            'Teknik Informatika',
+                                            mahasiswa[index].prodi,
                                             style: TextStyle(
                                               fontSize: 16,
                                             ),

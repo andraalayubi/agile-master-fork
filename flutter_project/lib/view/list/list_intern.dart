@@ -38,10 +38,10 @@ class _ListInternState extends State<Listintern> {
       appBar: AppBar(
         title: Text(widget.namaPerusahaan),
         titleTextStyle: const TextStyle(
-          fontSize: 20,
-          fontWeight: FontWeight.bold,
-          fontFamily: 'LibreBaskerville',
-          color: Colors.black),
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+            fontFamily: 'LibreBaskerville',
+            color: Colors.black),
         centerTitle: true,
         actions: <Widget>[
           IconButton(
@@ -62,10 +62,7 @@ class _ListInternState extends State<Listintern> {
               children: [
                 GestureDetector(
                   onTap: () {
-                    Navigator.pop(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const Listperusahaan()));
+                    Navigator.pop(context);
                   },
                   child: const Padding(
                     padding: EdgeInsets.only(right: 8, left: 2),
@@ -91,78 +88,91 @@ class _ListInternState extends State<Listintern> {
                 } else {
                   if (snapshot.hasData && snapshot.data!.isNotEmpty) {
                     final intern = snapshot.data!;
-                    const index = 0; // Misalnya kita mengambil data pertama dari list intern
+                    const index =
+                        0; // Misalnya kita mengambil data pertama dari list intern
 
                     return Row(
                       children: <Widget>[
                         Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Container(
-                            child: const Card(
-                              child: Image(
-                                image:
-                                    AssetImage('assets/onboarding/step1.png'),
-                                width: 100,
-                                height: 100,
+                            child: Card(
+                              child: Image.network(
+                                intern[index].logo_perusahaan,
+                                fit: BoxFit.cover,
+                                width: 55,
+                                height: 55,
+                                errorBuilder: (context, error, stackTrace) {
+                                  return Image.asset(
+                                    'assets/home/LOGO1.png',
+                                    fit: BoxFit.cover,
+                                    width: 55,
+                                    height: 55,
+                                  );
+                                },
                               ),
                             ),
                           ),
                         ),
                         Expanded(
-  child: Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-      Container(
-        child: Text(
-          intern[index].nama_perusahaan,
-          style: const TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-            fontStyle: FontStyle.italic,
-          ),
-          overflow: TextOverflow.ellipsis, // Menambahkan overflow behavior
-          maxLines: 3, // Maksimal dua baris untuk nama_perusahaan
-        ),
-      ),
-      Column(
-        children: [
-          Container(
-            child: Row(
-              children: [
-                Icon(Icons.gps_fixed, size: 15),
-                Padding(
-                  padding: const EdgeInsets.only(left: 5),
-                  child: Text(
-                    intern[index].kota,
-                    style: const TextStyle(fontSize: 12),
-                    textAlign: TextAlign.left,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Container(
-            child: Row(
-              children: [
-                Icon(Icons.list_alt_outlined, size: 15),
-                Padding(
-                  padding: const EdgeInsets.only(left: 5),
-                  child: Text(
-                    // '${intern[index].jumlah_siswa} intern',
-                    '10 intern',
-                    style: const TextStyle(fontSize: 12),
-                    textAlign: TextAlign.left,
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    ],
-  ),
-),
-
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Container(
+                                child: Text(
+                                  intern[index].nama_perusahaan,
+                                  style: const TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
+                                    fontStyle: FontStyle.italic,
+                                  ),
+                                  overflow: TextOverflow
+                                      .ellipsis, // Menambahkan overflow behavior
+                                  maxLines:
+                                      3, // Maksimal dua baris untuk nama_perusahaan
+                                ),
+                              ),
+                              Column(
+                                children: [
+                                  Container(
+                                    child: Row(
+                                      children: [
+                                        Icon(Icons.gps_fixed, size: 15),
+                                        Padding(
+                                          padding:
+                                              const EdgeInsets.only(left: 5),
+                                          child: Text(
+                                            intern[index].kota,
+                                            style:
+                                                const TextStyle(fontSize: 12),
+                                            textAlign: TextAlign.left,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  Container(
+                                    child: Row(
+                                      children: [
+                                        Icon(Icons.list_alt_outlined, size: 15),
+                                        Padding(
+                                          padding:
+                                              const EdgeInsets.only(left: 5),
+                                          child: Text(
+                                            '${intern[index].jumlah_siswa_total} intern',
+                                            style:
+                                                const TextStyle(fontSize: 12),
+                                            textAlign: TextAlign.left,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
                       ],
                     );
                   } else {
@@ -199,7 +209,8 @@ class _ListInternState extends State<Listintern> {
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: ListView.builder(
               shrinkWrap: true,
-              itemCount: intern.isNotEmpty ? intern[0].posisiPerusahaan.length : 0,
+              itemCount:
+                  intern.isNotEmpty ? intern[0].posisiPerusahaan.length : 0,
               itemBuilder: (context, index) {
                 var posisi = intern[0].posisiPerusahaan[index];
                 return InkWell(
@@ -207,7 +218,9 @@ class _ListInternState extends State<Listintern> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => Listmahasiswa(id_posisi: posisi.id_posisi)
+                        builder: (context) => Listmahasiswa(
+                            id_posisi: posisi.id_posisi,
+                            nama_posisi: posisi.nama_posisi),
                       ),
                     );
                   },
@@ -221,8 +234,8 @@ class _ListInternState extends State<Listintern> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Container(
-                                  padding: const EdgeInsets.only(
-                                    top: 5, bottom: 5),
+                                  padding:
+                                      const EdgeInsets.only(top: 5, bottom: 5),
                                   child: Text(
                                     posisi.nama_posisi,
                                     style: const TextStyle(
@@ -237,7 +250,7 @@ class _ListInternState extends State<Listintern> {
                             children: [
                               Padding(
                                 padding: const EdgeInsets.only(
-                                  top: 5, bottom: 5, right: 5),
+                                    top: 5, bottom: 5, right: 5),
                                 child: Image.asset(
                                   'assets/logo/users-account.png',
                                   height: 20,
@@ -250,9 +263,8 @@ class _ListInternState extends State<Listintern> {
                             children: [
                               Padding(
                                 padding: const EdgeInsets.only(
-                                  top: 5, bottom: 5, right: 30),
-                                child: Text(
-                                    '${posisi.jumlah_siswa} people'),
+                                    top: 5, bottom: 5, right: 30),
+                                child: Text('${posisi.jumlah_siswa} people'),
                               ),
                             ],
                           ),
@@ -260,7 +272,6 @@ class _ListInternState extends State<Listintern> {
                       ),
                     ),
                   ),
-
                 );
               },
             ),

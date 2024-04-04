@@ -6,8 +6,9 @@ import 'package:flutter_project/view/list/page_detail_mahasiswa.dart';
 
 class Listmahasiswa extends StatefulWidget {
   final int id_posisi;
+  final String nama_posisi;
 
-  const Listmahasiswa({Key? key, required this.id_posisi}) : super(key: key);
+  const Listmahasiswa({Key? key, required this.id_posisi, required this.nama_posisi}) : super(key: key);
 
   @override
   State<Listmahasiswa> createState() => _ListmahasiswaState();
@@ -52,7 +53,7 @@ class _ListmahasiswaState extends State<Listmahasiswa> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Frontend Dev'),
+        title: Text(widget.nama_posisi),
         titleTextStyle: const TextStyle(
           fontSize: 25,
           fontWeight: FontWeight.bold,

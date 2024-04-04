@@ -73,12 +73,6 @@ class _ListPerusahaanState extends State<Listperusahaan> {
         ],
         backgroundColor: const Color.fromARGB(255, 255, 255, 255),
         toolbarHeight: 100,
-        leading: const Padding(
-          padding: EdgeInsets.only(left: 1,top: 5, bottom: 5),
-          child: Card(
-            child: Icon(Icons.arrow_back),
-          ),
-        ),
         bottom: PreferredSize(
           preferredSize: const Size.fromHeight(50),
           child: Padding(
