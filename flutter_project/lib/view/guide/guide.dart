@@ -100,22 +100,21 @@ class Guide extends StatelessWidget {
                       ),
                     ),
                     Container(
-                      height: MediaQuery.of(context).size.height / 1.7,
-                      child: ListView.builder(
-                        itemBuilder: (context, index) {
-                          return Container(
-                            child: Text(
-                              '1. Select the KP type:\n      a. Regular\n      b. IISMA via UP2AI Ms Lely and KUI Mr Iwan Syarif\n      c. IGIP via UP2AI Ms Lely and KUI Mr Iwan Syarif\n\n2. If you have a Regular KP, determine whether you are a group or individual when carrying out the KP. \n       If you are in a group of up to 3 people, fill in the KP Submission Form in Online MIS (If in a group, then only the representative will fill it in)\n\n3. Make a KP Proposal, Make a Cover Letter (letter number, and KDAEP designation to be handled via Ms Pipid), make a thank you letter when it is received (letter number and KDAEP designation to be managed via Ms Pipid), Farewell to the Supervisor before leaving for KP\n\n4. Implementation of KP 6 Months\n\n5. Making a KP Logbook, the file filled in is the progress of the KP book, photos uploaded can be daily activities at the company (free photos)\n\n6. Preparation for KP Session\n        a. ACC Supervisor\n        b. KP Book\n        c. KP Presentation (Indonesia)\n        d. advance in groups\n        e. Collect Value from the Company\n       f. Collect Mandiri Bank Account (KP funds)',
-                              style: TextStyle(
-                                fontSize: 18,
-                                color: Colors.black,
+                        height: MediaQuery.of(context).size.height / 1.75,
+                        child: ListView(
+                          children: [
+                            Container(
+                              padding: const EdgeInsets.all(20),
+                              child: const Text(
+                                '1. Select the KP type:\n      a. Regular\n      b. IISMA via UP2AI Ms Lely and KUI Mr Iwan Syarif\n      c. IGIP via UP2AI Ms Lely and KUI Mr Iwan Syarif\n\n2. If you have a Regular KP, determine whether you are a group or individual when carrying out the KP. \n       If you are in a group of up to 3 people, fill in the KP Submission Form in Online MIS (If in a group, then only the representative will fill it in)\n\n3. Make a KP Proposal, Make a Cover Letter (letter number, and KDAEP designation to be handled via Ms Pipid), make a thank you letter when it is received (letter number and KDAEP designation to be managed via Ms Pipid), Farewell to the Supervisor before leaving for KP\n\n4. Implementation of KP 6 Months\n\n5. Making a KP Logbook, the file filled in is the progress of the KP book, photos uploaded can be daily activities at the company (free photos)\n\n6. Preparation for KP Session\n        a. ACC Supervisor\n        b. KP Book\n        c. KP Presentation (Indonesia)\n        d. advance in groups\n        e. Collect Value from the Company\n       f. Collect Mandiri Bank Account (KP funds)',
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  color: Colors.black,
+                                ),
                               ),
-                            ),
-                          );
-                        },
-                        padding: EdgeInsets.all(20),
-                      ),
-                    ),
+                            )
+                          ],
+                        )),
                   ],
                 ),
               ),
