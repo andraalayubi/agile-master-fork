@@ -105,7 +105,7 @@ class _ListInternState extends State<Listintern> {
                                 height: 55,
                                 errorBuilder: (context, error, stackTrace) {
                                   return Image.asset(
-                                    'assets/home/LOGO1.png',
+                                    'assets/home/logo1.png',
                                     fit: BoxFit.cover,
                                     width: 55,
                                     height: 55,

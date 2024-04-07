@@ -118,14 +118,14 @@ class _ListPerusahaanState extends State<Listperusahaan> {
                     ),
                   ),
                 ),
-                IconButton(
-                  onPressed: () {},
-                  icon: Image.asset(
-                    'assets/logo/filter-button.png',
-                    width: 50,
-                    height: 50,
-                  ),
-                ),
+                // IconButton(
+                //   onPressed: () {},
+                //   icon: Image.asset(
+                //     'assets/logo/filter-button.png',
+                //     width: 50,
+                //     height: 50,
+                //   ),
+                // ),
               ],
             ),
           ),
@@ -164,7 +164,7 @@ class _ListPerusahaanState extends State<Listperusahaan> {
                               height: 55,
                               errorBuilder: (context, error, stackTrace) {
                                 return Image.asset(
-                                  'assets/home/LOGO1.png',
+                                  'assets/home/logo1.png',
                                   fit: BoxFit.cover,
                                   width: 55,
                                   height: 55,

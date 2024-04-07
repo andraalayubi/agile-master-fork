@@ -64,7 +64,7 @@ class _HomePageState extends State<HomePage> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Image(image: AssetImage('assets/home/LOGO1.png')),
+              Image(image: AssetImage('assets/home/logo1.png')),
               Text(
                 'Goship',
                 style: TextStyle(
