@@ -99,52 +99,67 @@ class _HomePageState extends State<HomePage> {
                           itemCount: perusahaan.length,
                           scrollDirection: Axis.horizontal,
                           itemBuilder: (context, count) {
-                            return Column(
-                              children: [
-                                Container(
-                                  margin: const EdgeInsets.all(8),
-                                  width: 65,
-                                  height: 60,
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(12),
-                                      color: _lightColors[
-                                          count % _lightColors.length]),
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        perusahaan[count]
-                                                .jumlah_siswa
-                                                .toString() ??
-                                            'No Data',
-                                        style: const TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontFamily: 'DM Sans',
-                                            fontSize: 18,
-                                            color: Colors.white),
-                                      ),
-                                      const Text(
-                                        'orang',
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.w500,
-                                            fontFamily: 'DM Sans',
-                                            fontSize: 14,
-                                            color: Colors.white),
-                                      )
-                                    ],
+                            return InkWell(
+                              // Menggunakan InkWell
+                              onTap: () {
+                                Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                      builder: (context) => Listintern(
+                                            idPerusahaan:
+                                                perusahaan[count].id_perusahaan,
+                                            namaPerusahaan: perusahaan[count]
+                                                .nama_perusahaan,
+                                          )), // Navigasi ke ListPerusahaan
+                                );
+                              },
+                              child: Column(
+                                children: [
+                                  Container(
+                                    margin: const EdgeInsets.all(8),
+                                    width: 65,
+                                    height: 60,
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(12),
+                                        color: _lightColors[
+                                            count % _lightColors.length]),
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          perusahaan[count]
+                                                  .jumlah_siswa
+                                                  .toString() ??
+                                              'No Data',
+                                          style: const TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontFamily: 'DM Sans',
+                                              fontSize: 18,
+                                              color: Colors.white),
+                                        ),
+                                        const Text(
+                                          'orang',
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.w500,
+                                              fontFamily: 'DM Sans',
+                                              fontSize: 14,
+                                              color: Colors.white),
+                                        )
+                                      ],
+                                    ),
                                   ),
-                                ),
-                                SizedBox(
-                                  width: 70,
-                                  // height: 90,
-                                  child: Text(
-                                    perusahaan[count].nama_perusahaan ??
-                                        'No Data',
-                                    overflow: TextOverflow.ellipsis,
-                                    maxLines: 1,
+                                  SizedBox(
+                                    width: 70,
+                                    // height: 90,
+                                    child: Text(
+                                      perusahaan[count].nama_perusahaan ??
+                                          'No Data',
+                                      overflow: TextOverflow.ellipsis,
+                                      maxLines: 1,
+                                    ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             );
                           }),
                     ),
@@ -195,16 +210,14 @@ class _HomePageState extends State<HomePage> {
                                 crossAxisAlignment: CrossAxisAlignment.stretch,
                                 children: [
                                   Container(
-                                    margin:
-                                        const EdgeInsets.only(bottom: 10),
+                                    margin: const EdgeInsets.only(bottom: 10),
                                     child: Row(
                                       children: [
                                         Container(
                                             margin: const EdgeInsets.only(
                                                 right: 20),
                                             child: Image(
-                                              image: AssetImage(stories[
-                                                              index]
+                                              image: AssetImage(stories[index]
                                                           .sex !=
                                                       'Perempuan'
                                                   ? 'assets/home/male.png'
@@ -213,14 +226,20 @@ class _HomePageState extends State<HomePage> {
                                               height: 80,
                                             )),
                                         SizedBox(
-                                          width: MediaQuery.of(context).size.width /2,
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width /
+                                              2,
                                           // he
                                           child: Column(
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.start,
                                             children: [
                                               SizedBox(
-                                                width: MediaQuery.of(context).size.width /2,
+                                                width: MediaQuery.of(context)
+                                                        .size
+                                                        .width /
+                                                    2,
                                                 child: Text(
                                                   stories.isNotEmpty
                                                       ? stories[index].nama
@@ -229,14 +248,16 @@ class _HomePageState extends State<HomePage> {
                                                       fontWeight:
                                                           FontWeight.bold,
                                                       fontSize: 16,
-                                                      fontFamily:
-                                                          'DM Sans'),
+                                                      fontFamily: 'DM Sans'),
                                                   overflow:
                                                       TextOverflow.ellipsis,
                                                 ),
                                               ),
                                               SizedBox(
-                                                width: MediaQuery.of(context).size.width /2,
+                                                width: MediaQuery.of(context)
+                                                        .size
+                                                        .width /
+                                                    2,
                                                 child: Text(
                                                   stories.isNotEmpty
                                                       ? stories[index]
@@ -249,11 +270,13 @@ class _HomePageState extends State<HomePage> {
                                                 ),
                                               ),
                                               SizedBox(
-                                                width: MediaQuery.of(context).size.width /2,
+                                                width: MediaQuery.of(context)
+                                                        .size
+                                                        .width /
+                                                    2,
                                                 child: Text(
                                                     stories.isNotEmpty
-                                                        ? stories[index]
-                                                            .posisi
+                                                        ? stories[index].posisi
                                                         : "No Data",
                                                     overflow:
                                                         TextOverflow.ellipsis,
@@ -279,9 +302,14 @@ class _HomePageState extends State<HomePage> {
                                         trimLines: 4,
                                         trimMode: TrimMode.Line,
                                         trimExpandedText: " Lebih sedikit ",
-                                        trimCollapsedText: " Lihat selengkapnya ",
-                                        moreStyle: const TextStyle(color: Colors.orange, fontWeight: FontWeight.w600),
-                                        lessStyle: const TextStyle(color: Colors.orange, fontWeight: FontWeight.w600),
+                                        trimCollapsedText:
+                                            " Lihat selengkapnya ",
+                                        moreStyle: const TextStyle(
+                                            color: Colors.orange,
+                                            fontWeight: FontWeight.w600),
+                                        lessStyle: const TextStyle(
+                                            color: Colors.orange,
+                                            fontWeight: FontWeight.w600),
                                       ),
                                     ),
                                   )
