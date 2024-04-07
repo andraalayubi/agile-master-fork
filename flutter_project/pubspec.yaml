@@ -38,6 +38,7 @@ dependencies:
   provider: ^6.1.2
   http: ^1.2.0
   shared_preferences: ^2.2.2
+  readmore: ^3.0.0
 
 dev_dependencies:
   flutter_test:
@@ -83,7 +84,7 @@ flutter:
     - assets/onboarding/step2.png
     - assets/onboarding/step3.png
     - assets/home/ProfilePhoto.png
-    - assets/home/LOGO1.png
+    - assets/home/logo1.png
     - assets/home/center.png
     - assets/guide/Headline.png
     - assets/guide/image21.png
