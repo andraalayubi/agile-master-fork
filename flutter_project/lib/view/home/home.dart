@@ -3,6 +3,7 @@ import 'package:flutter_project/model/perusahaan.dart';
 import 'package:flutter_project/view/guide/guide.dart';
 import 'dart:math';
 import 'package:flutter_project/model/story.dart';
+import 'package:flutter_project/view/list/list_intern.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -92,10 +93,23 @@ class _HomePageState extends State<HomePage> {
                 // padding: EdgeInsets.only(bottom: ),
                 height: 115,
                 child: ListView.builder(
-                    itemCount: perusahaan.length,
-                    scrollDirection: Axis.horizontal,
-                    itemBuilder: (context, count) {
-                      return Column(
+                  itemCount: perusahaan.length,
+                  scrollDirection: Axis.horizontal,
+                  itemBuilder: (context, count) {
+                    return InkWell(
+                      // Menggunakan InkWell
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                              builder: (context) => Listintern(
+                                    idPerusahaan:
+                                        perusahaan[count].id_perusahaan,
+                                    namaPerusahaan:
+                                        perusahaan[count].nama_perusahaan,
+                                  )), // Navigasi ke ListPerusahaan
+                        );
+                      },
+                      child: Column(
                         children: [
                           Container(
                             margin: const EdgeInsets.all(8),
@@ -130,7 +144,6 @@ class _HomePageState extends State<HomePage> {
                           ),
                           SizedBox(
                             width: 70,
-                            // height: 90,
                             child: Text(
                               perusahaan[count].nama_perusahaan ?? 'No Data',
                               overflow: TextOverflow.ellipsis,
@@ -138,8 +151,10 @@ class _HomePageState extends State<HomePage> {
                             ),
                           ),
                         ],
-                      );
-                    }),
+                      ),
+                    );
+                  },
+                ),
               ),
             ),
             Expanded(
