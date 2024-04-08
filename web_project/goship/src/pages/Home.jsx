@@ -1,7 +1,6 @@
 import React from "react"; // Menambahkan impor React
 import styles from "../style";
-import { Navbar, Hero, AddExperience, Footer } from "../components";
-import Perusahaan from "../components/company";
+import { Navbar, Hero, AddExperience, Footer,CustomCarousel, Perusahaan } from "../components";
 
 const Home = () => {
   return (
@@ -14,7 +13,7 @@ const Home = () => {
         </div>
       </div>
 
-      <div className={` bg-orange-gradient overflow-visible ${styles.flexStart} pb-80`}>
+      <div className={` bg-orange-gradient overflow-visible ${styles.flexStart} pb-96`}>
         <div className={`${styles.boxWidth}`}>
           <Hero />
         </div>
@@ -31,6 +30,9 @@ const Home = () => {
       <div className={`bg-white ${styles.flexCenter} pt-80 `}>
         <div className={`${styles.boxWidth}`}>
           <AddExperience />
+          <div className="List-Carousel pt-32 pb-24">
+            <CustomCarousel />
+          </div>
           <Footer />
         </div>
       </div>

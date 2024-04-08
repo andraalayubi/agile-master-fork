@@ -22,6 +22,7 @@ import card from "./card.png";
 import document from "./document.png";
 import location from "./location.png";
 import star from "./star.png";
+import bg from "./bg.png"
 
 
 export {
@@ -48,5 +49,6 @@ export {
   card,
   document,
   location,
-  star
+  star,
+  bg
 };

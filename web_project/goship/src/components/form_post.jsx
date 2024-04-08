@@ -1,6 +1,6 @@
 import React from "react";
 import { logo1, profile, bag, location, card, calendar, star, document} from "../assets";
-import { PhotoIcon } from "@heroicons/react/24/solid";
+
 
 const CardForm = ({ onClose }) => {
   const handleSubmit = (event) => {

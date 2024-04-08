@@ -7,8 +7,8 @@ const Navbar = () => {
   const [active, setActive] = useState("Home");
 
   return (
-    <nav className="w-full flex py-6 justify-between items-center navbar">
-      <img src={logo1} alt="Goship" className="w-[200px] h-[50px]" />
+    <nav className="w-full flex justify-between items-center navbar">
+      <img src={logo1} alt="Goship" className="w-[150px] h-[40px]" />
 
       <ul className="list-none sm:flex hidden justify-end items-center flex-1">
         {navLinks.map((nav, index) => (
