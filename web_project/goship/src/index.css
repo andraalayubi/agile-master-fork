@@ -78,9 +78,9 @@
 .bg-orange-gradient-navbar {
   background: linear-gradient(
     135deg,
-    #FCC998 53%,
-    #FDDDD1 69%,
-    #facac2 106%
+    #FCC998 34%,
+    #FDDDD1 60%,
+    #facac2 
   );
 }
 
@@ -242,7 +242,7 @@ padding: 20px;
 margin: 0 20px; /* Menambahkan margin kiri dan kanan sebesar 20px */
 box-shadow: 0 10px 50px rgba(0, 0, 0, 0.1);
 transition: transform 0.3s ease;
-overflow: hidden;
+overflow: visible;
 }
 
 

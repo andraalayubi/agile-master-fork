@@ -1,17 +1,10 @@
 import React from "react"; // Menambahkan impor React
 import styles from "../style";
-import { Navbar, Hero, AddExperience, Footer,CustomCarousel, Perusahaan } from "../components";
+import { Hero, AddExperience, Footer, CustomCarousel, Perusahaan } from "../components";
 
 const Home = () => {
   return (
     <>
-      <div className="w-full bg-orange-gradient-navbar">
-        <div className={`${styles.paddingX} ${styles.flexCenter}`}>
-          <div className={`${styles.boxWidth}`}>
-            <Navbar />
-          </div>
-        </div>
-      </div>
 
       <div className={` bg-orange-gradient overflow-visible ${styles.flexStart} pb-96`}>
         <div className={`${styles.boxWidth}`}>

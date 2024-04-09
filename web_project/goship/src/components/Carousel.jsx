@@ -44,11 +44,9 @@ const CustomCarousel = () => {
   </div>
     </section>
     <div className="student-list-container no-scrollbar px-24 ">
-      <Carousel>
         <Carousel.Item>
           <StudentList />
         </Carousel.Item>
-      </Carousel>
     </div>
     </>
   )
