@@ -68,82 +68,89 @@ class _PageDetailMahasiswaState extends State<PageDetailMahasiswa> {
                 return Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    InkWell(
-                      child: Card(
-                        color: Colors.white,
-                        child: Row(
-                          children: <Widget>[
-                            Padding(
-                              padding: const EdgeInsets.all(12),
-                              child: Container(
-                                child: Card(
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(10),
-                                    child: Image.asset(
-                                      mahasiswa[index].sex != 'Perempuan'
-                                          ? 'assets/home/male.png'
-                                          : 'assets/home/female.png',
-                                      fit: BoxFit.cover,
-                                      width: 80,
-                                      height: 80,
+                    Container(
+                      width: MediaQuery.of(context).size.width,
+                      child: InkWell(
+                        child: Card(
+                          color: Colors.white,
+                          child: Row(
+                            children: <Widget>[
+                              Padding(
+                                padding: const EdgeInsets.all(5),
+                                child: Container(
+                                  child: Card(
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(10),
+                                      child: Image.asset(
+                                        mahasiswa[index].sex != 'Perempuan'
+                                            ? 'assets/home/male.png'
+                                            : 'assets/home/female.png',
+                                        fit: BoxFit.cover,
+                                        width: 80,
+                                        height: 80,
+                                      ),
                                     ),
                                   ),
                                 ),
                               ),
-                            ),
-                            const SizedBox(width: 10),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  mahasiswa[index].nama,
-                                  style: const TextStyle(
-                                    color: Color(0xFFF77F00),
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold,
-                                    fontStyle: FontStyle.italic,
-                                  ),
-                                ),
-                                const SizedBox(height: 5),
-                                Row(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Row(
-                                          children: [
-                                            const Icon(Icons.call, size: 15),
-                                            const SizedBox(width: 5),
-                                            Text(
-                                              mahasiswa[index].no_telp,
-                                              style:
-                                                  const TextStyle(fontSize: 14),
-                                              textAlign: TextAlign.left,
-                                            ),
-                                          ],
-                                        ),
-                                        const SizedBox(height: 5),
-                                        Row(
-                                          children: [
-                                            const Icon(Icons.mail, size: 15),
-                                            const SizedBox(width: 5),
-                                            Text(
-                                              mahasiswa[index].email,
-                                              style:
-                                                  const TextStyle(fontSize: 14),
-                                              textAlign: TextAlign.left,
-                                            ),
-                                          ],
-                                        ),
-                                      ],
+                              const SizedBox(width: 10),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Container(
+                                    child: Text(
+                                      mahasiswa[index].nama,
+                                      style: const TextStyle(
+                                        color: Color(0xFFF77F00),
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold,
+                                        fontStyle: FontStyle.italic,
+                                        overflow: TextOverflow.ellipsis
+                                      ),
                                     ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ],
+                                    width: MediaQuery.of(context).size.width - 150,
+                                  ),
+                                  const SizedBox(height: 5),
+                                  Row(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Row(
+                                            children: [
+                                              const Icon(Icons.call, size: 15),
+                                              const SizedBox(width: 5),
+                                              Text(
+                                                mahasiswa[index].no_telp,
+                                                style:
+                                                    const TextStyle(fontSize: 13),
+                                                textAlign: TextAlign.left,
+                                              ),
+                                            ],
+                                          ),
+                                          const SizedBox(height: 5),
+                                          Row(
+                                            children: [
+                                              const Icon(Icons.mail, size: 15),
+                                              const SizedBox(width: 5),
+                                              Text(
+                                                mahasiswa[index].email,
+                                                style:
+                                                    const TextStyle(fontSize: 13),
+                                                textAlign: TextAlign.left,
+                                              ),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ),
