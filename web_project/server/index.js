@@ -20,6 +20,54 @@ app.get('/home', (req, res) => {
     res.send('Hello from Express backend!');
 })
 
+app.get('/tes', async (req, res) => {
+    try{
+        const sql = "SELECT * FROM siswa;";
+        const data = await executeQuery(sql);
+        res.json(data);
+    }catch(err){
+        console.error(err);
+        res.status(500).send(err);
+    }
+})
+
+app.get('/api/data', async (req, res) => {
+    try {
+        const sql = "SELECT p.id_perusahaan, p.nama_perusahaan, p.logo_perusahaan, COUNT(m.siswa_id) AS jumlah_siswa, po.id_posisi, po.nama_posisi, GROUP_CONCAT(DISTINCT s.prodi) AS prodi FROM perusahaan p LEFT JOIN magang m ON p.id_perusahaan = m.posisi_id LEFT JOIN posisi po ON p.id_perusahaan = po.perusahaan_id LEFT JOIN siswa s ON m.siswa_id = s.id_siswa GROUP BY p.id_perusahaan, po.id_posisi;"
+        const hasilQuery = await executeQuery(sql);
+
+        const companiesData = {};
+
+        hasilQuery.forEach(item => {
+            const { id_perusahaan, nama_perusahaan, logo_perusahaan, jumlah_siswa, id_posisi, nama_posisi, prodi } = item;
+
+            if (!companiesData[id_perusahaan]) {
+                companiesData[id_perusahaan] = {
+                    id_perusahaan,
+                    nama_perusahaan,
+                    logo_perusahaan,
+                    jumlah_siswa,
+                    posisi: [],
+                    prodi: []
+                };
+            }
+
+            companiesData[id_perusahaan].posisi.push({ id_posisi, nama_posisi });
+            companiesData[id_perusahaan].prodi = [...new Set([...companiesData[id_perusahaan].prodi, ...prodi.split(',')])];
+        });
+
+        console.log(hasilQuery);
+        data = Object.values(companiesData);
+
+        // Output jumlah siswa tiap perusahaan
+        res.json(data);
+
+    } catch (err) {
+        console.error(err);
+        res.status(500).send(err);
+    }
+});
+
 // API Here
 app.get('/api/major-data', async (req, res) => {
     try {
@@ -79,7 +127,7 @@ app.get('/api/perusahaan', async (req, res) => {
                     nama_posisi: item.nama_posisi,
                 };
             });
-            
+
             // Mengubah hasil menjadi array sesuai format yang diminta
             return Object.values(hasil).map(item => ({
                 id_perusahaan: item.id_perusahaan,

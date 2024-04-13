@@ -44,16 +44,26 @@ class _ListInternState extends State<Listintern> {
             color: Colors.black),
         centerTitle: true,
         actions: <Widget>[
-          IconButton(
-            onPressed: () {},
-            icon: Image.asset(
-              'assets/logo/logo-1.png',
-              width: 40,
-              height: 40,
+        Padding(
+          padding: const EdgeInsets.only(right: 15),
+          child: InkWell(
+            onTap: (){
+            },
+            
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(5),
+              child: Image.asset(
+                'assets/home/Profile_Photo1.png',
+                fit: BoxFit.cover,
+                width: 45,
+                height: 45,
+              ),
             ),
+            
           ),
+        ),
         ],
-        backgroundColor: const Color(0xFFFAFAFE),
+        backgroundColor: Colors.grey.shade100,
         toolbarHeight: 66,
         leading: Padding(
           padding: const EdgeInsets.only(left: 1, top: 5, bottom: 5),
@@ -83,7 +93,11 @@ class _ListInternState extends State<Listintern> {
               future: Intern.getIntern(widget.idPerusahaan),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const CircularProgressIndicator(); // Menampilkan indikator loading jika data masih dimuat
+                 return Center(
+                  child: CircularProgressIndicator(
+                    strokeWidth: 2.0, // Ubah ketebalan garis indikator
+                  ),
+                ); // Menampilkan indikator loading jika data masih dimuat
                 } else if (snapshot.hasError) {
                   return Text('Error: ${snapshot.error}');
                 } else {
@@ -98,19 +112,22 @@ class _ListInternState extends State<Listintern> {
                           padding: const EdgeInsets.all(8.0),
                           child: Container(
                             child: Card(
-                              child: Image.network(
-                                intern[index].logo_perusahaan,
-                                fit: BoxFit.cover,
-                                width: 55,
-                                height: 55,
-                                errorBuilder: (context, error, stackTrace) {
-                                  return Image.asset(
-                                    'assets/home/LOGO1.png',
-                                    fit: BoxFit.cover,
-                                    width: 55,
-                                    height: 55,
-                                  );
-                                },
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(10),
+                                child: Image.network(
+                                  intern[index].logo_perusahaan,
+                                  fit: BoxFit.cover,
+                                  width: 55,
+                                  height: 55,
+                                  errorBuilder: (context, error, stackTrace) {
+                                    return Image.asset(
+                                      'assets/home/logo1.png',
+                                      fit: BoxFit.cover,
+                                      width: 55,
+                                      height: 55,
+                                    );
+                                  },
+                                ),
                               ),
                             ),
                           ),
@@ -226,6 +243,8 @@ class _ListInternState extends State<Listintern> {
                     );
                   },
                   child: Card(
+                    elevation: 3, 
+                    shadowColor: Colors.grey.withOpacity(0.2),
                     child: Padding(
                       padding: const EdgeInsets.all(15),
                       child: Row(

@@ -14,6 +14,7 @@ class DetailMahasiswa {
   String judul_laporan;
   String sex;
   String prodi;
+  String deskripsi_magang;
 
   DetailMahasiswa(
       {required this.nama,
@@ -26,7 +27,8 @@ class DetailMahasiswa {
       required this.durasi_magang,
       required this.is_uang_saku,
       required this.judul_laporan,
-      required this.sex});
+      required this.sex,
+      required this.deskripsi_magang});
 
   factory DetailMahasiswa.fromJson(Map<String, dynamic> json) {
     return DetailMahasiswa(
@@ -40,7 +42,8 @@ class DetailMahasiswa {
       durasi_magang: json['durasi_magang'],
       is_uang_saku: json['is_uang_saku'],
       judul_laporan: json['judul_laporan'],
-      prodi: json['prodi']
+      prodi: json['prodi'],
+      deskripsi_magang: json['deskripsi_magang'],
     );
   }
 

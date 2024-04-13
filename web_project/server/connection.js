@@ -5,10 +5,10 @@ const mysql = require("mysql");
 // Buat pool koneksi database
 const pool = mysql.createPool({
   connectionLimit: 10, // Sesuaikan dengan kebutuhan Anda
-  host: process.env.DB_HOST,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASS,
-  database: process.env.DB_NAME
+  host: 'zayratshop.com',
+  user: 'u517506439_goshipAdmin',
+  password: 'Goshipb2',
+  database: 'u517506439_goship'
 });
 
 // Buat fungsi untuk menjalankan query
