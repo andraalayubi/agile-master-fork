@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_project/view/list/list_perusahaan.dart';
 import 'package:flutter_project/view/splash_screen/splash_screen.dart';
 
 

@@ -17,10 +17,10 @@ class _HomePageState extends State<HomePage> {
   List<Perusahaan> perusahaan = [];
   List<Story> stories = [];
   final _lightColors = [
-    Color(0xAE8C20FF),
-    Colors.red,
-    Colors.lightGreen,
-    Colors.orange.shade300,
+    Color(0xFFD62828),
+    Color(0xFF120B0B),
+    Color(0xFF35C91C),
+    Color(0xFF605B57),
   ];
 
   @override
@@ -74,15 +74,16 @@ class _HomePageState extends State<HomePage> {
                     fontFamily: 'LibreBaskerville'),
               ),
               Container(
-                // width: 45,
-                // height: 45,
-                decoration:
-                    BoxDecoration(borderRadius: BorderRadius.circular(10),),
-                child: const Image(
-                  image: AssetImage('assets/home/Profile_Photo1.png'),
-                  fit: BoxFit.cover,
-                ),
-              )
+                  width: 50,
+                  height: 50,
+                  decoration:
+                  BoxDecoration(borderRadius: BorderRadius.circular(10)),
+                  child: Image(
+                    image: AssetImage(
+                      'assets/home/Profile_Photo1.png',
+                    ),
+                    fit: BoxFit.contain,
+                  ))
             ],
           ),
         ),
