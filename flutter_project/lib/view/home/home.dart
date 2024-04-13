@@ -59,24 +59,30 @@ class _HomePageState extends State<HomePage> {
       backgroundColor: Colors.white12,
       appBar: AppBar(
         backgroundColor: Colors.white12,
-        flexibleSpace: const Padding(
+        flexibleSpace: Padding(
           padding: EdgeInsets.all(20.0),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Image(image: AssetImage('assets/home/logo1.png')),
-              Text(
+              const Image(image: AssetImage('assets/home/logo1.png')),
+              const Text(
                 'Goship',
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 30,
                     fontFamily: 'LibreBaskerville'),
               ),
-              Image(
-                  width: 50,
-                  height: 50,
-                  image: AssetImage('assets/home/ProfilePhoto.png'))
+              Container(
+                // width: 45,
+                // height: 45,
+                decoration:
+                    BoxDecoration(borderRadius: BorderRadius.circular(10),),
+                child: const Image(
+                  image: AssetImage('assets/home/Profile_Photo1.png'),
+                  fit: BoxFit.cover,
+                ),
+              )
             ],
           ),
         ),

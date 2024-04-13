@@ -80,6 +80,7 @@ class _ListPerusahaanState extends State<Listperusahaan> {
             child: Row(
               mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.center,
+
               children: <Widget>[
                 Expanded(
                   child: Material(
@@ -177,6 +178,7 @@ class _ListPerusahaanState extends State<Listperusahaan> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Container(
+                              width: MediaQuery.of(context).size.width / 1.4,
                               padding: const EdgeInsets.only(left: 5),
                               child: Text(
                                 filteredPerusahaan[index].nama_perusahaan,
@@ -184,6 +186,7 @@ class _ListPerusahaanState extends State<Listperusahaan> {
                                   fontWeight: FontWeight.bold,
                                   fontSize: 13,
                                   fontFamily: 'DM Sans',
+                                  overflow: TextOverflow.ellipsis
                                 ),
                               ),
                             ),
@@ -201,14 +204,18 @@ class _ListPerusahaanState extends State<Listperusahaan> {
                                     const EdgeInsets.only(left: 5.0,),
                                 child: Row(
                                   children: [
-                                    Text(
-                                      '· '+
-                                      filteredPerusahaan[index]
-                                          .posisiPerusahaan[posisiIndex]
-                                          .nama_posisi,
-                                      style: const TextStyle(
-                                        fontFamily: 'DM Sans',
-                                        fontSize: 12,
+                                    Container(
+                                      width: MediaQuery.of(context).size.width / 1.4,
+                                      child: Text(
+                                        '· '+
+                                        filteredPerusahaan[index]
+                                            .posisiPerusahaan[posisiIndex]
+                                            .nama_posisi,
+                                        style: const TextStyle(
+                                          fontFamily: 'DM Sans',
+                                          fontSize: 12,
+                                          overflow: TextOverflow.ellipsis
+                                        ),
                                       ),
                                     ),
                                     

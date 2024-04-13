@@ -43,6 +43,7 @@ class _HomePageState extends State<MainScreen> {
                           });
                         },
                         child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Icon(Icons.home_filled, color: onPressed),
                             Text(
@@ -55,6 +56,7 @@ class _HomePageState extends State<MainScreen> {
                     ],
                   ),
                   Row(
+
                     children: [
                       MaterialButton(
                         onPressed: () {
@@ -66,6 +68,7 @@ class _HomePageState extends State<MainScreen> {
                           });
                         },
                         child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Icon(
                               Icons.book,

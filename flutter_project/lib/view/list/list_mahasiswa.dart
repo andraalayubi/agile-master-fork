@@ -137,14 +137,14 @@ class _ListmahasiswaState extends State<Listmahasiswa> {
                     ),
                   ),
                 ),
-                IconButton(
-                  onPressed: () {},
-                  icon: Image.asset(
-                    'assets/logo/filter-button.png',
-                    width: 50,
-                    height: 50,
-                  ),
-                ),
+                // IconButton(
+                //   onPressed: () {},
+                //   icon: Image.asset(
+                //     'assets/logo/filter-button.png',
+                //     width: 50,
+                //     height: 50,
+                //   ),
+                // ),
               ],
             ),
           ),
@@ -173,15 +173,16 @@ class _ListmahasiswaState extends State<Listmahasiswa> {
                         Column(
                           children: [
                             Container(
+                              width: 60,
+                              height: 60,
                               child: Card(
                                 child: ClipRRect(
                                   borderRadius: BorderRadius.circular(10),
                                   child: const Image(
                                     image: AssetImage(
-                                        'assets/home/ProfilePhoto.png'),
-                                    fit: BoxFit.cover,
-                                    width: 60,
-                                    height: 60,
+                                        'assets/home/Profile_Photo1.png'),
+                                    fit: BoxFit.fill,
+
                                   ),
                                 ),
                               ),
@@ -200,8 +201,7 @@ class _ListmahasiswaState extends State<Listmahasiswa> {
                                 ),
                               ),
                             ),
-                            Padding(
-                              padding: const EdgeInsets.only(right: 65),
+                            Container(
                               child: Row(
                                 children: [
                                   Column(
@@ -218,7 +218,7 @@ class _ListmahasiswaState extends State<Listmahasiswa> {
                                       Text(
                                         filteredMahasiswa[index].email,
                                         style: TextStyle(
-                                            color: Colors.grey.shade600),
+                                            color: Colors.grey.shade600, overflow: TextOverflow.ellipsis),
                                       ),
                                     ],
                                   ),
