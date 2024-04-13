@@ -32,19 +32,29 @@ class _PageDetailMahasiswaState extends State<PageDetailMahasiswa> {
       appBar: AppBar(
         title: const Text('GOSHIP'),
         titleTextStyle: const TextStyle(
-            fontSize: 30, fontWeight: FontWeight.bold, color: Colors.black),
+            fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black,fontFamily: 'LibreBaskerville',),
         centerTitle: true,
         actions: <Widget>[
-          IconButton(
-            onPressed: () {},
-            icon: Image.asset(
-              'assets/logo/logo-1.png',
-              height: 40,
-              width: 40,
+        Padding(
+          padding: const EdgeInsets.only(right: 15),
+          child: InkWell(
+            onTap: (){
+            },
+            
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(5),
+              child: Image.asset(
+                'assets/home/Profile_Photo1.png',
+                fit: BoxFit.cover,
+                width: 45,
+                height: 45,
+              ),
             ),
+            
           ),
+        ),
         ],
-        backgroundColor: const Color(0xFFFAFAFE),
+        backgroundColor: Colors.grey.shade100,
         toolbarHeight: 70,
         leading: GestureDetector(
           onTap: () {
@@ -72,6 +82,8 @@ class _PageDetailMahasiswaState extends State<PageDetailMahasiswa> {
                       width: MediaQuery.of(context).size.width,
                       child: InkWell(
                         child: Card(
+                          elevation: 3, 
+                          shadowColor: Colors.grey.withOpacity(0.5),
                           color: Colors.white,
                           child: Row(
                             children: <Widget>[
@@ -156,6 +168,8 @@ class _PageDetailMahasiswaState extends State<PageDetailMahasiswa> {
                     ),
                     const SizedBox(height: 10),
                     Card(
+                      elevation: 3, 
+                      shadowColor: Colors.grey.withOpacity(0.5),
                       color: Colors.white,
                       child: Padding(
                         padding: const EdgeInsets.all(12),

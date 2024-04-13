@@ -57,23 +57,33 @@ class _ListmahasiswaState extends State<Listmahasiswa> {
       appBar: AppBar(
         title: Text(widget.nama_posisi),
         titleTextStyle: const TextStyle(
-            fontSize: 25,
+            fontSize: 20,
             fontWeight: FontWeight.bold,
             fontFamily: 'LibreBaskerville',
             color: Colors.black),
         centerTitle: true,
         actions: <Widget>[
-          IconButton(
-            onPressed: () {},
-            icon: Image.asset(
-              'assets/logo/logo-1.png',
-              width: 40,
-              height: 40,
+        Padding(
+          padding: const EdgeInsets.only(right: 15),
+          child: InkWell(
+            onTap: (){
+            },
+            
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(5),
+              child: Image.asset(
+                'assets/home/Profile_Photo1.png',
+                fit: BoxFit.cover,
+                width: 45,
+                height: 45,
+              ),
             ),
+            
           ),
+        ),
         ],
-        backgroundColor: const Color(0xFFFAFAFE),
-        toolbarHeight: 100,
+        backgroundColor: Colors.grey.shade100,
+        toolbarHeight: 90,
         leading: Padding(
           padding: const EdgeInsets.only(left: 1, top: 5, bottom: 5),
           child: Card(
@@ -95,7 +105,7 @@ class _ListmahasiswaState extends State<Listmahasiswa> {
         bottom: PreferredSize(
           preferredSize: const Size.fromHeight(50),
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 45, vertical: 10),
+            padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
             child: Row(
               mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.center,
@@ -105,7 +115,7 @@ class _ListmahasiswaState extends State<Listmahasiswa> {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10.0),
                     ),
-                    color: Colors.grey.shade200,
+                    color: Colors.white,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
@@ -124,7 +134,7 @@ class _ListmahasiswaState extends State<Listmahasiswa> {
                                 _search(value);
                               },
                               decoration: const InputDecoration.collapsed(
-                                hintText: 'Mencari Mahasiswa',
+                                hintText: 'search for the students',
                                 hintStyle: TextStyle(
                                   fontSize: 13,
                                   height: 4,
@@ -167,6 +177,8 @@ class _ListmahasiswaState extends State<Listmahasiswa> {
                     );
                   },
                   child: Card(
+                    elevation: 3, 
+                    shadowColor: Colors.grey.withOpacity(0.2),
                     color: const Color.fromARGB(255, 255, 255, 255),
                     child: Row(
                       children: <Widget>[
@@ -215,10 +227,13 @@ class _ListmahasiswaState extends State<Listmahasiswa> {
                                   ),
                                   Column(
                                     children: [
-                                      Text(
-                                        filteredMahasiswa[index].email,
-                                        style: TextStyle(
-                                            color: Colors.grey.shade600, overflow: TextOverflow.ellipsis),
+                                      Padding(
+                                        padding: const EdgeInsets.only(left: 5),
+                                        child: Text(
+                                          filteredMahasiswa[index].email,
+                                          style: TextStyle(
+                                              color: Colors.grey.shade600, overflow: TextOverflow.ellipsis),
+                                        ),
                                       ),
                                     ],
                                   ),

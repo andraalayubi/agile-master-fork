@@ -51,7 +51,7 @@ class _ListPerusahaanState extends State<Listperusahaan> {
       backgroundColor: Colors.grey.shade100,
       // Your existing AppBar and bottom search/filter UI (unchanged)
       appBar: AppBar(
-        title: const Text('Goship'),
+        title: const Text('GOSHIP'),
         titleTextStyle: const TextStyle(
           fontSize: 20,
           fontWeight: FontWeight.bold,
@@ -60,23 +60,42 @@ class _ListPerusahaanState extends State<Listperusahaan> {
         ),
         centerTitle: true,
         actions: <Widget>[
-          IconButton(
-            onPressed: () {
-              MainScreen();
+        Padding(
+          padding: const EdgeInsets.only(right: 15),
+          child: InkWell(
+            onTap: (){
             },
-            icon: const Image(
-              image: AssetImage('assets/logo/logo-1.png'),
-              height: 40,
-              width: 40,
+            
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(5),
+              child: Image.asset(
+                'assets/home/Profile_Photo1.png',
+                fit: BoxFit.cover,
+                width: 45,
+                height: 45,
+              ),
             ),
+            
           ),
+        ),
         ],
-        backgroundColor: const Color.fromARGB(255, 255, 255, 255),
+        backgroundColor: Colors.grey.shade100,
         toolbarHeight: 100,
-        bottom: PreferredSize(
+        leading: IconButton(
+            icon: Image.asset(
+              'assets/logo/logo-1.png',
+              height: 40, // Atur tinggi gambar sesuai kebutuhan
+              width: 40, // Atur lebar gambar sesuai kebutuhan
+            ),
+            onPressed: () {
+              // Tambahkan fungsi untuk handle onPressed di sini jika diperlukan
+            },
+          ),
+          leadingWidth: 70,
+          bottom: PreferredSize(
           preferredSize: const Size.fromHeight(50),
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 45, vertical: 10),
+            padding: const EdgeInsets.only(bottom: 20, left: 15, right: 15),
             child: Row(
               mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.center,
@@ -87,12 +106,12 @@ class _ListPerusahaanState extends State<Listperusahaan> {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10.0),
                     ),
-                    color: Colors.grey.shade200,
+                    color: Colors.white,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
                         const Padding(
-                          padding: EdgeInsets.all(8.0),
+                          padding: EdgeInsets.all(10.0),
                           child: Icon(
                             Icons.search,
                             color: Color.fromARGB(255, 0, 0, 0),
@@ -106,7 +125,7 @@ class _ListPerusahaanState extends State<Listperusahaan> {
                                 _search(value);
                               },
                               decoration: const InputDecoration.collapsed(
-                                hintText: 'cari perusahaan',
+                                hintText: 'search for the company',
                                 hintStyle: TextStyle(
                                   fontSize: 13,
                                   height: 4,
@@ -127,6 +146,7 @@ class _ListPerusahaanState extends State<Listperusahaan> {
                 //     height: 50,
                 //   ),
                 // ),
+                
               ],
             ),
           ),
@@ -152,7 +172,9 @@ class _ListPerusahaanState extends State<Listperusahaan> {
                     );
                   },
                   child: Card(
-                    color: const Color.fromARGB(255, 255, 255, 255),
+                    elevation: 3, 
+                    shadowColor: Colors.grey.withOpacity(0.2),
+                    color: Color.fromARGB(255, 255, 255, 255),
                     child: Row(
                       children: <Widget>[
                         Card(
