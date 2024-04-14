@@ -23,7 +23,16 @@ import document from "./document.png";
 import location from "./location.png";
 import star from "./star.png";
 import bg from "./bg.png"
-
+import aksamedia from "./aksamedia.png";
+import mitra from "./mitra.jpeg";
+import teknologi from "./teknologi.png";
+import gamelab from "./gamelab.png";
+import lenindustri from "./lenindustri.png";
+import otakanan from "./otakanan.png";
+import panasonic from "./panasonic.jpg";
+import pjb from "./pjb.png";
+import ptedi from "./ptedi.png";
+import social from "./social.jpg";
 
 export {
   logo1,
@@ -50,5 +59,16 @@ export {
   document,
   location,
   star,
-  bg
+  bg,
+  aksamedia, 
+  mitra, 
+  teknologi,
+  gamelab,
+  lenindustri,
+  otakanan,
+  panasonic, 
+  pjb, 
+  ptedi, 
+  social, 
+
 };
