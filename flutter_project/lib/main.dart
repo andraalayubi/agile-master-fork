@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_project/view/list/list_perusahaan.dart';
 import 'package:flutter_project/view/splash_screen/splash_screen.dart';
 
 
@@ -14,6 +13,7 @@ class GoShip extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: SplashScreen(),
     );
   }
