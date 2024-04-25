@@ -25,32 +25,45 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void initState() {
-    super.initState();
-    _loadStories();
-    _loadPerusahaan();
+    try {
+      super.initState();
+      _loadStories();
+      _loadPerusahaan();
+    } catch (error) {
+      print(error);
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text("Error"),
+            content:
+                const Text("Failed to fetch data. Please try again later."),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: const Text("OK"),
+              ),
+            ],
+          );
+        },
+      );
+    }
   }
 
   Future<void> _loadPerusahaan() async {
-    try {
-      perusahaan = await Perusahaan.getPerusahaan();
-      setState(() {
-        perusahaan;
-      });
-    } catch (e) {
-      print(e);
-    }
+    perusahaan = await Perusahaan.getPerusahaan();
+    setState(() {
+      perusahaan;
+    });
   }
 
   Future<void> _loadStories() async {
-    try {
-      stories = await Story.getStory();
-
-      setState(() {
-        stories;
-      });
-    } catch (e) {
-      print(e);
-    }
+    stories = await Story.getStory();
+    setState(() {
+      stories;
+    });
   }
 
   @override
@@ -77,7 +90,7 @@ class _HomePageState extends State<HomePage> {
                   width: 50,
                   height: 50,
                   decoration:
-                  BoxDecoration(borderRadius: BorderRadius.circular(10)),
+                      BoxDecoration(borderRadius: BorderRadius.circular(10)),
                   child: Image(
                     image: AssetImage(
                       'assets/home/Profile_Photo1.png',
