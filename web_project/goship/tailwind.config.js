@@ -1,4 +1,12 @@
 /** @type {import('tailwindcss').Config} */
+const withMT = require("@material-tailwind/react/utils/withMT");
+module.exports = withMT({
+  content: [],
+  theme: {
+    extend: {},
+  },
+  plugins: [],
+});
 module.exports = {
   content: ["./index.html", "./src/**/*.{js,jsx}"],
   mode: "jit",
@@ -11,6 +19,8 @@ module.exports = {
         dimBlue: "rgba(9, 151, 124, 0.1)",
         orange: "#F77D00",
         dimBlack: "rgba(0, 0, 0, 0.7)", 
+        black: "#000000",
+        cream:"#FDE5CC",
       },
       fontFamily: {
         poppins: ["Poppins", "sans-serif"],

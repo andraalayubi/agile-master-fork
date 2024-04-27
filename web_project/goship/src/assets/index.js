@@ -33,9 +33,15 @@ import panasonic from "./panasonic.jpg";
 import pjb from "./pjb.png";
 import ptedi from "./ptedi.png";
 import social from "./social.jpg";
+import gps from "./icon/gps.png";
+import req from "./icon/req.png";
+import email from "./icon/email.png"
 
 export {
   logo1,
+  email,
+  gps,
+  req,
   logo2,
   image1,
   image2,

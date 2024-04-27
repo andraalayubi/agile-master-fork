@@ -76,3 +76,22 @@ export const socialMedia = [
     link: "https://www.linkedin.com/",
   },
 ];
+
+export const navLinks_detail = [
+  {
+    id: "about",
+    title: "About",
+  },
+  {
+    id: "companies",
+    title: "Companies",
+  },
+  {
+    id: "Shared_Story",
+    title: "Share Story",
+  },
+  {
+    id: "Our_story",
+    title: "Our Story",
+  },
+];

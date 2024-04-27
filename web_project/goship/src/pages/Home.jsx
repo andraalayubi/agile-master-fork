@@ -1,13 +1,17 @@
 import React from "react"; // Menambahkan impor React
 import styles from "../style";
-import { Hero, AddExperience, Footer, CustomCarousel, Perusahaan } from "../components";
+import { Hero, AddExperience, Footer, CustomCarousel, Perusahaan, Navbar } from "../components";
 
 const Home = () => {
   return (
     <>
-
+      
       <div className={` bg-orange-gradient overflow-visible ${styles.flexStart} pb-96`}>
         <div className={`${styles.boxWidth}`}>
+        
+        <div className=" pb-16">
+          <Navbar />
+        </div>
           <Hero />
         </div>
       </div>
