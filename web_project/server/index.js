@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const port = 5000;
 
+
 app.use(bodyParser.json());
 app.use(cors({
     origin: 'http://localhost:3000', // Atur domain React Anda
