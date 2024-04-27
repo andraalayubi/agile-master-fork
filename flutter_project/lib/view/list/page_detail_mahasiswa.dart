@@ -22,8 +22,30 @@ class _PageDetailMahasiswaState extends State<PageDetailMahasiswa> {
   }
 
   Future<void> _fetchData(var id) async {
+    try{
     mahasiswa = await DetailMahasiswa.getDetailMahasiswa(id);
     setState(() {});
+    }catch(error){
+      print(error);
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text("Error"),
+            content:
+                const Text("Failed to fetch data. Please try again later."),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: const Text("OK"),
+              ),
+            ],
+          );
+        },
+      );
+    }
   }
 
   @override

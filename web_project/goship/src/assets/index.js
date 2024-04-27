@@ -22,7 +22,7 @@ import card from "./card.png";
 import document from "./document.png";
 import location from "./location.png";
 import star from "./star.png";
-import bg from "./bg.png"
+import bg from "./bg.png";
 import aksamedia from "./aksamedia.png";
 import mitra from "./mitra.jpeg";
 import teknologi from "./teknologi.png";
@@ -36,6 +36,12 @@ import social from "./social.jpg";
 import gps from "./icon/gps.png";
 import req from "./icon/req.png";
 import email from "./icon/email.png"
+import login from "./login.png";
+import orang from "./orang.png";
+import gembok from "./gembok.png";
+import forgotuser from "./forgotuser.png";
+import amplop from "./amplop.png";
+import forgotadmin from "./forgotadmin.png";
 
 export {
   logo1,
@@ -66,15 +72,20 @@ export {
   location,
   star,
   bg,
-  aksamedia, 
-  mitra, 
+  aksamedia,
+  mitra,
   teknologi,
   gamelab,
   lenindustri,
   otakanan,
-  panasonic, 
-  pjb, 
-  ptedi, 
-  social, 
-
+  panasonic,
+  pjb,
+  ptedi,
+  social,
+  login,
+  orang,
+  gembok,
+  forgotuser,
+  amplop,
+  forgotadmin,
 };
