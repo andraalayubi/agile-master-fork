@@ -1,20 +1,20 @@
 import React from "react";
-import { logo1 } from "../assets";
-const StudentCard = ({ student }) => {
+
+const StudentCard = ({ post }) => {
   return (
     <div className="student-card">
       <div className="max-w-max">
         <div className="photo-card">
-          <img src={logo1} alt="angga" />
+          <img src={post.logo} alt="angga" />
         </div>
         <div className="nama-siswa-card">
-          <h2 className="nama-siswa-lengkap">{student.user_fullname}</h2>
+          <h2 className="nama-siswa-lengkap" style={{overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap',}}>{post.nama}</h2>
           <h3 className="perusahaan-divisi-card">
-            {student.perusahaan} - {student.divisi}
+            {post.perusahaan} - {post.posisi}
           </h3>
         </div>
       </div>
-      <div className="card-text  ">{student.cerita_magang}</div>
+      <div className="card-text">{post.deskripsi_magang}</div>
     </div>
   )
 }
