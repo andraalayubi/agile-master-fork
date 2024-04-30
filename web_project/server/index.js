@@ -3,10 +3,13 @@ const app = express();
 const executeQuery = require("./connection");
 const bodyParser = require("body-parser");
 const cors = require("cors");
-const port = 5000;
+const authRouter = require("./auth");
+// const morgan = require("morgan");
+const port = 3001;
 
+// app.use(morgan('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(
   cors({
     origin: "http://localhost:3000", // Atur domain React Anda
@@ -363,6 +366,18 @@ app.put("/api/users/:id/update", async (req, res) => {
     res.status(500).send(error.message);
   }
 });
+
+// app.post('/login', (req,res)=>{
+//     const nrp = req.params.nrp;
+//     const password = req.params.password;
+//     try{
+
+//     }catch(error){
+
+//     }
+// })
+
+app.use('/auth', authRouter);
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
