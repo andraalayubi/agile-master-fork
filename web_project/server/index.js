@@ -5,7 +5,7 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const authRouter = require("./auth");
 // const morgan = require("morgan");
-const port = 3001;
+const port = 3003;
 
 // app.use(morgan('dev'));
 app.use(bodyParser.json());
