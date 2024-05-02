@@ -34,13 +34,13 @@ app.get('/tes', async (req, res) => {
 
 app.get('/api/data', async (req, res) => {
     try {
-        const sql = "SELECT p.id_perusahaan, p.nama_perusahaan, p.logo_perusahaan, COUNT(m.siswa_id) AS jumlah_siswa, po.id_posisi, po.nama_posisi, GROUP_CONCAT(DISTINCT s.prodi) AS prodi FROM perusahaan p LEFT JOIN magang m ON p.id_perusahaan = m.posisi_id LEFT JOIN posisi po ON p.id_perusahaan = po.perusahaan_id LEFT JOIN siswa s ON m.siswa_id = s.id_siswa GROUP BY p.id_perusahaan, po.id_posisi;"
+        const sql = "SELECT p.id_perusahaan, p.nama_perusahaan, p.logo_perusahaan, COUNT(m.siswa_id) AS jumlah_siswa, po.id_posisi, po.nama_posisi, GROUP_CONCAT(DISTINCT s.prodi) AS prodi, s.semester FROM perusahaan p LEFT JOIN magang m ON p.id_perusahaan = m.posisi_id LEFT JOIN posisi po ON p.id_perusahaan = po.perusahaan_id LEFT JOIN siswa s ON m.siswa_id = s.id_siswa GROUP BY p.id_perusahaan, po.id_posisi;"
         const hasilQuery = await executeQuery(sql);
 
         const companiesData = {};
 
         hasilQuery.forEach(item => {
-            const { id_perusahaan, nama_perusahaan, logo_perusahaan, jumlah_siswa, id_posisi, nama_posisi, prodi } = item;
+            const { id_perusahaan, nama_perusahaan, logo_perusahaan, jumlah_siswa, id_posisi, nama_posisi, prodi, semester } = item;
 
             if (!companiesData[id_perusahaan]) {
                 companiesData[id_perusahaan] = {
@@ -49,12 +49,14 @@ app.get('/api/data', async (req, res) => {
                     logo_perusahaan,
                     jumlah_siswa,
                     posisi: [],
-                    prodi: []
+                    prodi: [],
+                    semester: [],
                 };
             }
 
             companiesData[id_perusahaan].posisi.push({ id_posisi, nama_posisi });
             companiesData[id_perusahaan].prodi = [...new Set([...companiesData[id_perusahaan].prodi, ...prodi.split(',')])];
+            companiesData[id_perusahaan].semester = [...new Set([...companiesData[id_perusahaan].semester, semester])];
         });
 
         console.log(hasilQuery);
