@@ -61,7 +61,7 @@ app.get('/api/data', async (req, res) => {
                 companiesData[id_perusahaan].prodi = [...new Set([...companiesData[id_perusahaan].prodi, ...prodi.split(',')])];
             }
             if (semester != null) {
-                companiesData[id_perusahaan].semester.push({ semester });
+                companiesData[id_perusahaan].semester = [...new Set([...companiesData[id_perusahaan].semester, ...semester.split(',')])];
             }
         });
 
