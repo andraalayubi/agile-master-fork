@@ -54,9 +54,15 @@ app.get('/api/data', async (req, res) => {
                 };
             }
 
-            companiesData[id_perusahaan].posisi.push({ id_posisi, nama_posisi });
-            companiesData[id_perusahaan].prodi = [...new Set([...companiesData[id_perusahaan].prodi, ...prodi.split(',')])];
-            companiesData[id_perusahaan].semester.push({ semester });
+            if (id_posisi != null && nama_posisi != null) {
+                companiesData[id_perusahaan].posisi.push({ id_posisi, nama_posisi });
+            }
+            if (prodi != null){
+                companiesData[id_perusahaan].prodi = [...new Set([...companiesData[id_perusahaan].prodi, ...prodi.split(',')])];
+            }
+            if (semester != null) {
+                companiesData[id_perusahaan].semester.push({ semester });
+            }
         });
 
         console.log(hasilQuery);
