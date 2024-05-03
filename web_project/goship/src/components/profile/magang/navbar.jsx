@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { logo1, gojek } from "../../assets";
-import { navLinks_detail } from "../../constant";
+import { logo1, gojek } from "../../../assets";
+import { navLinks_detail } from "../../../constant";
 
 
 const Navbar = () => {

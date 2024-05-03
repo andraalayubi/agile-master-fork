@@ -6,6 +6,7 @@ import Detailperusahaan from './pages/Detail_perusahaan';
 import Login from "./pages/Login";
 import ForgotPasswordUserPage from "./pages/Forgot_Password_User";
 import ForgotPasswordAdminPage from "./pages/Forgot_Password_Admin";
+import Profilemagang from './pages/Profile_magang';
 
 const App = () => {
   return (
@@ -14,6 +15,7 @@ const App = () => {
         {/* <Switch> */}
         <Route path="/" element={<Home />} />
         <Route path="/detail" element={<Detailperusahaan />} />
+        <Route path="/Profilemagang" element={<Profilemagang />} />
         <Route path="/login" element={<Login />} />
         <Route
           path="/forgot-password-user"
