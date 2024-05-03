@@ -38,7 +38,7 @@ const Formprofile = () => {
   return (
     <>
      <div className=''>
-        <div class="flex flex-col w-[570px] max-h-full rounded  overflow-hidden shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px]">
+        <div class="flex flex-col w-[620px] max-h-full rounded  overflow-hidden shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px]">
             <div className="flex flex-row justify-between items-center">
                     <h1 className="flex-1 font-poppins font-semibold ss:text-[40px] text-black pl-4  ">
                         <span className="text-black">About</span>{" "}

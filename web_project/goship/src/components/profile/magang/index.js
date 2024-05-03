@@ -7,6 +7,7 @@ import History from "./history";
 import Buttonlogout from "./button_logout";
 import Buttonreset from "./reset";
 import Buttonsave from "./save";
+import Instruction from "./instruction";
 
 export {
   Navbar,
@@ -17,5 +18,6 @@ export {
   Identitas,
   Formprofile,
   Requirement,
-  History
+  History, 
+  Instruction
 };
