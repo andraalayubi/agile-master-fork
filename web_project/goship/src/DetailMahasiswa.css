@@ -1,0 +1,368 @@
+.profile {
+  width: 100%;
+  background: #ffffff;
+  font-family: "DM Sans";
+}
+
+.profile-header {
+  position: relative;
+  /* background-image: url("./assets/bg_profil.png");
+  background-size: cover;
+  background-position: center; */
+  border-radius: 24px;
+  display: grid;
+  align-items: center;
+  padding: 20px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+  /* width: 1507px; */
+  height: 683px;
+  width: 1507px;
+  font-family: "DM Sans", sans-serif;
+}
+
+.profile-bg {
+  height: 383px;
+  background-image: url("./assets/bg_profil.png");
+  background-size: cover;
+  background-position: center;
+  box-shadow: #666;
+  display: flex;
+  border-radius: 24px;
+  align-items: last baseline;
+  justify-content: center;
+}
+
+.profile-image {
+  width: 326px; /* Adjust as per your image size */
+  height: 320px;
+  position: absolute;
+  overflow: hidden;
+  border-radius: 8px;
+  margin-left: 150px;
+  /* margin-right: 20px; */
+  margin-top: 150px;
+
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* .profile-image {
+    width: 100%;
+    height: auto;
+  } */
+
+.profile-info {
+  color: rgb(0, 0, 0);
+  /* display: flex; */
+  flex-direction: column;
+  grid-template-columns: repeat(1, 3fr);
+  text-align: start;
+  justify-self: center;
+  margin-bottom: 100px;
+  margin-right: 80px;
+  font-size: 24px;
+  font-weight: normal;
+}
+
+.profile-info i{
+  padding-right: 10px;
+}
+
+.profile-name {
+  font-weight: bold;
+  font-size: 56px; /* Adjust as needed */
+  margin: 0 0 10px 0;
+  align-items: center;
+  color: #ffffff;
+}
+
+
+
+.profile-body {
+  width: 100%;
+  background: #ffffff;
+  box-shadow: 0px 8px 48px rgba(0, 0, 0, 0.12);
+  border-radius: 24px;
+  padding: 32px;
+  /* Add more styling for the body */
+}
+
+.profile-footer {
+  height: 427px;
+  width: 1507px;
+  background: #ffffff;
+  color: #000000;
+  padding: 20px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  /* padding: 24px 0; */
+  font-size: 24px;
+  /* line-height: 31px; */
+  /* font-weight: 500; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  
+}
+
+.profile-footer-detail{
+  width: 1252px;
+  height: 221px;
+  /* background-color: #f77d00; */
+  /* padding-left: 120px; */
+  text-align: start;
+  justify-self: center;
+  font-family: "DM Sans", sans-serif;
+  font-weight: lighter;
+}
+
+.profile-footer h2 {
+  font-size: 48px; /* Adjust if needed */
+  color: #000;
+  margin-bottom: 16px;
+  font-family: "DM Sans", sans-serif;
+  font-weight: bold;
+}
+
+.profile-footer p{
+  margin-top: 35px;
+}
+/* Add detailed styles for each subcomponent in your profile. */
+
+/* Since the exact CSS specifications are too extensive to cover here, below are placeholders for you to fill out with specifics. */
+
+/* For text elements like headers and paragraphs */
+.text-element {
+  /* Add your specific styles, e.g., font-size, font-weight, line-height, color, etc. */
+}
+
+/* For icons, assuming you have SVG or PNG icons */
+.icon {
+  /* Add styles for size and maybe filters if they are monochrome and you wish to apply the brand color */
+}
+
+/* For buttons */
+.button {
+  background-color: orange; /* Adjust the actual color */
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+}
+
+/* For profile photo */
+.profile-photo {
+  /* Photos */
+
+  position: absolute;
+  width: 326px;
+  height: 320px;
+  left: 208px;
+  top: 563px;
+  border: 5px solid rgba(96, 91, 87, 0.12);
+  border-radius: 8px;
+}
+
+/* For the table-like sections */
+.info-section {
+  /* Add styles for the sections that resemble a table or list, with borders or dividers */
+}
+
+.internship-info {
+  background-color: #ffffff;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+  border-radius: 24px;
+  padding: 20px;
+  margin-top: 20px; 
+  /* font-family: "DM Sans", sans-serif;
+  font-weight: bold; */
+  height: 710px;
+  width: 1507px;
+  display: grid;
+  align-items: center;
+  align-content: center;
+  justify-content: start;
+  position: relative;
+}
+
+.internship-info-detail {
+
+  width: 1268px;
+  height: 509.03px;
+  font-family: "DM Sans", sans-serif;
+  /* font-weight: bold; */
+  /* padding-left: 120px; */
+  text-align: start;
+  justify-self: center;
+  /* left: 120px; */
+  /* top: 120px; */
+}
+
+.internship-info h2 {
+  font-size: 48px; /* Adjust if needed */
+  color: #000;
+  margin-bottom: 45px;
+  /* align-items: center; */
+  text-align: start;
+  padding-left: 130px;
+  
+}
+
+.info-row {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* Creates two columns */
+  gap: 200px; /* Adjust the gap as needed */
+  margin-bottom: 16px; /* Space between each info-row */
+  /* padding-left: 130px; */
+  border-bottom: 1px solid #ccc;
+  /* width: 1068px; */
+  margin-left: 130px;
+  /* background-color: #333; */
+  height: 150px;
+  margin-top: -40px;
+}
+
+.info-row-special{
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* Creates two columns */
+  gap: 200px; /* Adjust the gap as needed */
+  margin-bottom: 16px; /* Space between each info-row */
+  /* padding-left: 130px; */
+  border-bottom: 1px solid #ccc;
+  /* width: 1068px; */
+  margin-left: 130px;
+  /* background-color: #333; */
+  height: 220px;
+  margin-top: -70px;
+}
+
+
+.info {
+  display: flex;
+  align-items: center;
+  /* justify-self: center; */
+  margin-top: 30px;
+  width: 520px;
+}
+
+.info i {
+  font-size: 20px; /* Adjust if needed */
+  color: #000; /* Use actual color */
+  margin-right: 12px; /* Adjust if needed */
+  margin-bottom: 25px;
+}
+
+.details {
+  display: flex;
+  flex-direction: column;
+  height: 80px;
+  margin-left: 10px;
+}
+
+
+
+.details h3 {
+  font-size: 24px; /* Adjust if needed */
+  color: #333; /* Use actual color */
+  margin: 0;
+  font-weight: bolder;
+  
+}
+
+.details p {
+  font-size: 24px; /* Adjust if needed */
+  color: #666; /* Use actual color */
+  margin-top: 15px;
+  font-family: "DM Sans";
+  font-weight: lighter;
+}
+
+/* Make sure to add responsive breakpoints if necessary */
+@media (max-width: 768px) {
+  .info-row {
+    flex-direction: column;
+  }
+
+  /* Other responsive adjustments */
+}
+
+.internship-requirements {
+  background-color: #ffffff;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  padding: 20px;
+  margin: 20px 0; /* Adjust based on layout */
+  font-family: "DM Sans", sans-serif;
+  height: 507px;
+  width: 1507px;
+  display: grid;
+  align-items: center;
+  align-content: center;
+  justify-content: start;
+  position: relative;
+}
+
+.internship-requirements-detail{
+  width: 1218px;
+  height: 301px;
+  /* background-color: #e48d8d; */
+  /* padding-left: 120px; */
+  /* text-align: start;
+  justify-self: center; */
+  /* left: 120px; */
+  /* top: 120px; */
+  margin-left: 130px;
+  
+}
+
+.internship-requirements h2 {
+  font-size: 48px; /* Adjust if needed */
+  color: #000;
+  padding-left: 10px;
+  margin-top: 15px;
+}
+
+.internship-requirements ul {
+  list-style: inside; /* Adjust if you have custom icons for bullet points */
+  padding-left: 15px; /* Removes default padding */
+  margin-top: 30px;
+  font-family: "DM Sans", sans-serif;
+}
+
+.internship-requirements li {
+  font-size: 24px; /* Adjust if needed */
+  color: #666; /* Use actual color */
+  line-height: 1.2; /* Adjust if needed */
+  margin-bottom: 10px;
+
+}
+
+/* Add additional styles for responsiveness and matching exact design details */
+
+
+
+.history-date {
+  position: absolute;
+  right: 130px;
+  top: 170px;
+  font-size: 28px;
+  color: #f77d00;
+  font-style: italic;
+  font-weight: bold;
+}
+
+/* Additional responsive styles if needed */
+@media (max-width: 768px) {
+  .history-date {
+    position: static;
+    margin-top: 20px;
+    text-align: right;
+  }
+}
+
+/* Add responsive design styles if necessary */
+@media (max-width: 768px) {
+  /* Adjust styles for mobile view */
+}

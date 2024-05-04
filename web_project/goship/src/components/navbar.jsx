@@ -1,16 +1,33 @@
-import React, { useState } from "react"; // Menambahkan impor React
+import React, { useEffect, useState } from "react";
 import { logo1 } from "../assets";
 import { navLinks } from "../constant";
 import ButtonSignIn from "./button_SignIn.jsx";
 
 const Navbar = () => {
   const [active, setActive] = useState("Home");
+  const [iniNavbar, setIniNavbar] = useState(false);
+
+  const scrollHeader = () => {
+    if (window.scrollY >= 20) {
+      setIniNavbar(true);
+    } else {
+      setIniNavbar(false);
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener('scroll', scrollHeader);
+    return () => {
+      window.removeEventListener('scroll', scrollHeader);
+    };
+  }, []);
 
   return (
-    <nav className="w-full flex py-6 justify-between items-center navbar">
-      <img src={logo1} alt="Goship" className="w-[200px] h-[50px]" />
+    <div className={`fixed z-10 w-full transition duration-300 ${iniNavbar ? 'bg-orange-gradient-navbar' : 'bg-transparent'}`}>
+      <nav className="header px-16 w-full flex justify-between items-center navbar">
+        <img src={logo1} alt="Goship" className="w-[150px] h-[40px]" />
 
-      <ul className="list-none sm:flex hidden justify-end items-center flex-1">
+        <ul className="list-none sm:flex hidden justify-end items-center flex-1">
         {navLinks.map((nav, index) => (
           <li
             key={nav.id}
@@ -22,11 +39,12 @@ const Navbar = () => {
             <a href={`#${nav.id}`}>{nav.title}</a>
           </li>
         ))}
-      </ul>
-        <div className="sm:px-10 px-5 sm:py-5 py-4">
+        <div className="sm:px-10 px-5 sm:py-3">
             <ButtonSignIn />
         </div>
-    </nav>
+      </ul>
+      </nav>
+    </div>
   );
 };
 

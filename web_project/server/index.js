@@ -1,16 +1,21 @@
-const express = require('express');
+const express = require("express");
 const app = express();
-const executeQuery = require('./connection');
-const bodyParser = require('body-parser');
-const cors = require('cors');
-const port = 5000;
+const executeQuery = require("./connection");
+const bodyParser = require("body-parser");
+const cors = require("cors");
+const authRouter = require("./auth");
+// const morgan = require("morgan");
+const port = 3010;
 
-
+// app.use(morgan('dev'));
 app.use(bodyParser.json());
-app.use(cors({
-    origin: 'http://localhost:3000', // Atur domain React Anda
-    credentials: true // Izinkan kredensial seperti cookies
-}));
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(
+  cors({
+    origin: "http://localhost:3000", // Atur domain React Anda
+    credentials: true, // Izinkan kredensial seperti cookies
+  })
+);
 // React Route Here
 app.get('/', (req, res) => {
     console.log("sukses");
@@ -78,10 +83,11 @@ app.get('/api/data', async (req, res) => {
 });
 
 // API Here
-app.get('/api/major-data', async (req, res) => {
-    try {
-        const sql = "SELECT * FROM magang JOIN posisi ON magang.posisi_id = posisi.id_posisi JOIN perusahaan ON posisi.perusahaan_id = perusahaan.id_perusahaan JOIN siswa ON magang.siswa_id = siswa.id_siswa;"
-        const hasilQuery = await executeQuery(sql);
+app.get("/api/major-data", async (req, res) => {
+  try {
+    const sql =
+      "SELECT * FROM magang JOIN posisi ON magang.posisi_id = posisi.id_posisi JOIN perusahaan ON posisi.perusahaan_id = perusahaan.id_perusahaan JOIN siswa ON magang.siswa_id = siswa.id_siswa;";
+    const hasilQuery = await executeQuery(sql);
 
         const posts = {};
         for (let j = 0; j < hasilQuery.length; j++) {
@@ -99,26 +105,26 @@ app.get('/api/major-data', async (req, res) => {
             }
         }
 
-        const data = {
-            posts
-        }
+    const data = {
+      posts,
+    };
 
-        // Output jumlah siswa tiap perusahaan
-        res.json(data);
-
-    } catch (err) {
-        console.error(err);
-        res.status(500).send(err);
-    }
+    // Output jumlah siswa tiap perusahaan
+    res.json(data);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send(err);
+  }
 });
 
-app.get('/api/perusahaan', async (req, res) => {
-    try {
-        const sql = "SELECT pr.nama_perusahaan, pr.id_perusahaan, pr.logo_perusahaan, p.id_posisi, p.nama_posisi, COUNT(m.id_magang) AS jumlah_siswa FROM posisi p JOIN magang m ON p.id_posisi = m.posisi_id JOIN perusahaan pr ON p.perusahaan_id = pr.id_perusahaan GROUP BY p.id_posisi;"
-        const hasilQuery = await executeQuery(sql);
-        console.log(hasilQuery);
-        const formatData = (datas) => {
-            const hasil = {};
+app.get("/api/perusahaan", async (req, res) => {
+  try {
+    const sql =
+      "SELECT pr.nama_perusahaan, pr.id_perusahaan, pr.logo_perusahaan, p.id_posisi, p.nama_posisi, COUNT(m.id_magang) AS jumlah_siswa FROM posisi p JOIN magang m ON p.id_posisi = m.posisi_id JOIN perusahaan pr ON p.perusahaan_id = pr.id_perusahaan GROUP BY p.id_posisi;";
+    const hasilQuery = await executeQuery(sql);
+    console.log(hasilQuery);
+    const formatData = (datas) => {
+      const hasil = {};
 
             datas.forEach((item) => {
                 if (!hasil[item.id_perusahaan]) {
@@ -148,13 +154,12 @@ app.get('/api/perusahaan', async (req, res) => {
             }));
         };
 
-        const data = formatData(hasilQuery);
-        res.json(data);
-
-    } catch (err) {
-        console.error(err);
-        res.status(500).send(err);
-    }
+    const data = formatData(hasilQuery);
+    res.json(data);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send(err);
+  }
 });
 
 app.get('/api/perusahaan/:id', async (req, res) => {
@@ -173,18 +178,18 @@ app.get('/api/perusahaan/:id', async (req, res) => {
         const formatData = (datas) => {
             const hasil = {};
 
-            datas.forEach((item) => {
-                if (!hasil[item.id_perusahaan]) {
-                    hasil[item.id_perusahaan] = {
-                        nama_perusahaan: item.nama_perusahaan,
-                        alamat: item.alamat,
-                        kota: item.kota,
-                        provinsi: item.provinsi,
-                        logo_perusahaan: item.logo_perusahaan,
-                        jumlah_siswa_total: 0,
-                        posisi: {}
-                    };
-                }
+      datas.forEach((item) => {
+        if (!hasil[item.id_perusahaan]) {
+          hasil[item.id_perusahaan] = {
+            nama_perusahaan: item.nama_perusahaan,
+            alamat: item.alamat,
+            kota: item.kota,
+            provinsi: item.provinsi,
+            logo_perusahaan: item.logo_perusahaan,
+            jumlah_siswa_total: 0,
+            posisi: {},
+          };
+        }
 
                 if (!hasil[item.id_perusahaan].posisi[item.id_posisi]) {
                     hasil[item.id_perusahaan].posisi[item.id_posisi] = {
@@ -217,45 +222,167 @@ app.get('/api/perusahaan/:id', async (req, res) => {
             }));
         };
 
-        const data = formatData(hasilQuery);
-        res.json(data);
-
-    } catch (err) {
-        console.error(err);
-        res.status(500).send(err);
-    }
+    const data = formatData(hasilQuery);
+    res.json(data);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send(err);
+  }
 });
 
-app.get('/api/posisi/:id', async (req, res) => {
-    try {
-        const id_posisi = req.params.id;
-        const sql = `SELECT siswa.id_siswa, siswa.nama_siswa, siswa.email, siswa.jenis_kelamin FROM siswa JOIN magang ON siswa.id_siswa = magang.siswa_id JOIN posisi ON magang.posisi_id = posisi.id_posisi WHERE posisi.id_posisi = ${id_posisi};`
-        const data = await executeQuery(sql);
+app.get("/api/posisi/:id", async (req, res) => {
+  try {
+    const id_posisi = req.params.id;
+    const sql = `SELECT siswa.id_siswa, siswa.nama_siswa, siswa.email, siswa.jenis_kelamin FROM siswa JOIN magang ON siswa.id_siswa = magang.siswa_id JOIN posisi ON magang.posisi_id = posisi.id_posisi WHERE posisi.id_posisi = ${id_posisi};`;
+    const data = await executeQuery(sql);
 
-        res.json(data);
-
-    } catch (err) {
-        console.error(err);
-        res.status(500).send(err);
-    }
+    res.json(data);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send(err);
+  }
 });
 
-app.get('/api/user/:id', async (req, res) => {
-    try {
-        const id_siswa = req.params.id;
-        const sql = `SELECT * FROM magang JOIN posisi ON magang.posisi_id = posisi.id_posisi JOIN perusahaan ON posisi.perusahaan_id = perusahaan.id_perusahaan JOIN siswa ON magang.siswa_id = siswa.id_siswa WHERE siswa.id_siswa = ${id_siswa};`
-        const data = await executeQuery(sql);
+app.get("/api/user/:id", async (req, res) => {
+  try {
+    const id_siswa = req.params.id;
+    const sql = `SELECT * FROM magang JOIN posisi ON magang.posisi_id = posisi.id_posisi JOIN perusahaan ON posisi.perusahaan_id = perusahaan.id_perusahaan JOIN siswa ON magang.siswa_id = siswa.id_siswa WHERE siswa.id_siswa = ${id_siswa};`;
+    const data = await executeQuery(sql);
 
-        res.json(data);
-
-    } catch (err) {
-        console.error(err);
-        res.status(500).send(err);
-    }
+    res.json(data);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send(err);
+  }
 });
+
+// API for user CRUD
+app.get("/api/users", async (req, res) => {
+  let usersData;
+  const sql = `SELECT * FROM siswa;`;
+  try {
+    usersData = await executeQuery(sql);
+    if (usersData.length <= 0) {
+      throw new Error("Data Not Found");
+    } else {
+      res.json(usersData);
+    }
+  } catch (error) {
+    res.status(500).send(error.message);
+  }
+});
+
+app.post("/api/users/insert-user", async (req, res) => {
+  let body = "";
+  req.on("data", function (data) {
+    body += data;
+    // Too much POST data, kill the connection!
+    // 1e6 === 1 * Math.pow(10, 6) === 1 * 1000000 ~~~ 1MB
+    if (body.length > 1e6) throw error;
+  });
+
+  try {
+    const bodyReq = {
+      nama: req.body.nama_siswa,
+      gender: req.body.jenis_kelamin,
+      email: req.body.email,
+      institusi: req.body.institusi,
+      jenjang: req.body.jenjang,
+      prodi: req.body.prodi,
+      semester: req.body.semester,
+      telp: req.body.no_telp,
+      nrp: req.body.nrp,
+    };
+    const sql = `INSERT INTO siswa (nama_siswa, jenis_kelamin, email, institusi, jenjang, prodi, semester, no_telp, nrp) VALUES (?,?,?,?,?,?,?,?,?);`;
+    const response = await executeQuery(sql, [
+      bodyReq.nama,
+      bodyReq.gender,
+      bodyReq.email,
+      bodyReq.institusi,
+      bodyReq.jenjang,
+      bodyReq.prodi,
+      bodyReq.semester,
+      bodyReq.telp,
+      bodyReq.nrp,
+    ]);
+
+    res.status(200).json({
+      status: true,
+      message: "Insert Data Successfully",
+    });
+  } catch (error) {
+    res.status(500).send(error.message);
+  }
+});
+
+app.post("/api/users/delete/:id", async (req, res) => {
+  const { id } = req.params;
+
+  const sql = `DELETE FROM siswa WHERE id_siswa=${id};`;
+  try {
+    const response = await executeQuery(sql);
+    if (response.affectedRows > 0) {
+      res.status(200).json({ status: true, message: "Delete data successful" });
+    } else {
+      throw error;
+    }
+  } catch (error) {
+    res.status(500).send(error.message);
+  }
+});
+
+app.put("/api/users/:id/update", async (req, res) => {
+  const { id } = req.params;
+  const bodyReq = {
+    nama: req.body.nama_siswa,
+    gender: req.body.jenis_kelamin,
+    email: req.body.email,
+    institusi: req.body.institusi,
+    jenjang: req.body.jenjang,
+    prodi: req.body.prodi,
+    semester: req.body.semester,
+    telp: req.body.no_telp,
+    nrp: req.body.nrp,
+  };
+  const sql = `UPDATE siswa SET nama_siswa=?, jenis_kelamin=?, email=?, institusi=?, jenjang=?, prodi=?, semester=?, no_telp=?, nrp=? WHERE id_siswa=?`;
+  const values = [
+    bodyReq.nama,
+    bodyReq.gender,
+    bodyReq.email,
+    bodyReq.institusi,
+    bodyReq.jenjang,
+    bodyReq.prodi,
+    bodyReq.semester,
+    bodyReq.telp,
+    bodyReq.nrp,
+    id,
+  ];
+  try {
+    const response = await executeQuery(sql, values);
+    if(response.affectedRows > 0){
+      res.status(200).json({status: true, message: "Berhasil update data user " + bodyReq.nama });
+    }else{
+      res.status(403).json({status: false, message: "Gagal update data user " + bodyReq.nama });
+    }
+  } catch (error) {
+    res.status(500).send(error.message);
+  }
+});
+
+// app.post('/login', (req,res)=>{
+//     const nrp = req.params.nrp;
+//     const password = req.params.password;
+//     try{
+
+//     }catch(error){
+
+//     }
+// })
+
+app.use('/auth', authRouter);
 
 app.listen(port, () => {
-    console.log(`Server is running on port ${port}`);
+  console.log(`Server is running on port ${port}`);
 });
 
 //server.timeout = 60000;

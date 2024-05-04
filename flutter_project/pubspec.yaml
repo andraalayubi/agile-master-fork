@@ -38,6 +38,8 @@ dependencies:
   provider: ^6.1.2
   http: ^1.2.0
   shared_preferences: ^2.2.2
+  readmore: ^3.0.0
+  connectivity: ^3.0.6
 
 dev_dependencies:
   flutter_test:
@@ -83,13 +85,14 @@ flutter:
     - assets/onboarding/step2.png
     - assets/onboarding/step3.png
     - assets/home/ProfilePhoto.png
-    - assets/home/LOGO1.png
+    - assets/home/logo1.png
     - assets/home/center.png
     - assets/guide/Headline.png
     - assets/guide/image21.png
     - assets/home/hero1.png
     - assets/home/male.png
     - assets/home/female.png
+    - assets/home/Profile_Photo1.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

@@ -2,8 +2,6 @@ import React from 'react';
 import styles  from '../style';
 import CardCompany from './card_company';
 
-
-
 const Perusahaan = () => (
   <div className="px-32 object-top">
   <section id='companies' className={`${styles.flexCenter} ${styles.marginY} ${styles.padding} sm:flex-row flex-col  rounded-[24px] box-shadow bg-white section-container w-max-auto`}>
