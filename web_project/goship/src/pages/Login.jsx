@@ -15,11 +15,8 @@ const LoginPage = () => {
     // Navigasi ke halaman Forgot_Password_User saat tombol "Forgot password?" diklik
     navigate("/forgot-password-user");
   };
-
-  const [formDataUser, setFormDataUser] = useState({
-    nrp: "",
-    password: "",
-  });
+  const [nrp, setnrp] = useState('');
+  const [password, setPassword] = useState('');
 
   const [formDataAdmin, setFormDataAdmin] = useState({
     email: "",
@@ -30,9 +27,9 @@ const LoginPage = () => {
   const [isAdminHovered, setIsAdminHovered] = useState(false);
   const [isAdminForm, setIsAdminForm] = useState(false); // State untuk menentukan apakah form untuk admin sedang ditampilkan
 
-  const handleChangeUser = (e) => {
-    setFormDataUser({ ...formDataUser, [e.target.name]: e.target.value });
-  };
+  // const handleChangeUser = (e) => {
+  //   setFormDataUser({ ...formDataUser, [e.target.name]: e.target.value });
+  // };
 
   const handleChangeAdmin = (e) => {
     setFormDataAdmin({ ...formDataAdmin, [e.target.name]: e.target.value });
@@ -40,11 +37,13 @@ const LoginPage = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (isAdminForm) {
-      console.log(formDataAdmin);
-    } else {
-      console.log(formDataUser);
-    }
+
+    // const response;
+    // if (isAdminForm) {
+    //   console.log(formDataAdmin);
+    // } else {
+    //   console.log(formDataUser);
+    // }
   };
 
   const handleAdminClick = () => {
@@ -55,7 +54,6 @@ const LoginPage = () => {
     setIsAdminForm(false);
     // handleUserClick();
   };
-
   return (
     <div
       className="flex justify-center items-center h-screen relative"
@@ -90,7 +88,7 @@ const LoginPage = () => {
                 >
                   User
                 </button>
-                <button
+                {/* <button
                   className="bg-orange-500 text-white font-bold py-2 px-4 rounded border border-orange-500"
                   style={{
                     backgroundColor:
@@ -103,7 +101,7 @@ const LoginPage = () => {
                   onClick={handleAdminClick} // Tambahkan event handler untuk klik pada tombol "Admin"
                 >
                   Admin
-                </button>
+                </button> */}
               </div>
             </div>
             <div>
@@ -131,8 +129,8 @@ const LoginPage = () => {
                             name="nrp"
                             id="nrp"
                             placeholder="NRP"
-                            value={formDataUser.nrp}
-                            onChange={handleChangeUser}
+                            value={nrp}
+                            onChange={(e)=>setnrp(e.target.value)}
                             className="flex-grow py-1.5 px-3 text-gray-700 placeholder-gray-400 placeholder-xs focus:ring-inset focus:ring-indigo-600 sm:text-sm border-0"
                           />
                         </div>
@@ -151,8 +149,8 @@ const LoginPage = () => {
                             id="password"
                             name="password"
                             placeholder="Masukkan Kata Sandi Anda"
-                            value={formDataUser.password}
-                            onChange={handleChangeUser}
+                            value={password}
+                            onChange={(e)=>setPassword(e.target.value)}
                             className="flex-grow py-1.5 px-3 text-gray-700 placeholder-gray-400 placeholder-xs focus:ring-inset focus:ring-indigo-600 sm:text-sm border-0"
                             required
                           />
@@ -161,7 +159,7 @@ const LoginPage = () => {
                     </div>
                   </>
                 )}
-                {isAdminForm && ( // Menampilkan form untuk admin jika isAdminForm true
+                {/* {isAdminForm && ( // Menampilkan form untuk admin jika isAdminForm true
                   <div>
                     <div className="mt-6 grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-6">
                       <div className="sm:col-span-6">
@@ -204,7 +202,7 @@ const LoginPage = () => {
                       </div>
                     </div>
                   </div>
-                )}
+                )} */}
                 <div className="flex justify-end mt-2">
                   <a
                     href={
