@@ -1,10 +1,41 @@
-import React, { useState } from 'react';
+import React from 'react';
 import CardForm from './form_post';
+import { useLocation, useNavigate } from "react-router-dom";
+import Cookies from 'js-cookie';
+import { useEffect, useState } from "react";
 
 const ButtonExperience = () => {
-  const [showForm, setShowForm] = useState(false); 
+  const navigate = useNavigate();
+  let refreshToken = Cookies.get('refresh_token');
+  const [user, setUser] = useState(null)
+  const [loginState, setLoginState] = useState(false)
+  const [showForm, setShowForm] = useState(false);
+  
+  useEffect(() => {
+    // setUser(data);
+    if (!refreshToken && localStorage.length != 0) {
+      localStorage.clear()
+    } else if (refreshToken) {
+      let name = localStorage.getItem('nama')
+      setUser(name)
+    }
+  }, [user]);
+  
+  useEffect(() => {
+    if (user) {
+      setLoginState(true);
+    } else {
+      setLoginState(false);
+    }
+  }, [user]);
+  
   const handleClick = () => {
-    setShowForm(true);
+    if (user !== null) {
+      setShowForm(true);
+    } else {
+      navigate('/login')
+    }
+
   };
 
   return (

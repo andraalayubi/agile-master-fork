@@ -6,31 +6,40 @@ import { useLocation, useNavigate } from "react-router-dom";
 import Cookies from 'js-cookie';
 
 const Home = () => {
+  const navigate = useNavigate();
+  let refreshToken = Cookies.get('refresh_token')
   const location = useLocation();
   const data = location.state;
   const [user, setUser] = useState(null)
   const [loginState, setLoginState] = useState(false)
+  
+  
+  
   useEffect(() => {
-    setUser(data);
-    
-  }, []);
+    // setUser(data);
+    if (!refreshToken && localStorage.length != 0) {
+      localStorage.clear()
+    } else if (refreshToken) {
+      let name = localStorage.getItem('nama')
+      setUser(name)
+    }
+  }, [user]);
 
   useEffect(() => {
     if (user) {
       setLoginState(true);
-    }else{
+    } else {
       setLoginState(false);
     }
   }, [user]);
 
   return (
     <>
-
       <div className={` bg-orange-gradient overflow-visible ${styles.flexStart} pb-96`}>
         <div className={`${styles.boxWidth}`}>
 
           <div className=" pb-16">
-            <Navbar loginState={loginState} />
+             <Navbar user={user}/>
           </div>
           <Hero />
         </div>
@@ -39,7 +48,7 @@ const Home = () => {
 
       <div className="relative">
         <div className={`${styles.boxWidth} absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 p-4`}>
-          <Perusahaan isLogged={loginState}/>
+          <Perusahaan isLogged={loginState} />
         </div>
       </div>
 

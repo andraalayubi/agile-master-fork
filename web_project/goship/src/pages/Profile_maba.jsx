@@ -1,9 +1,16 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import styles from "../style";
 import {Navbar, Identitas, Formprofile, Instruction} from "../components/profile/magang"
 
 
-const Profilemaba = () => {
+const Profilemaba = (loggedUser) => {
+  const [user, setUser] = useState(null)
+
+  useEffect(()=>{
+    if(loggedUser != null){
+      setUser(loggedUser);
+    }
+  },[user])
   return (
     <>
     <div className=" pb-20">

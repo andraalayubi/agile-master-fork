@@ -68,7 +68,6 @@ module.exports = {
         res.status(401).json({ message: "Unauthorized: Invalid token!" });
       }
       res.status(200).json({ authorized: true });
-      next();
     } catch (error) {
       res.status(500).send("Internal server error!");
     }

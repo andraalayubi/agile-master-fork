@@ -24,7 +24,7 @@ const ForgotPasswordUserPage = () => {
       password: confirmpassword
     }
     try {
-      const response = await axios.post('http://localhost:3011/auth/reset-password', resetPassword)
+      const response = await axios.post('http://localhost:5000/auth/reset-password', resetPassword)
       if (response.status === 200) {
         Swal.fire({
           title: 'Behasil!',

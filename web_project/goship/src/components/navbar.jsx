@@ -2,11 +2,14 @@ import React, { useEffect, useState } from "react";
 import { logo1 } from "../assets";
 import { navLinks } from "../constant";
 import ButtonSignIn from "./button_SignIn.jsx";
+import { Link } from "react-router-dom";
 
-const Navbar = (loginState) => {
-  console.log("INI"+loginState.loginState)
+const Navbar = (user) => {
+  // console.log("🚀 ~ Navbar ~ loginState:", loginState)
   const [active, setActive] = useState("Home");
   const [iniNavbar, setIniNavbar] = useState(false);
+  const loggedUser = user.user;
+  console.log("🚀 ~ Navbar ~ loggedUser:", loggedUser)
 
   const scrollHeader = () => {
     if (window.scrollY >= 20) {
@@ -29,21 +32,20 @@ const Navbar = (loginState) => {
         <img src={logo1} alt="Goship" className="w-[150px] h-[40px]" />
 
         <ul className="list-none sm:flex hidden justify-end items-center flex-1">
-        {navLinks.map((nav, index) => (
-          <li
-            key={nav.id}
-            className={`font-poppins font-normal cursor-pointer text-[16px] ${
-              active === nav.title ? "text-orange" : "text-dimblack"
-            } ${index === navLinks.length - 1 ? "mr-0" : "mr-10"}`}
-            onClick={() => setActive(nav.title)}
-          >
-            <a href={`#${nav.id}`}>{nav.title}</a>
-          </li>
-        ))}
-        <div className="sm:px-10 px-5 sm:py-3">
-            {loginState.loginState ? <p>TRUE</p>:<ButtonSignIn />}
-        </div>
-      </ul>
+          {navLinks.map((nav, index) => (
+            <li
+              key={nav.id}
+              className={`font-poppins font-normal cursor-pointer text-[16px] ${active === nav.title ? "text-orange" : "text-dimblack"
+                } ${index === navLinks.length - 1 ? "mr-0" : "mr-10"}`}
+              onClick={() => setActive(nav.title)}
+            >
+              <a href={`#${nav.id}`}>{nav.title}</a>
+            </li>
+          ))}
+          <div className="sm:px-10 px-5 sm:py-3">
+            {loggedUser !== null ? <Link to='/student-profile' state={{ user: loggedUser }}>{loggedUser}</Link> : <ButtonSignIn />}
+          </div>
+        </ul>
       </nav>
     </div>
   );
