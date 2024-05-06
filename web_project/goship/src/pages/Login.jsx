@@ -2,8 +2,12 @@ import React, { useState } from "react";
 import { login, orang, gembok, amplop } from "../assets";
 import image21 from "../assets/image21.png";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import Cookies from 'js-cookie';
+// import { putHistory, showHistory } from "../storage";
 
 const LoginPage = () => {
+  let refreshToken = Cookies.get('refresh_token')
   const navigate = useNavigate();
 
   const handleUserClick = () => {
@@ -35,10 +39,29 @@ const LoginPage = () => {
     setFormDataAdmin({ ...formDataAdmin, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // const response;
+    const credential = {
+      nrp: nrp,
+      password: password
+    }
+    try {
+      const response = await axios.post('http://localhost:3011/auth/login', credential);
+      Cookies.set('refresh_token', response.data.token, {expires : 1 / 48})
+            
+      if (response.data.user.is_first_auth === 1) {
+        navigate('/reset-password-user', { state: response.data.user  })
+      }else{
+        const authorizationKey = {
+          user: response.data.user,
+          token : response.data.token
+        }
+        navigate('/', {state: authorizationKey})
+      }
+    } catch (error) {
+      console.log(error)
+    }
     // if (isAdminForm) {
     //   console.log(formDataAdmin);
     // } else {
@@ -130,7 +153,7 @@ const LoginPage = () => {
                             id="nrp"
                             placeholder="NRP"
                             value={nrp}
-                            onChange={(e)=>setnrp(e.target.value)}
+                            onChange={(e) => setnrp(e.target.value)}
                             className="flex-grow py-1.5 px-3 text-gray-700 placeholder-gray-400 placeholder-xs focus:ring-inset focus:ring-indigo-600 sm:text-sm border-0"
                           />
                         </div>
@@ -150,7 +173,7 @@ const LoginPage = () => {
                             name="password"
                             placeholder="Masukkan Kata Sandi Anda"
                             value={password}
-                            onChange={(e)=>setPassword(e.target.value)}
+                            onChange={(e) => setPassword(e.target.value)}
                             className="flex-grow py-1.5 px-3 text-gray-700 placeholder-gray-400 placeholder-xs focus:ring-inset focus:ring-indigo-600 sm:text-sm border-0"
                             required
                           />
@@ -213,7 +236,7 @@ const LoginPage = () => {
                     className="text-xs text-orange-500 hover:underline"
                     style={{ color: "#F77D00" }}
                   >
-                   Tidak ingat kata sandi?
+                    Tidak ingat kata sandi?
                   </a>
                 </div>
               </div>

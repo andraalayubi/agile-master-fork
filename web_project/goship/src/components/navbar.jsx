@@ -3,7 +3,8 @@ import { logo1 } from "../assets";
 import { navLinks } from "../constant";
 import ButtonSignIn from "./button_SignIn.jsx";
 
-const Navbar = () => {
+const Navbar = (loginState) => {
+  console.log("INI"+loginState.loginState)
   const [active, setActive] = useState("Home");
   const [iniNavbar, setIniNavbar] = useState(false);
 
@@ -40,7 +41,7 @@ const Navbar = () => {
           </li>
         ))}
         <div className="sm:px-10 px-5 sm:py-3">
-            <ButtonSignIn />
+            {loginState.loginState ? <p>TRUE</p>:<ButtonSignIn />}
         </div>
       </ul>
       </nav>
