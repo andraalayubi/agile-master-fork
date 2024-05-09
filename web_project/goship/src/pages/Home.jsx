@@ -17,8 +17,9 @@ const Home = () => {
   
   useEffect(() => {
     // setUser(data);
-    if (!refreshToken && localStorage.length != 0) {
+    if (!refreshToken) {
       localStorage.clear()
+      navigate('/');
     } else if (refreshToken) {
       let name = localStorage.getItem('nama')
       setUser(name)

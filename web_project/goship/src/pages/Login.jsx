@@ -70,11 +70,11 @@ const LoginPage = () => {
         navigate('/reset-password-user', { state: response.data.user  })
       }else{
         Swal.fire({
-          title: 'Behasil!',
+          title: 'Berhasil!',
           text: response.data.message,
           icon: "success",
-
         })
+        localStorage.setItem('id', response.data.user.id_siswa)
         localStorage.setItem('nama', response.data.user.nama_siswa)
         localStorage.setItem('nrp', response.data.user.nrp)
         const authorizationKey = {
