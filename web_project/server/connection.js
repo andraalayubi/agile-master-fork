@@ -8,8 +8,9 @@ const pool = mysql.createPool({
   host: 'zayratshop.com',
   user: 'u517506439_goshipAdmin',
   password: 'Goshipb2',
-  // user: 'aldino',
-  // password: 'angga225',
+  // host: 'localhost',
+  // user: 'root',
+  // password: '',
   database: 'u517506439_goship'
 });
 

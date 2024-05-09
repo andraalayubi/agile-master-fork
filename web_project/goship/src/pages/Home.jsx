@@ -13,8 +13,6 @@ const Home = () => {
   const [user, setUser] = useState(null)
   const [loginState, setLoginState] = useState(false)
   
-  
-  
   useEffect(() => {
     // setUser(data);
     if (!refreshToken) {

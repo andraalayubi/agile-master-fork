@@ -1,42 +1,98 @@
 import {
   logo1,
   profile,
-  bag,
   location,
   card,
   calendar,
   star,
   document,
 } from "../assets";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import Cookies from 'js-cookie';
 
 const CardForm = ({ onClose }) => {
+  const [perusahaanData, setPerusahaanData] = useState([]);
+  useEffect(() => {
+    fetch('http://103.127.135.153:5000/api/perusahaan/')
+      .then(response => response.json())
+      .then(data => setPerusahaanData(data))
+      .catch(error => console.error('Error fetching data:', error));
+  }, []);
+
+  let refreshToken = Cookies.get('refresh_token')
+  const [id, setId] = useState('');
+
+  useEffect(() => {
+    // setUser(data);
+    if (!refreshToken) {
+      localStorage.clear()
+    } else if (refreshToken) {
+      let _id = localStorage.getItem('id')
+      setId(_id);
+    }
+  }, [id]);
+
+  const [selectedCompanyId, setSelectedCompanyId] = useState(null);
   const [showCompanyDropdown, setShowCompanyDropdown] = useState(false);
-  const [showDistrictDropdown, setShowDistrictDropdown] = useState(false);
   const [showCityDropdown, setShowCityDropdown] = useState(false);
   const [showProvinceDropdown, setShowProvinceDropdown] = useState(false);
-  const [selectedCompanyName, setSelectedCompanyName] = useState("");
-  const [selectedDistrict, setSelectedDistrict] = useState("");
-  const [selectedCity, setSelectedCity] = useState("");
-  const [selectedProvince, setSelectedProvince] = useState("");
+
   const companyNames = ["Company A", "Company B", "Company C"];
-  const districtData = ["District A", "District B", "District C"];
   const cityData = ["City A", "City B", "City C"];
   const provinceData = ["Province A", "Province B", "Province C"];
 
+  const [selectedCompanyName, setSelectedCompanyName] = useState("");
+  const [selectedCity, setSelectedCity] = useState("");
+  const [selectedProvince, setSelectedProvince] = useState("");
+  const [lokasiMagang, setLokasiMagang] = useState("");
+  const [divisiMagang, setDivisiMagang] = useState("");
+  const [durasiMagang, setDurasiMagang] = useState("");
+  const [jenisMagang, setJenisMagang] = useState("");
+  const [judulLaporan, setJudulLaporan] = useState("");
+  const [ceritaMagang, setCeritaMagang] = useState("");
+
   const handleSubmit = (event) => {
     event.preventDefault();
-    // Lakukan sesuatu saat tombol submit ditekan
+
+    const data = {
+      perusahaan_id: selectedCompanyId,
+      // kota: selectedCity,
+      // provinsi: selectedProvince,
+      // alamat: lokasiMagang,
+      posisi: divisiMagang,
+      durasi_magang: durasiMagang,
+      jenis_program: jenisMagang,
+      judul_laporan: judulLaporan,
+      deskripsi_magang: ceritaMagang,
+      siswa_id: id,
+    }
+
+    console.log(data);
+
+    fetch('http://localhost:3010/form', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    })
+    .then(response => response.json())
+    .then(data => {
+      console.log('Success:', data);
+      onClose();
+    })
+    .catch((error) => {
+      console.error('Error:', error);
+    });
   };
 
-  const handleDropdownClick = (name) => {
-    setSelectedCompanyName(name);
+  const handleCompanyDropdownClick = (idCompany) => {
+    const selectedCompany = perusahaanData.find(company => company.id_perusahaan === idCompany);
+  if (selectedCompany) {
+    setSelectedCompanyId(selectedCompany.id_perusahaan);
+    setSelectedCompanyName(selectedCompany.nama_perusahaan);
     setShowCompanyDropdown(false);
-  };
-
-  const handleDistrictDropdownClick = (name, type) => {
-    setSelectedDistrict(name);
-    setShowDistrictDropdown(false);
+  }
   };
 
   const handleCityDropdownClick = (name, type) => {
@@ -51,10 +107,6 @@ const CardForm = ({ onClose }) => {
 
   const toggleCompanyDropdown = (event) => {
     setShowCompanyDropdown(!showCompanyDropdown);
-  };
-
-  const toggleDistrictDropdown = (event) => {
-    setShowDistrictDropdown(!showDistrictDropdown);
   };
 
   const toggleCityDropdown = (event) => {
@@ -143,7 +195,7 @@ const CardForm = ({ onClose }) => {
                         <li
                           key={index}
                           className="text-gray-900 cursor-pointer select-none relative py-2 pl-3 pr-9"
-                          onClick={() => handleDropdownClick(name, "company")}
+                          onClick={() => handleCompanyDropdownClick(name, )}
                         >
                           <div className="flex items-center">
                             <span className="font-normal block truncate">
@@ -157,88 +209,9 @@ const CardForm = ({ onClose }) => {
                 )}
               </div>
 
-              <div className="sm:col-span-3">
-                <div className="input-group flex inline-block border items-center justify-center border-1 rounded-md">
-                  <img src={bag} alt="bag" className="input-icon ml-4 mr-3 my-3.5" />
-                  <input
-                    type="text"
-                    name="Bidang Magang"
-                    id="Bidang Magang"
-                    placeholder="Bidang Magang"
-                    className="block w-full py-1.5 ps-0 text-gray-700 placeholder:text-gray-400 placeholder:text-xs focus:ring-inset focus:ring-indigo-600 sm:text-sm border-0 mr-20"
-                    style={{ fontWeight: "normal" }}
-                  />
-                </div>
-              </div>
-
               <div className="sm:col-span-3 relative">
                 <div
-                  className="input-group flex inline-block border border-1 rounded-md cursor-pointer dropdown"
-                  onClick={toggleDistrictDropdown}
-                >
-                  <img
-                    src={location}
-                    alt="location"
-                    className="input-icon-sm m-3"
-                  />
-                  <input
-                    type="text"
-                    name="Kecamatan"
-                    id="Kecamatan"
-                    placeholder="Kecamatan"
-                    value={selectedDistrict}
-                    readOnly
-                    className="block w-full py-1.5 ps-0 text-gray-700 placeholder:text-gray-400 placeholder:text-xs focus:ring-inset focus:ring-indigo-600 sm:text-sm border-0 mr-20"
-                    style={{ fontWeight: "normal" }}
-                  />
-                  <div className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
-                    <svg
-                      className="h-5 w-5 text-gray-400 rotate-180"
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 20 20"
-                      fill="currentColor"
-                      aria-hidden="true"
-                    >
-                      <path
-                        fillRule="evenodd"
-                        d="M10 3a1 1 0 00-.707.293l-6 6a1 1 0 001.414 1.414L10 5.414l5.293 5.293a1 1 0 001.414-1.414l-6-6A1 1 0 0010 3z"
-                        clipRule="evenodd"
-                      />
-                    </svg>
-                  </div>
-                </div>
-                {showDistrictDropdown && (
-                  <div className="absolute z-10 mt-1 w-full rounded-md bg-white shadow-lg">
-                    <ul
-                      tabIndex="-1"
-                      role="listbox"
-                      aria-labelledby="listbox-label"
-                      aria-activedescendant="listbox-item-3"
-                      className="max-h-40 rounded-md py-1 text-base leading-6 shadow-xs overflow-auto focus:outline-none sm:text-sm sm:leading-5"
-                    >
-                      {districtData.map((district, index) => (
-                        <li
-                          key={index}
-                          className="text-gray-900 cursor-pointer select-none relative py-2 pl-3 pr-9"
-                          onClick={() =>
-                            handleDistrictDropdownClick(district, "district")
-                          }
-                        >
-                          <div className="flex items-center">
-                            <span className="font-normal block truncate">
-                              {district}
-                            </span>
-                          </div>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
-              </div>
-
-              <div className="sm:col-span-3 relative">
-                <div
-                  className="input-group flex inline-block border border-1 rounded-md cursor-pointer dropdown"
+                  className="input-group flex inline-block border border-1 rounded-md cursor-pointer dropdown focus:border-indigo-600"
                   onClick={toggleCityDropdown}
                 >
                   <img
@@ -253,7 +226,7 @@ const CardForm = ({ onClose }) => {
                     placeholder="Kota/Kabupaten"
                     value={selectedCity}
                     readOnly
-                    className="block w-full py-1.5 ps-0 text-gray-700 placeholder:text-gray-400 placeholder:text-xs focus:ring-inset focus:ring-indigo-600 sm:text-sm border-0 mr-20"
+                    className="block w-full py-1.5 ps-0 text-gray-700 placeholder:text-gray-400 placeholder:text-xs sm:text-sm border-0 mr-20"
                     style={{ fontWeight: "normal" }}
                   />
                   <div className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
@@ -377,7 +350,10 @@ const CardForm = ({ onClose }) => {
                     type="text"
                     name="Lokasi Magang"
                     id="Lokasi Magang"
+                    value={lokasiMagang}
+                    onChange={(e) => setLokasiMagang(e.target.value)}
                     placeholder="Lokasi Magang"
+
                     className="block w-full py-1.5 ps-0 text-gray-700 placeholder:text-gray-400 placeholder:text-xs focus:ring-inset focus:ring-indigo-600 sm:text-sm border-0 mr-20"
                     style={{ fontWeight: "normal" }}
                   />
@@ -391,6 +367,8 @@ const CardForm = ({ onClose }) => {
                     type="text"
                     name="Divisi Magang"
                     id="Divisi Magang"
+                    value={divisiMagang}
+                    onChange={(e) => setDivisiMagang(e.target.value)}
                     placeholder="Divisi Magang"
                     className="block w-full py-1.5 ps-0 text-gray-700 placeholder:text-gray-400 placeholder:text-xs focus:ring-inset focus:ring-indigo-600 sm:text-sm border-0 mr-20"
                     style={{ fontWeight: "normal" }}
@@ -409,6 +387,8 @@ const CardForm = ({ onClose }) => {
                     type="number"
                     name="Durasi magang"
                     id="Durasi magang"
+                    value={durasiMagang}
+                    onChange={(e) => setDurasiMagang(e.target.value)}
                     placeholder="Durasi magang"
                     className="block w-full py-1.5 ps-0 text-gray-700 placeholder:text-gray-400 placeholder:text-xs focus:ring-inset focus:ring-indigo-600 sm:text-sm border-0 mr-20"
                     style={{ fontWeight: "normal" }}
@@ -429,6 +409,8 @@ const CardForm = ({ onClose }) => {
                     type="text"
                     name="Jenis Magang"
                     id="Jenis Magang"
+                    value={jenisMagang}
+                    onChange={(e) => setJenisMagang(e.target.value)}
                     placeholder="Jenis Magang"
                     className="block w-full py-1.5 ps-0 text-gray-700 placeholder:text-gray-400 placeholder:text-xs focus:ring-inset focus:ring-indigo-600 sm:text-sm border-0 mr-20"
                     style={{ fontWeight: "normal" }}
@@ -486,6 +468,8 @@ const CardForm = ({ onClose }) => {
                     type="text"
                     name="Judul laporan magang "
                     id="Judul laporan magang"
+                    value={judulLaporan}
+                    onChange={(e) => setJudulLaporan(e.target.value)}
                     placeholder="Judul laporan magang"
                     className="block w-full py-1.5 ps-0 text-gray-700 placeholder:text-gray-400 placeholder:text-xs focus:ring-inset focus:ring-indigo-600 sm:text-sm border-0 mr-20"
                     style={{ fontWeight: "normal" }}
@@ -499,6 +483,8 @@ const CardForm = ({ onClose }) => {
                     type="text"
                     name="Ceritakan kepada kami tentang pengalaman magang Anda di sini"
                     id="Ceritakan kepada kami tentang pengalaman magang Anda di sini"
+                    value={ceritaMagang}
+                    onChange={(e) => setCeritaMagang(e.target.value)}
                     placeholder="Ceritakan kepada kami tentang pengalaman magang Anda di sini"
                     className="block w-full py-1.5 ps-0 text-gray-700 placeholder:text-gray-400 placeholder:text-xs focus:ring-inset focus:ring-indigo-600 sm:text-sm border-0 mr-20"
                     style={{ height: "100px", fontWeight: "normal" }}

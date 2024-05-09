@@ -4,6 +4,7 @@ const executeQuery = require("./connection");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const authRouter = require("./auth");
+const formRouter = require("./routes/form");
 // const morgan = require("morgan");
 const port = 5000;
 
@@ -17,6 +18,9 @@ app.use(
   })
 );
 // React Route Here
+
+app.use('/auth', authRouter);
+app.use('/form', formRouter)
 app.get('/', (req, res) => {
     console.log("sukses");
     res.send('Hello from Express backend!');
@@ -71,7 +75,7 @@ app.get('/api/data', async (req, res) => {
         });
 
         // console.log(hasilQuery);
-        data = Object.values(companiesData);
+        const data = Object.values(companiesData).filter(company => company.posisi.length > 0);
 
         // Output jumlah siswa tiap perusahaan
         res.json(data);
@@ -378,8 +382,6 @@ app.put("/api/users/:id/update", async (req, res) => {
 
 //     }
 // })
-
-app.use('/auth', authRouter);
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
