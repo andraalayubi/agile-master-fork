@@ -93,7 +93,7 @@ module.exports = {
             message: `Berhasil reset password user dengan NRP ${nrp}`,
           });
         } else {
-          throw new Error("Gagal update password");
+          res.status(403).json({message: "Reset password hanya bisa 1 kali!"});
         }
       } else {
         res.status(400).send(`User tidak terdaftar.`);

@@ -13,27 +13,20 @@ const Identitas = (user) => {
             </div>
             <h2 className='font-bold box-fill '>{user.user.nama_siswa}</h2>
         </div>
-        <div className='pt-6'>
-            <div class="flex flex-row w-60 p-2 max-w-sm rounded overflow-hidden shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px]">
-                <img className='w-6' src={telpon} alt="" />
-                <h1 className='pl-4 text-[14px] '>{user.user.no_telp}</h1>  
+        <div className='pt-4'>
+            <div class="flex flex-row w-60 p-2 max-w-sm rounded  shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px]">
+                <a href=""><h1 className='pl-3 text-[14px] text-ellipsis overflow-hidden '>Tentang Saya </h1></a>  
             </div>
         </div>
         <div className='pt-4'>
             <div class="flex flex-row w-60 p-2 max-w-sm rounded  shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px]">
-                <img className='w-6' src={email} alt="" />
-                <h1 className='pl-3 text-[14px] text-ellipsis overflow-hidden '>{user.user.email}</h1>  
+                <a href="#instruction"><h1 className='pl-3 text-[14px] text-ellipsis overflow-hidden '>Pengantar KP</h1></a>  
             </div>
         </div>
-        <div className='pt-4'>
-            <div class="flex flex-row w-60 p-2 max-w-sm rounded overflow-hidden shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px]">
-                <img className='w-6' src={gender} alt="" />
-                <h1 className='pl-4 text-[14px] '>{user.user.jenis_kelamin}</h1>  
-            </div>
-        </div>
+        
         <div className='pt-10'>
             <div class=" shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px]">
-                <Buttonlogout />
+                <Buttonlogout user={user}/>
             </div>
         </div>
     </div>

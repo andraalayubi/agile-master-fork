@@ -10,21 +10,26 @@ const ForgotPasswordUserPage = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const data = location.state;
-  const [user, setUser] = useState(null)
-  const [password, setPassword] = useState('')
-  const [confirmpassword, setConfirmPassword] = useState('')
+  const [user, setUser] = useState(null);
+  const [password, setPassword] = useState('');
+  const [confirmpassword, setConfirmPassword] = useState('');
+
+  
+
   useEffect(() => {
-    setUser(data);
+    
+    setUser(localStorage.getItem('nrp'));
   }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const resetPassword = {
-      nrp: user.nrp,
+      nrp: user,
       password: confirmpassword
     }
     try {
       const response = await axios.post('http://localhost:5000/auth/reset-password', resetPassword)
+      console.log(response.status)
       if (response.status === 200) {
         Swal.fire({
           title: 'Behasil!',
@@ -33,21 +38,29 @@ const ForgotPasswordUserPage = () => {
 
         })
         navigate('/', {state: user})
-      } else {
+      }
+      // else if(response.status === 403){
+      //   Swal.fire({
+      //     title: 'Oops!',
+      //     text: response.data.message,
+      //     icon: "warning",
+      //   })
+      //   navigate('/')
+      // } 
+      else {
         Swal.fire({
           title: 'Failed!',
           text: "Gagal update password!",
           icon: "error",
-
         })
       }
     } catch (error) {
       Swal.fire({
-        title: 'Error!',
-        text: error,
-        icon: "error",
-
+        title: 'Oops!',
+        text: 'Tidak bisa update password 2 kali!',
+        icon: "warning",
       })
+      navigate('/')
     }
   };
 

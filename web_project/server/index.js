@@ -372,6 +372,28 @@ app.put("/api/users/:id/update", async (req, res) => {
     res.status(500).send(error.message);
   }
 });
+app.post("/api/user-profile/update", async (req, res) => {
+  const bodyReq = {
+    nama: req.body.nama,
+    email: req.body.email,
+    phone: req.body.phone,
+    idSiswa: req.body.id
+  };
+  const sql = `UPDATE siswa SET nama_siswa='${bodyReq.nama}', email='${bodyReq.email}', phone='${bodyReq.phone}' WHERE id_siswa='${bodyReq.idSiswa}'`;
+  try {
+    console.log('halo')
+    const response = await executeQuery(sql);
+    console.log("🚀 ~ app.post ~ response:", response)
+    
+    if(response.affectedRows > 0){
+      res.status(200).json({status: true, message: "Berhasil update data user " + bodyReq.nama });
+    }else{
+      res.status(403).json({status: false, message: "Gagal update data user " + bodyReq.nama });
+    }
+  } catch (error) {
+    res.status(500).send(error.message);
+  }
+});
 
 // app.post('/login', (req,res)=>{
 //     const nrp = req.params.nrp;

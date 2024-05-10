@@ -8,16 +8,17 @@ import Loading from '../components/loading';
 // import {  } from "react-router-dom";
 
 const Profilemaba = (loggedUser) => {
+  const [showInstruction, setShowInstruction] = useState(false);
   let refreshToken = Cookies.get('refresh_token')
   const location = useLocation();
   const [user, setUser] = useState('')
   const state = location.state;
   const navigate = useNavigate();
-  
+
   const id = localStorage.getItem('id');
   useEffect(() => {
     // setUser(data);
-    if (!refreshToken) {
+    if (!refreshToken || localStorage.getItem('nama')==null ||localStorage.getItem('id')==null || localStorage.getItem('nrp')==null) {
       localStorage.clear()
       navigate('/');
     } else if (refreshToken) {
@@ -25,19 +26,30 @@ const Profilemaba = (loggedUser) => {
       setUser(name)
     }
   }, []);
-  
-  useEffect( () => {
-   async function fetchData(){
-    try {
-      const response = await axios.get('http://103.127.135.153:5000/api/user/' + id);
-      setUser(response.data[0]);
-      // console.log(user.nama)
+  useEffect(() => {
+    const handleHashChange = () => {
+      setShowInstruction(window.location.hash === '#instruction');
+    };
 
-    } catch (error) {
-      console.error('Error fetching user data:', error);
+    window.addEventListener('hashchange', handleHashChange);
+    handleHashChange(); // Panggil fungsi saat komponen dimuat
+
+    return () => {
+      window.removeEventListener('hashchange', handleHashChange);
+    };
+  }, []);
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const response = await axios.get('http://103.127.135.153:5000/api/user/' + id);
+        setUser(response.data[0]);
+        // console.log(user.nama)
+
+      } catch (error) {
+        console.error('Error fetching user data:', error);
+      }
     }
-   }
-   fetchData();
+    fetchData();
   }, [])
 
   // useEffect(()=>{
@@ -48,17 +60,17 @@ const Profilemaba = (loggedUser) => {
 
   return (
     <>
-      {user == '' ? <><div className='flex justify-center items-center'><Loading type={'spin'} color={"#aaaaaa"}/></div></> : user === null || user === undefined ? <><p>DATA KOSONG</p></>: <><div className=" pb-20">
+      {user == '' ? <><div className='flex justify-center items-center'><Loading type={'spin'} color={"#aaaaaa"} /></div></> : user === null || user === undefined ? <><p>DATA KOSONG</p></> : <><div className=" pb-20">
         <Navbar nama={user} />
       </div><div className="flex flex-row px-20">
           <Identitas user={user} />
-          <div className='px-6'>
-            <Formprofile user={user} />
-          </div>
-          <div className='flex flex-col'>
+          <div className=' ms-5' style={{ maxWidth: "80%", minWidth: "80%" }}>
 
-            <Instruction />
+
+
+            {showInstruction == false ? <Formprofile user={user} /> : <Instruction />}
           </div>
+
         </div><div>
           <div className={`${styles.flexCenter} py-16 `}>
 
