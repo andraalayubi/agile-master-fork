@@ -32,15 +32,14 @@ const CardForm = ({ onClose }) => {
     }
   }, [id]);
 
-  const [selectedCompanyId, setSelectedCompanyId] = useState(null);
   const [showCompanyDropdown, setShowCompanyDropdown] = useState(false);
   const [showCityDropdown, setShowCityDropdown] = useState(false);
   const [showProvinceDropdown, setShowProvinceDropdown] = useState(false);
 
-  const companyNames = ["Company A", "Company B", "Company C"];
   const cityData = ["City A", "City B", "City C"];
   const provinceData = ["Province A", "Province B", "Province C"];
 
+  const [selectedCompanyId, setSelectedCompanyId] = useState("");
   const [selectedCompanyName, setSelectedCompanyName] = useState("");
   const [selectedCity, setSelectedCity] = useState("");
   const [selectedProvince, setSelectedProvince] = useState("");
@@ -50,8 +49,9 @@ const CardForm = ({ onClose }) => {
   const [jenisMagang, setJenisMagang] = useState("");
   const [judulLaporan, setJudulLaporan] = useState("");
   const [ceritaMagang, setCeritaMagang] = useState("");
+  const [uangSaku, setUangSaku] = useState('');
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
     const data = {
@@ -62,6 +62,7 @@ const CardForm = ({ onClose }) => {
       posisi: divisiMagang,
       durasi_magang: durasiMagang,
       jenis_program: jenisMagang,
+      uang_saku: uangSaku,
       judul_laporan: judulLaporan,
       deskripsi_magang: ceritaMagang,
       siswa_id: id,
@@ -69,30 +70,32 @@ const CardForm = ({ onClose }) => {
 
     console.log(data);
 
-    fetch('http://localhost:3010/form', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(data),
-    })
-    .then(response => response.json())
-    .then(data => {
-      console.log('Success:', data);
+    try {
+      const response = await fetch('http://localhost:5000/form/insertData', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+
+      const responseData = await response.json();
+      console.log('Success:', responseData);
       onClose();
-    })
-    .catch((error) => {
+    } catch (error) {
       console.error('Error:', error);
-    });
+    }
   };
 
-  const handleCompanyDropdownClick = (idCompany) => {
-    const selectedCompany = perusahaanData.find(company => company.id_perusahaan === idCompany);
-  if (selectedCompany) {
+  const handleCompanyDropdownClick = (selectedCompany) => {
     setSelectedCompanyId(selectedCompany.id_perusahaan);
     setSelectedCompanyName(selectedCompany.nama_perusahaan);
     setShowCompanyDropdown(false);
-  }
+    console.log(selectedCompanyId);
   };
 
   const handleCityDropdownClick = (name, type) => {
@@ -115,6 +118,14 @@ const CardForm = ({ onClose }) => {
 
   const toggleProvinceDropdown = (event) => {
     setShowProvinceDropdown(!showProvinceDropdown);
+  };
+  
+  const handleYesClick = () => {
+    setUangSaku('1');
+  };
+
+  const handleNoClick = () => {
+    setUangSaku('0');
   };
 
   return (
@@ -147,7 +158,7 @@ const CardForm = ({ onClose }) => {
             </svg>
           </button>
         </div>
-        <form onSubmit={handleSubmit}>
+        <form>
           <div className="border-b border-gray-900/10 pb-12">
             <div className="mt-10 grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-6">
               <div className="sm:col-span-3 relative">
@@ -191,15 +202,16 @@ const CardForm = ({ onClose }) => {
                       aria-activedescendant="listbox-item-3"
                       className="max-h-40 rounded-md py-1 text-base leading-6 shadow-xs overflow-auto focus:outline-none sm:text-sm sm:leading-5"
                     >
-                      {companyNames.map((name, index) => (
+                      {perusahaanData.map((perusahaan, index) => (
+                        // console.log(perusahaan),
                         <li
                           key={index}
                           className="text-gray-900 cursor-pointer select-none relative py-2 pl-3 pr-9"
-                          onClick={() => handleCompanyDropdownClick(name, )}
+                          onClick={() => handleCompanyDropdownClick(perusahaan)}
                         >
                           <div className="flex items-center">
                             <span className="font-normal block truncate">
-                              {name}
+                              {perusahaan.nama_perusahaan}
                             </span>
                           </div>
                         </li>
@@ -209,7 +221,7 @@ const CardForm = ({ onClose }) => {
                 )}
               </div>
 
-              <div className="sm:col-span-3 relative">
+              {/* <div className="sm:col-span-3 relative">
                 <div
                   className="input-group flex inline-block border border-1 rounded-md cursor-pointer dropdown focus:border-indigo-600"
                   onClick={toggleCityDropdown}
@@ -358,7 +370,7 @@ const CardForm = ({ onClose }) => {
                     style={{ fontWeight: "normal" }}
                   />
                 </div>
-              </div>
+              </div> */}
 
               <div className="sm:col-span-3">
                 <div className="input-group flex inline-block border border-1 rounded-md">
@@ -438,18 +450,22 @@ const CardForm = ({ onClose }) => {
                     name="mendapat Uang Saku??"
                     id="mendapat Uang Saku??"
                     placeholder="mendapat Uang Saku??"
+                    value={uangSaku}
+                    readOnly
                     className="block w-full py-1.5 ps-0 text-gray-900 placeholder:text-gray-400 placeholder:text-xs focus:ring-inset focus:ring-indigo-600 sm:text-sm border-0 px-30 hidden mr-20"
                   />
                   <div className="flex right-0 flex items-center px-22">
                     <button
                       className="border py-1 px-2 rounded-md text-xs mr-2"
                       style={{ color: "#F77D00", borderColor: "#F77D00" }}
+                      onClick={handleYesClick}
                     >
                       Iya
                     </button>
                     <button
                       className="border py-1 px-2 rounded-md text-xs"
                       style={{ color: "#F77D00", borderColor: "#F77D00" }}
+                      onClick={handleNoClick}
                     >
                       Tidak
                     </button>
@@ -498,6 +514,7 @@ const CardForm = ({ onClose }) => {
               type="submit"
               className="w-full text-white font-bold py-2 px-4 rounded"
               style={{ backgroundColor: "#F77D00" }}
+              onClick={handleSubmit}
             >
               Submit
             </button>

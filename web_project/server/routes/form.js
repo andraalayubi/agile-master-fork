@@ -2,9 +2,12 @@ const express = require('express');
 const router = express.Router();
 const executeQuery = require('../connection'); // Menggunakan file connection.js yang telah Anda definisikan sebelumnya
 
+router.get('/', function (req, res) {
+  res.send('API Form Magang');
+});
 router.post('/insertData', async (req, res) => {
   const data = req.body;
-
+  console.log(data);
   try {
     // Mulai transaksi untuk memastikan konsistensi data
     await executeQuery('START TRANSACTION');
@@ -21,13 +24,13 @@ router.post('/insertData', async (req, res) => {
     const magangSql = `INSERT INTO magang (posisi_id, siswa_id, jenis_program, judul_laporan, deskripsi_magang, is_uang_saku, durasi_magang) VALUES (?, ?, ?, ?, ?, ?, ?)`;
 
     // Eksekusi perintah SQL untuk menyimpan data magang
-    await executeQuery(magangSql, [posisiId, data.siswa_id, data.jenis_program, data.judul_laporan, data.deskripsi_magang, data.is_uang_saku, data.durasi_magang]);
+    await executeQuery(magangSql, [posisiId, data.siswa_id, data.jenis_program, data.judul_laporan, data.deskripsi_magang, data.uang_saku, data.durasi_magang]);
 
     // Commit transaksi jika semuanya berhasil
     await executeQuery('COMMIT');
 
     console.log('Transaction Complete.');
-    res.status(200).send('Transaction Complete.');
+    res.status(200).json({ message: 'Transaction Complete.' });
   } catch (error) {
     // Rollback transaksi jika terjadi kesalahan
     await executeQuery('ROLLBACK');
