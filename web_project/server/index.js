@@ -13,7 +13,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(
   cors({
-    origin: "http://localhost:3000", // Atur domain React Anda
+    origin: "http://103.127.135.153:3000", // Atur domain React Anda
     credentials: true, // Izinkan kredensial seperti cookies
   })
 );
