@@ -11,7 +11,7 @@ const Buttonlogout = (user) => {
   console.log(user.user.user)
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const response = await axios.post('http://localhost:5000/auth/logout')
+    const response = await axios.post('http://103.127.135.153:5000/auth/logout')
     console.log("🚀 ~ handleSubmit ~ response:", response)
     if (refreshToken) {
       localStorage.clear()

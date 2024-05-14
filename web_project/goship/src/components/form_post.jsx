@@ -71,7 +71,7 @@ const CardForm = ({ onClose }) => {
     console.log(data);
 
     try {
-      const response = await fetch('http://localhost:5000/form/insertData', {
+      const response = await fetch('http://103.127.135.153:5000/form/insertData', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
