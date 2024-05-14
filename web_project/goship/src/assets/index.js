@@ -46,11 +46,15 @@ import forgotadmin from "./forgotadmin.png";
 import gender from "./icon/gender.png"
 import telpon from "./icon/telpon.png"
 import bgprofile from "./profilebg.png"
+import menu from "./menu.svg"
+import close from "./close.svg"
 
 
 
 export {
   logo1,
+  menu,
+  close,
   bgprofile,
   gender,
   telpon,
