@@ -1,21 +1,67 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { forgotuser, gembok } from "../assets";
+import axios from 'axios';
 import image21 from "../assets/image21.png";
+import Swal from "sweetalert2"
 
 const ForgotPasswordUserPage = () => {
-  const [formData, setFormData] = useState({
-    password: "",
-    confirmpassword: "",
-  });
+  const location = useLocation();
+  const navigate = useNavigate();
+  const data = location.state;
+  const [user, setUser] = useState(null);
+  const [password, setPassword] = useState('');
+  const [confirmpassword, setConfirmPassword] = useState('');
 
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
+  
 
-  const handleSubmit = (e) => {
+  useEffect(() => {
+    
+    setUser(localStorage.getItem('nrp'));
+  }, []);
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData);
+    const resetPassword = {
+      nrp: user,
+      password: confirmpassword
+    }
+    try {
+      const response = await axios.post('http://localhost:5000/auth/reset-password', resetPassword)
+      console.log(response.status)
+      if (response.status === 200) {
+        Swal.fire({
+          title: 'Behasil!',
+          text: response.data.message,
+          icon: "success",
+
+        })
+        navigate('/', {state: user})
+      }
+      // else if(response.status === 403){
+      //   Swal.fire({
+      //     title: 'Oops!',
+      //     text: response.data.message,
+      //     icon: "warning",
+      //   })
+      //   navigate('/')
+      // } 
+      else {
+        Swal.fire({
+          title: 'Failed!',
+          text: "Gagal update password!",
+          icon: "error",
+        })
+      }
+    } catch (error) {
+      Swal.fire({
+        title: 'Oops!',
+        text: 'Tidak bisa update password 2 kali!',
+        icon: "warning",
+      })
+      navigate('/')
+    }
   };
 
   return (
@@ -59,8 +105,8 @@ const ForgotPasswordUserPage = () => {
                         id="password"
                         name="password"
                         placeholder="Kata sandi"
-                        value={formData.password}
-                        onChange={handleChange}
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
                         className="flex-grow py-1.5 px-3 text-gray-700 placeholder-gray-400 placeholder-xs focus:ring-inset focus:ring-indigo-600 sm:text-sm border-0"
                         required
                       />
@@ -81,8 +127,8 @@ const ForgotPasswordUserPage = () => {
                         id="confirmpassword"
                         name="confirmpassword"
                         placeholder="konfirmasi Sandi"
-                        value={formData.confirmpassword}
-                        onChange={handleChange}
+                        value={confirmpassword}
+                        onChange={(e) => setConfirmPassword(e.target.value)}
                         className="flex-grow py-1.5 px-3 text-gray-700 placeholder-gray-400 placeholder-xs focus:ring-inset focus:ring-indigo-600 sm:text-sm border-0"
                         required
                       />

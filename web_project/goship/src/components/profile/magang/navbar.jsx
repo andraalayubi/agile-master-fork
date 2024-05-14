@@ -3,10 +3,11 @@ import { logo1, gojek } from "../../../assets";
 import { navLinks_detail } from "../../../constant";
 
 
-const Navbar = () => {
+const Navbar = (nama) => {
   const [active, setActive] = useState("about");
   const [iniNavbar, setIniNavbar] = useState(false);
-
+  const [namaSiswa, setNamaSiswa] = useState('');
+  
   const scrollHeader = () => {
     if (window.scrollY >= 20) {
       setIniNavbar(true);
@@ -15,6 +16,10 @@ const Navbar = () => {
     }
   };
 
+  useEffect(()=>{
+    setNamaSiswa(nama.nama.nama_siswa)
+  })
+  
   useEffect(() => {
     window.addEventListener('scroll', scrollHeader);
     return () => {
@@ -40,7 +45,7 @@ const Navbar = () => {
           </li>
         ))}
         <p className="pl-20 ">
-          halo, ridwan
+          {namaSiswa}
         </p>
         <div className="sm:pl-2 sm:py-3">
           <img src={gojek} alt="Goship" className="w-[40px] h-[40px]" />

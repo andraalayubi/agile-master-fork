@@ -1,28 +1,33 @@
-import React from "react"; // Menambahkan impor React
+import React, { useState, useEffect } from "react"; // Menambahkan impor React
 import styles from "../style";
 import "../DetailMahasiswa.css";
 import { profile } from "../assets";
 import { Navbar, Footer } from "../components";
-
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-// import { faPhone, faEnvelope, faGraduationCap, faBuilding, faCalendarAlt, faMapMarkerAlt, faStar, faBook, faTrophy } from '@fortawesome/free-solid-svg-icons';
-
-const profileData = {
-  student_name: "Anantasya Aghni",
-  phoneNumber: "081336730560",
-  email: "anantasya12@gmail.com",
-  department: "D3 Teknik Informatika",
-  internship: "PT. GOJEK",
-  internship_location:
-    "Jl. Ngagel No.75 No.77a-b, Ngagel, Wonokromo, Surabaya, East Java 60246",
-  divisions: "UI UX",
-  internship_duration: "6 bulan",
-  privilege: "mendapatkan hikmah",
-  title_of_internship_report: "apa hayo",
-  history_date: "20 April 2024",
-};
+import axios from "axios";
 
 const DetailMahasiswa = () => {
+  const [profileData, setProfileData] = useState({});
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    axios
+      .get("http://103.127.135.153:5000/api/user/:id")
+      .then((response) => {
+        if (response.data && response.data.length > 0) {
+          setProfileData(response.data[0]); // Menyimpan data pertama dari array ke state
+        } else {
+          setError("No data found");
+        }
+      })
+      .catch((error) => {
+        setError("Failed to fetch data");
+        console.error("Error fetching data: ", error);
+      });
+  }, []);
+
+  if (error) {
+    return <p>{error}</p>;
+  }
   return (
     <>
       <div className="w-full bg-orange-gradient-navbar">
@@ -36,24 +41,21 @@ const DetailMahasiswa = () => {
       {/* Profile Header */}
       <div className="profile-header">
         <div className="profile-bg">
-          <h1 className="profile-name">{profileData.student_name}</h1>
+          <h1 className="profile-name">{profileData.nama_siswa}</h1>
         </div>
         <img src={profile} alt="Profile" className="profile-image" />
         <div className="profile-info">
           <p>
-            <i className="fas fa-phone"></i> Number Phone:{" "}
-            <span style={{ color: "#605B57" }}>
-            {profileData.phoneNumber}
-            </span>
-            
+            <i className="fas fa-phone"></i> Number Phone :{" "}
+            <span style={{ color: "#605B57" }}>{profileData.no_telp}</span>
           </p>
           <p>
-            <i className="fas fa-envelope"></i> Email: {""} 
+            <i className="fas fa-envelope"></i> Email : {""}
             <span style={{ color: "#605B57" }}>{profileData.email}</span>
           </p>
           <p>
-            <i className="fas fa-graduation-cap"></i> Prodi:{" "}
-            <span style={{ color: "#605B57" }}>{profileData.department}</span>
+            <i className="fas fa-graduation-cap"></i> Prodi :{" "}
+            <span style={{ color: "#605B57" }}>{profileData.prodi}</span>
           </p>
         </div>
       </div>
@@ -70,30 +72,34 @@ const DetailMahasiswa = () => {
               <i className="fas fa-building"></i>
               <div className="details">
                 <h3>Tempat Magang</h3>
-                <p>{profileData.internship}</p>
+                <p>{profileData.nama_perusahaan}</p>
               </div>
             </div>
             <div className="info">
               <i className="fas fa-calendar-alt"></i>
               <div className="details">
                 <h3>Durasi Magang</h3>
-                <p>{profileData.internship_duration}</p>
+                <p>{profileData.durasi_magang} bulan</p>
               </div>
             </div>
           </div>
-          <div className="info-row-special">
+          <div className="info-row">
             <div className="info">
               <i className="fas fa-map-marker-alt"></i>
               <div className="details">
                 <h3>Lokasi Magang</h3>
-                <p>{profileData.internship_location}</p>
+                <p>{profileData.alamat}</p>
               </div>
             </div>
             <div className="info">
               <i className="fas fa-star"></i>
               <div className="details">
                 <h3>Privilage</h3>
-                <p>{profileData.privilege}</p>
+                <p>
+                  {profileData.is_uang_saku === 1
+                    ? "Mendapatkan uang saku"
+                    : "Tidak dapat uang saku"}
+                </p>
               </div>
             </div>
           </div>
@@ -102,14 +108,14 @@ const DetailMahasiswa = () => {
               <i className="fas fa-book"></i>
               <div className="details">
                 <h3>Devisi Magang</h3>
-                <p>{profileData.divisions}</p>
+                <p>{profileData.nama_posisi}</p>
               </div>
             </div>
             <div className="info">
               <i className="fas fa-trophy"></i>
               <div className="details">
                 <h3>Title of internship report</h3>
-                <p>{profileData.title_of_internship_report}</p>
+                <p>{profileData.judul_laporan}</p>
               </div>
             </div>
           </div>
@@ -137,16 +143,13 @@ const DetailMahasiswa = () => {
         <div className="profile-footer-detail">
           <h2>My History</h2>
           <div className="history-date">
-            <span>{profileData.history_date}</span>
+            <span>
+              {profileData.created_at
+                ? profileData.created_at.split("T")[0]
+                : "Loading..."}
+            </span>
           </div>
-          <p>
-            Selama magang, saya terlibat dalam proyek-proyek menarik yang
-            menggabungkan kecerdasan buatan dengan kebutuhan pelanggan. Satu
-            pengalaman yang tak terlupakan adalah ketika saya terlibat dalam
-            pengembangan fitur baru untuk memudahkan pengguna dalam memesan
-            layanan…
-          </p>
-          
+          <p>{profileData.deskripsi_magang}</p>
         </div>
       </div>
 

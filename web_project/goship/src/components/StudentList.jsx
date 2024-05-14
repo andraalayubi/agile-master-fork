@@ -15,8 +15,6 @@ const StudentList = () => {
   if (!data) {
     return <div>Loading...</div>;
   }
-  
-  console.log(data);
   return (
     <div style={{ display: "flex", flexDirection: "row" , overflow: "hidden"}}>
       {Object.entries(data.posts).map(([key, post]) => (

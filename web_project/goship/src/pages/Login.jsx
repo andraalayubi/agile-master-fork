@@ -1,10 +1,17 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { login, orang, gembok, amplop } from "../assets";
 import image21 from "../assets/image21.png";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import Cookies from 'js-cookie';
+import Swal from "sweetalert2";
+let storage = require('../storage')
+// import { putHistory, showHistory } from "../storage";
 
 const LoginPage = () => {
+  let refreshToken = Cookies.get('refresh_token')
   const navigate = useNavigate();
+  
 
   const handleUserClick = () => {
     // Navigasi ke halaman Forgot_Password_User saat tombol "User" diklik
@@ -23,6 +30,12 @@ const LoginPage = () => {
     password: "",
   });
 
+  useEffect(()=>{
+    if(refreshToken){
+      navigate('/');
+    }
+  })
+
   const [isUserHovered, setIsUserHovered] = useState(false);
   const [isAdminHovered, setIsAdminHovered] = useState(false);
   const [isAdminForm, setIsAdminForm] = useState(false); // State untuk menentukan apakah form untuk admin sedang ditampilkan
@@ -35,10 +48,44 @@ const LoginPage = () => {
     setFormDataAdmin({ ...formDataAdmin, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // const response;
+    const credential = {
+      nrp: nrp,
+      password: password
+    }
+    try {
+      const response = await axios.post('http://localhost:5000/auth/login', credential);
+      Cookies.set('refresh_token', response.data.token, {expires : 10 / (24 * 60)})
+            
+      if (response.data.user.is_first_auth === 1) {
+        Swal.fire({
+          title: 'Behasil!',
+          text: response.data.message,
+          icon: "success",
+
+        })
+        storage.set({key : response.data.user})
+        navigate('/reset-password-user', { state: response.data.user  })
+      }else{
+        Swal.fire({
+          title: 'Berhasil!',
+          text: response.data.message,
+          icon: "success",
+        })
+        localStorage.setItem('id', response.data.user.id_siswa)
+        localStorage.setItem('nama', response.data.user.nama_siswa)
+        localStorage.setItem('nrp', response.data.user.nrp)
+        const authorizationKey = {
+          user: response.data.user,
+          token : response.data.token
+        }
+        navigate('/', {state: authorizationKey})
+      }
+    } catch (error) {
+      console.log(error)
+    }
     // if (isAdminForm) {
     //   console.log(formDataAdmin);
     // } else {
@@ -74,7 +121,7 @@ const LoginPage = () => {
           <div>
             <div className="flex justify-end mb-8">
               <div className="flex">
-                <button
+                {/* <button
                   className="bg-orange-500 text-white font-bold py-2 px-4 rounded mr-2 border border-orange-500"
                   style={{
                     backgroundColor:
@@ -87,7 +134,7 @@ const LoginPage = () => {
                   onClick={handleUserButtonClick} // Tambahkan event handler untuk klik pada tombol "User"
                 >
                   User
-                </button>
+                </button> */}
                 {/* <button
                   className="bg-orange-500 text-white font-bold py-2 px-4 rounded border border-orange-500"
                   style={{
@@ -130,7 +177,7 @@ const LoginPage = () => {
                             id="nrp"
                             placeholder="NRP"
                             value={nrp}
-                            onChange={(e)=>setnrp(e.target.value)}
+                            onChange={(e) => setnrp(e.target.value)}
                             className="flex-grow py-1.5 px-3 text-gray-700 placeholder-gray-400 placeholder-xs focus:ring-inset focus:ring-indigo-600 sm:text-sm border-0"
                           />
                         </div>
@@ -150,7 +197,7 @@ const LoginPage = () => {
                             name="password"
                             placeholder="Masukkan Kata Sandi Anda"
                             value={password}
-                            onChange={(e)=>setPassword(e.target.value)}
+                            onChange={(e) => setPassword(e.target.value)}
                             className="flex-grow py-1.5 px-3 text-gray-700 placeholder-gray-400 placeholder-xs focus:ring-inset focus:ring-indigo-600 sm:text-sm border-0"
                             required
                           />
@@ -203,7 +250,7 @@ const LoginPage = () => {
                     </div>
                   </div>
                 )} */}
-                <div className="flex justify-end mt-2">
+                {/* <div className="flex justify-end mt-2">
                   <a
                     href={
                       isAdminForm
@@ -213,9 +260,9 @@ const LoginPage = () => {
                     className="text-xs text-orange-500 hover:underline"
                     style={{ color: "#F77D00" }}
                   >
-                   Tidak ingat kata sandi?
+                    Tidak ingat kata sandi?
                   </a>
-                </div>
+                </div> */}
               </div>
               <div className="flex flex-col" style={{ marginTop: "-25px" }}>
                 <button

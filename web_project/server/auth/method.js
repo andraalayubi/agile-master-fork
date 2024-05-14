@@ -16,19 +16,39 @@ module.exports = {
     try {
       const sql = `SELECT * FROM siswa WHERE nrp = '${nrp}';`;
       const data = await executeQuery(sql);
+
       if (data.length > 0) {
-        if (nrp === data[0].nrp && bcrypt.compare(password, data[0].password)) {
-          const token = jwt.sign({ id: data[0].nrp }, secretKey, {
-            expiresIn: "30m",
-          });
-          res.cookie("refresh_token", token, {
-            httpOnly: true,
-            maxAge: 60 * 60 * 1000,
-          });
-          res.status(200).json({ token: token, user: data[0] });
-          next();
+        if (data[0].is_first_auth == 1) {
+          if (nrp === data[0].nrp && password === data[0].password) {
+            const token = jwt.sign({ id: data[0].nrp }, secretKey, {
+              expiresIn: "30m",
+            });
+            res.cookie("refresh_token", token, {
+              httpOnly: true,
+              maxAge: 60 * 60 * 1000,
+            });
+            res.status(200).json({ token: token, user: data[0] });
+            next();
+          } else {
+            res.status(400).send("NRP atau password salah!");
+          }
         } else {
-          res.status(400).send("NRP atau password salah!");
+          if (
+            nrp === data[0].nrp &&
+            bcrypt.compare(password, data[0].password)
+          ) {
+            const token = jwt.sign({ id: data[0].nrp }, secretKey, {
+              expiresIn: "30m",
+            });
+            res.cookie("refresh_token", token, {
+              httpOnly: true,
+              maxAge: 60 * 60 * 1000,
+            });
+            res.status(200).json({ token: token, user: data[0] });
+            next();
+          } else {
+            res.status(400).send("NRP atau password salah!");
+          }
         }
       } else {
         res.status(400).send(`User tidak terdaftar.`);
@@ -39,18 +59,17 @@ module.exports = {
   },
   verifyAuthorizedUser: (req, res, next) => {
     try {
-      const refreshToken = req.cookie.refresh_token ;
+      const refreshToken = req.cookie.refresh_token;
       if (!refreshToken) {
         res.status(401).send("Silahkan login terlebih dahulu!");
       }
       const decode = jwt.verify(refreshToken, secretKey);
-      if(!decode){
-        res.status(401).json({message : 'Unauthorized: Invalid token!'})
+      if (!decode) {
+        res.status(401).json({ message: "Unauthorized: Invalid token!" });
       }
-      res.status(200).json({authorized: true});
-      next();
+      res.status(200).json({ authorized: true });
     } catch (error) {
-      res.status(500).send('Internal server error!')
+      res.status(500).send("Internal server error!");
     }
   },
   logoutRequest: async (req, res) => {
@@ -61,7 +80,7 @@ module.exports = {
     const { nrp, password } = req.body;
     let hashedPassword;
     try {
-      const dataMahasiswa = `SELECT * FROM siswa WHERE nrp=${nrp};`;
+      const dataMahasiswa = `SELECT * FROM siswa WHERE nrp='${nrp}';`;
       let response = await executeQuery(dataMahasiswa);
 
       if (response.length > 0) {
@@ -69,13 +88,12 @@ module.exports = {
         const updatePassword = `UPDATE siswa SET password='${hashedPassword}', is_first_auth=${0} WHERE nrp='${nrp}' AND is_first_auth=${1};`;
         let resetResponse = await executeQuery(updatePassword);
         if (resetResponse.affectedRows > 0) {
-          res
-            .status(200)
-            .json(
-              {message: `Berhasil reset password user ${dataMahasiswa.RowDataPacket.nama_siswa}`}
-            );
+          console.log(resetResponse)
+          res.status(200).json({
+            message: `Berhasil reset password user dengan NRP ${nrp}`,
+          });
         } else {
-          throw new Error("Gagal update password");
+          res.status(403).json({message: "Reset password hanya bisa 1 kali!"});
         }
       } else {
         res.status(400).send(`User tidak terdaftar.`);

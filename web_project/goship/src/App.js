@@ -17,14 +17,14 @@ const App = () => {
         <Route path="/" element={<Home />} />
         <Route path="/detail" element={<Detailperusahaan />} />
         <Route path="/Profilemagang" element={<Profilemagang />} />
-        <Route path="/Profilemaba" element={<Profilemaba />} />
+        <Route path="/student-profile" element={<Profilemaba />} />
         <Route path="/login" element={<Login />} />
         <Route
-          path="/forgot-password-user"
+          path="/reset-password-user"
           element={<ForgotPasswordUserPage />}
         />
         <Route
-          path="/forgot-password-admin"
+          path="/reset-password-admin"
           element={<ForgotPasswordAdminPage />}
         />
         {/* Tambahkan rute lain jika diperlukan */}
