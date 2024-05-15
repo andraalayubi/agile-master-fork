@@ -1,6 +1,6 @@
 const express = require("express");
 const app = express();
-const bcrypt = require("bcrypt");
+const bcrypt = require("../node_modules/bcrypt/bcrypt");
 const executeQuery = require("../connection");
 const bodyParser = require("body-parser");
 const passwordHash = require("../utils/passwordHash");
