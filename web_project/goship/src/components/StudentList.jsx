@@ -5,11 +5,14 @@ import { useEffect, useState } from "react";
 const StudentList = () => {
   const [data, setData] = useState(null);
 
-  useEffect(() => {
+  useEffect( () => {
     // Mengambil data dari API
-    fetch('http://103.127.135.153:5000/api/major-data/')
+    async function fetchData(){
+      await fetch('http://103.127.135.153:5000/api/major-data/')
       .then(response => response.json())
       .then(data => setData(data));
+    }
+    fetchData()
   }, []);
   
   if (!data) {

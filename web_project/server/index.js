@@ -15,6 +15,7 @@ app.use(
   cors({
     origin: "http://103.127.135.153:3000,http://localhost:3000", // Atur domain React Anda
     credentials: true, // Izinkan kredensial seperti cookies
+    
   })
 );
 // React Route Here
