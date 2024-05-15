@@ -10,7 +10,11 @@ const CardCompany = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('http://103.127.135.153:5000/api/perusahaan');
+        const response = await fetch('http://103.127.135.153:5000/api/perusahaan',{
+          headers: {
+            'Access-Control-Allow-Origin': '*'
+          }
+        });
         const fetchedData = await response.json();
         setData(fetchedData); // Assuming the API response directly matches the structure of the provided JSON data
       } catch (error) {
