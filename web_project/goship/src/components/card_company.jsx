@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 
-import axios from 'axios'
 import { Link } from 'react-router-dom';
 
 
@@ -11,10 +10,9 @@ const CardCompany = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios('http://103.127.135.153:5000/api/perusahaan');
-        // const fetchedData = await response.json();
-        console.log("🚀 ~ fetchData ~ fetchedData:", response)
-        setData(response);
+        const response = await fetch('http://103.127.135.153:5000/api/perusahaan');
+        const fetchedData = await response.json();
+        setData(fetchedData); // Assuming the API response directly matches the structure of the provided JSON data
       } catch (error) {
         console.error('Error fetching data:', error);
         // Handle error gracefully, e.g., display a fallback message
